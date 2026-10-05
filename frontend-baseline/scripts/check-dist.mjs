@@ -8,7 +8,7 @@ import { dirname, join, posix, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const dist = resolve(root, process.argv[2] ?? 'dist'); // an explicit directory lets the checker run on any build output
+const dist = process.argv[2] ? resolve(process.cwd(), process.argv[2]) : resolve(root, 'dist'); // an explicit directory lets the checker run on any build output
 if (!existsSync(dist)) {
   console.error('[check-dist] dist/ is missing: run `pnpm build` first');
   process.exit(1);
