@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Gallery (heavy) · Frontend Baseline</title>
+  <meta name="description" content="Responsive images, lazy loading, infinite scroll and an accessible lightbox.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 7 of 23: media and lazy loading</p>
+      <!-- @include variant-nav.html -->
+      <h1>Gallery</h1>
+      <p>Twenty-four generated images in three widths each. The grid uses <code>srcset</code> and <code>sizes</code>, reserves space with intrinsic dimensions, lazy-loads below the fold and appends more as you scroll. Open one for a <code>&lt;dialog&gt;</code> lightbox with keyboard navigation and a deep link.</p>
+    </div>
+
+    <p class="muted" id="gallery-count"></p>
+    <div id="gallery-grid" class="gallery"></div>
+    <div id="sentinel" class="gallery__sentinel" aria-hidden="true"></div>
+    <p class="gallery__more"><button id="load-more" class="btn" type="button">Load more</button></p>
+
+    <dialog id="lightbox" class="lightbox" aria-label="Image viewer">
+      <figure class="lightbox__figure">
+        <img id="lb-img" alt="" width="1200" height="900">
+        <figcaption id="lb-caption"></figcaption>
+      </figure>
+      <div class="lightbox__nav">
+        <button id="lb-prev" class="btn" type="button">Previous</button>
+        <button id="lb-close" class="btn btn--ghost" type="button">Close</button>
+        <button id="lb-next" class="btn" type="button">Next</button>
+      </div>
+    </dialog>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/media-heavy.js"></script>
+</body>
+</html>

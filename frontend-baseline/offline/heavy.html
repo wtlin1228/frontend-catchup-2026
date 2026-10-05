@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Offline (offline, heavy) · Frontend Baseline</title>
+  <meta name="description" content="A service worker with three caching strategies, an offline fallback page and an update prompt.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#e76125">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 13 of 23: offline and installable</p>
+      <!-- @include variant-nav.html -->
+      <h1>Offline</h1>
+      <p>A service worker scoped to <code>/offline/</code>: pages and the API are network-first with a cached fallback, other assets are stale-while-revalidate, and a fallback page covers navigations that fail. A new worker waits until you accept the update. Try it: load this page, switch the network to offline in devtools, reload.</p>
+    </div>
+    <div class="offline-grid">
+      <section class="panel stack">
+        <h2>Service worker</h2>
+        <p>Status: <strong id="sw-status">checking</strong></p>
+        <p>Connection: <strong id="conn">checking</strong></p>
+        <p class="cluster">
+          <button id="check-update" class="btn btn--sm" type="button">Check for update</button>
+          <button id="update" class="btn btn--sm btn--primary" type="button" hidden>Update available: reload</button>
+        </p>
+      </section>
+      <section class="panel stack">
+        <h2>Cached data</h2>
+        <p class="cluster">
+          <button id="fetch-posts" class="btn btn--sm" type="button">Fetch posts</button>
+          <button id="list-cache" class="btn btn--sm" type="button">List cache</button>
+          <button id="clear-cache" class="btn btn--sm btn--danger" type="button">Clear cache</button>
+        </p>
+        <p id="fetch-result" class="muted">Nothing fetched yet.</p>
+        <ul id="cache-list" class="muted" style="font-size: 0.85rem; padding-left: 1.1rem"></ul>
+      </section>
+    </div>
+    <h2 style="margin-top: var(--space-6)">Log</h2>
+    <ol id="log" class="muted" style="padding-left: 1.25rem; font-size: 0.9rem"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/offline-heavy.js"></script>
+</body>
+</html>

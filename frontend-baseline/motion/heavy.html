@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Scripted motion (motion, heavy) · Frontend Baseline</title>
+  <meta name="description" content="FLIP reordering, enter and leave animations, a spring-loaded draggable and view transitions between layouts.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 12 of 23: motion</p>
+      <!-- @include variant-nav.html -->
+      <h1>Scripted motion</h1>
+      <p>The motion that needs a scheduler: items that slide to new positions when a list reorders (FLIP, with the Web Animations API), items that animate in and out, a card you can throw that springs back, and a layout change animated by the View Transitions API. Frameworks differ a lot here: Svelte and Vue ship it, React needs a library.</p>
+    </div>
+
+    <h2>Reorder, add, remove</h2>
+    <div class="cluster" style="margin-bottom: var(--space-4)">
+      <button id="shuffle" class="btn" type="button">Shuffle</button>
+      <button id="sort" class="btn" type="button">Sort</button>
+      <button id="add" class="btn" type="button">Add one</button>
+      <button id="remove" class="btn" type="button">Remove one</button>
+      <button id="layout" class="btn btn--ghost" type="button">Switch layout (view transition)</button>
+    </div>
+    <ul id="tiles" class="tiles tiles--grid" aria-label="Tiles"></ul>
+
+    <h2>Throw it</h2>
+    <p class="muted">Drag the card and let go: it springs back with the velocity you gave it. Arrow keys nudge it; Escape releases it.</p>
+    <div class="drag-area"><div id="drag-card" class="drag-card" tabindex="0" role="button" aria-label="Draggable card">Drag me</div></div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/motion-heavy.js"></script>
+</body>
+</html>

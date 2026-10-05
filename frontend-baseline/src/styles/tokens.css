@@ -1,0 +1,45 @@
+/* Design tokens. Colours are defined once with light-dark(); `color-scheme` picks the side.
+   data-theme on <html> (set before first paint by src/partials/head.html) overrides the OS preference. */
+:root {
+  color-scheme: light dark;
+
+  --font-sans: "Roboto Variable", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --accent: #e76125;
+  --accent-strong: light-dark(#c24f1a, #ff8d52);
+  --accent-soft: light-dark(#fdeee5, #3b2416);
+  --danger: light-dark(#d21419, #ff7a7a);
+  --success: light-dark(#1f8a4c, #63d492);
+  --warning: light-dark(#a86a12, #f3c45f);
+  --info: light-dark(#2a63c9, #86b4ff);
+
+  --bg: light-dark(#ffffff, #121517);
+  --bg-2: light-dark(#f6f6f7, #191d20);
+  --surface: light-dark(#ffffff, #1e2327);
+  --surface-2: light-dark(#ececec, #282e33);
+  --text: light-dark(#1d2124, #e9ebed);
+  --text-2: light-dark(#646d72, #9ba5ab);
+  --border: light-dark(#d9dde0, #353c42);
+  --border-strong: light-dark(#b9c0c5, #4a535a);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 6px 20px rgb(0 0 0 / 0.08);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --container: 72rem;
+  --measure: 62ch;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }

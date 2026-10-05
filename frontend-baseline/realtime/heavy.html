@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Dashboard (heavy) · Frontend Baseline</title>
+  <meta name="description" content="Live metrics over server-sent events: frame batching, patch versus rebuild rendering, keyed rows.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 6 of 23: real-time updates</p>
+      <!-- @include variant-nav.html -->
+      <h1>Dashboard</h1>
+      <p>Four metrics stream from <code>/api/stream</code> as server-sent events, up to 30 times a second. Events are coalesced into at most one DOM update per frame. Switch the DOM strategy to compare patching existing nodes with rebuilding the subtree, the two ends of the spectrum frameworks sit on.</p>
+    </div>
+
+    <div class="dash-toolbar">
+      <p class="dash-status"><span id="conn-dot" class="dot" data-state="connecting"></span> <span id="conn-status">Connecting</span></p>
+      <button id="pause-stream" class="btn" type="button" aria-pressed="false">Pause</button>
+      <label class="dash-rate">Rate
+        <select id="rate" class="select">
+          <option value="2">2 Hz</option>
+          <option value="10" selected>10 Hz</option>
+          <option value="30">30 Hz</option>
+        </select>
+      </label>
+      <fieldset class="dash-strategy">
+        <legend>DOM strategy</legend>
+        <label><input type="radio" name="strategy" value="patch" checked> Patch nodes</label>
+        <label><input type="radio" name="strategy" value="rebuild"> Rebuild subtree</label>
+      </fieldset>
+      <p class="dash-perf muted"><span id="updates">0</span> renders/s, last render <span id="render-ms">0.0</span> ms</p>
+    </div>
+
+    <section id="metrics" class="metrics" aria-label="Live metrics"></section>
+
+    <section class="dash-log">
+      <h2>Events</h2>
+      <table class="log">
+        <thead><tr><th>When</th><th>Level</th><th>Message</th></tr></thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/realtime-heavy.js"></script>
+</body>
+</html>

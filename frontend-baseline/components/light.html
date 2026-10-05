@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Native widgets (composite widgets, light) · Frontend Baseline</title>
+  <meta name="description" content="Accordion, menu, dialog and combobox using only what the browser ships. No script.">
+  <link rel="stylesheet" href="/src/pages/components-light.css">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 11 of 23: composite widgets</p>
+      <!-- @include variant-nav.html -->
+      <h1>Native widgets</h1>
+      <p>No script on this page. Each widget is an element the browser ships: <code>details</code> for the accordion, the Popover API for the menu, invoker commands for the dialog, <code>datalist</code> for the combobox. Where a framework's component library re-implements one of these, ask what it adds.</p>
+    </div>
+    <div class="widgets">
+      <section class="panel">
+        <h2>Accordion</h2>
+        <details name="faq" open><summary>What is a light page?</summary><p>The smallest honest version of a pattern.</p></details>
+        <details name="faq"><summary>What is a heavy page?</summary><p>The same pattern with the concerns a product team meets within a year.</p></details>
+        <details name="faq"><summary>Why both?</summary><p>Frameworks are usually good at one and not the other.</p></details>
+        <p class="muted">Exclusive opening comes from the shared <code>name</code> attribute.</p>
+      </section>
+      <section class="panel">
+        <h2>Menu</h2>
+        <button class="btn" type="button" popovertarget="actions" id="actions-button">Actions</button>
+        <div id="actions" popover class="popover-menu">
+          <a href="#">Rename</a><a href="#">Duplicate</a><a href="#">Archive</a><a href="#">Delete</a>
+        </div>
+        <p class="muted">Light dismiss, top layer and focus return come from <code>popover</code>. Placement uses CSS anchor positioning where supported.</p>
+      </section>
+      <section class="panel">
+        <h2>Dialog</h2>
+        <button class="btn btn--danger" type="button" commandfor="confirm" command="show-modal">Delete project</button>
+        <dialog id="confirm">
+          <form method="dialog" class="dialog__body">
+            <h3>Delete this project?</h3>
+            <p>This cannot be undone.</p>
+            <div class="dialog__actions"><button class="btn" value="cancel">Keep it</button><button class="btn btn--primary" value="delete">Delete</button></div>
+          </form>
+        </dialog>
+        <p class="muted">Opened by an invoker command, closed by a <code>method="dialog"</code> form. Browsers without invoker commands need one line of script.</p>
+      </section>
+      <section class="panel">
+        <h2>Combobox</h2>
+        <label for="framework">Framework</label>
+        <input id="framework" class="input" list="frameworks" placeholder="Start typing">
+        <datalist id="frameworks">
+          <option value="React"><option value="Vue"><option value="Svelte"><option value="Angular"><option value="Solid"><option value="Preact"><option value="Qwik"><option value="Lit"><option value="Astro"><option value="Next.js"><option value="Nuxt"><option value="SvelteKit">
+        </datalist>
+        <p class="muted">The browser owns the popup, the keyboard handling and the styling. The heavy variant builds the same thing by hand to get control of all three.</p>
+      </section>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

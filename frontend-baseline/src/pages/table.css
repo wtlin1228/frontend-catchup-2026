@@ -1,0 +1,25 @@
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.data-table th { text-align: left; font-weight: 500; color: var(--text-2); border-bottom: 1px solid var(--border-strong); padding: 0.4rem 0.6rem; }
+.data-table th button { font: inherit; background: none; border: 0; padding: 0; color: inherit; cursor: pointer; }
+.data-table th[aria-sort="ascending"] button::after { content: " \2191"; }
+.data-table th[aria-sort="descending"] button::after { content: " \2193"; }
+.data-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.grid-toolbar { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-4); align-items: center; margin-bottom: var(--space-3); }
+.grid-toolbar label { display: inline-flex; gap: 0.5rem; align-items: center; }
+.grid-toolbar .select { width: auto; }
+.grid-toolbar fieldset { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.35rem 0.75rem; margin: 0; display: inline-flex; gap: var(--space-3); }
+.grid-toolbar legend { font-size: 0.8rem; color: var(--text-2); }
+.grid-toolbar input[type="radio"] { accent-color: var(--accent); }
+.grid-viewport { height: 60vh; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); position: relative; background: var(--surface); font-size: 0.92rem; }
+.grid-viewport:focus-visible { outline: 2px solid var(--accent); }
+.grid-row { display: grid; grid-template-columns: 5rem minmax(10rem, 1.4fr) 1fr 1fr 6rem 7rem; height: 36px; align-items: center; border-bottom: 1px solid var(--border); min-width: 40rem; }
+.grid-row--head { position: sticky; top: 0; z-index: 2; background: var(--bg-2); color: var(--text-2); font-weight: 500; border-bottom-color: var(--border-strong); }
+.grid-row--head button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: 0 0.6rem; text-align: inherit; height: 100%; width: 100%; }
+.grid-row--head [aria-sort="ascending"] button::after { content: " \2191"; }
+.grid-row--head [aria-sort="descending"] button::after { content: " \2193"; }
+.grid-cell { padding: 0 0.6rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.grid-row.is-selected { background: var(--accent-soft); }
+.grid-row.is-active { box-shadow: inset 3px 0 0 var(--accent); }
+.grid-spacer { position: relative; }
+.grid-rows { position: absolute; top: 0; left: 0; right: 0; will-change: transform; }

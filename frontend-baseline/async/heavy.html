@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Composed view (async, heavy) · Frontend Baseline</title>
+  <meta name="description" content="One screen built from three sources: the post, related posts (which depend on the post) and a status call that fails half the time. Atomic mode waits for everything and paints once, so the screen never shows a mix of old and new data. Stream mode paints each part as it lands. Changing the post mid-flight drops stale responses; a failed source retries alone; likes apply in an optimistic lane and roll back when the server refuses.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 14 of 23: async consistency</p>
+      <!-- @include variant-nav.html -->
+      <h1>Composed view</h1>
+      <p>One screen built from three sources: the post, related posts (which depend on the post) and a status call that fails half the time. Atomic mode waits for everything and paints once, so the screen never shows a mix of old and new data. Stream mode paints each part as it lands. Changing the post mid-flight drops stale responses; a failed source retries alone; likes apply in an optimistic lane and roll back when the server refuses.</p>
+    </div>
+    <div class="cluster" style="margin-bottom: var(--space-4)">
+      <label>Post <select id="post" class="select"></select></label>
+      <label class="switch"><input type="checkbox" id="atomic" checked> Atomic commit</label>
+      <span id="lane" class="muted"></span>
+    </div>
+    <div id="view" class="two-col"></div>
+    <h2 style="margin-top: var(--space-6)">Timeline</h2>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/async-heavy.js"></script>
+</body>
+</html>

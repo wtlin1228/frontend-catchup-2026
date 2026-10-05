@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Survey method (static, heavy) · Frontend Baseline</title>
+  <meta name="description" content="How the framework survey is run: scope, light and heavy pages, measurements, rubric, procedure and threats to validity.">
+  <meta property="og:title" content="Survey method">
+  <meta property="og:description" content="How the framework survey is run.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/images/photo-11-1200.png">
+  <link rel="stylesheet" href="/src/pages/static-heavy.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"Survey method","description":"How the framework survey is run.","datePublished":"2026-10-05","author":{"@type":"Organization","name":"Frontend Baseline"}}
+  </script>
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 1 of 23: static content</p>
+      <!-- @include variant-nav.html -->
+      <h1>Survey method</h1>
+      <p>A document-scale static page: a sticky table of contents, eight sections, tables, code, an art-directed image, footnotes, structured data for search engines and a print stylesheet. Content sites are mostly this, and it still needs no JavaScript.</p>
+    </div>
+
+    <div class="doc">
+      <nav class="toc" aria-label="Table of contents">
+        <p><strong>Contents</strong></p>
+        <ol>
+          <li><a href="#scope">Scope</a></li>
+          <li><a href="#weights">Light and heavy pages</a></li>
+          <li><a href="#measurements">Measurements</a></li>
+          <li><a href="#rubric">Rubric</a></li>
+          <li><a href="#procedure">Procedure</a></li>
+          <li><a href="#validity">Threats to validity</a></li>
+          <li><a href="#glossary">Glossary</a></li>
+          <li><a href="#commands">Appendix: commands</a></li>
+        </ol>
+      </nav>
+
+      <article class="doc__body">
+        <h2 id="scope">Scope</h2>
+        <p>The survey compares frontend libraries, frameworks and meta-frameworks on the same thirteen patterns, implemented against the same mock API. It does not compare hosting, pricing, or ecosystems in the abstract; those show up only where they change how a page is built.</p>
+        <p>Each candidate gets its own implementation directory and its own sheet under <code>docs/</code>. The baseline in this repository is the control group: plain HTML, CSS and JavaScript with a build tool and nothing else.<sup><a href="#fn1" id="ref1">1</a></sup></p>
+        <figure>
+          <picture>
+            <source media="(max-width: 40rem)" srcset="/images/photo-11-400.png 400w, /images/photo-11-800.png 800w" sizes="calc(100vw - 2rem)">
+            <img src="/images/photo-14-800.png" srcset="/images/photo-14-400.png 400w, /images/photo-14-800.png 800w, /images/photo-14-1200.png 1200w" sizes="(min-width: 56rem) 40rem, calc(100vw - 2rem)" width="1200" height="900" alt="A generated landscape with three ridges under a pale sky." loading="lazy" decoding="async">
+          </picture>
+          <figcaption>Art direction with <code>&lt;picture&gt;</code>: narrow viewports receive a different image, not just a smaller one.</figcaption>
+        </figure>
+
+        <h2 id="weights">Light and heavy pages</h2>
+        <p>Every pattern is implemented twice. The light page is the smallest honest version of the pattern. The heavy page adds the concerns a product team meets within a year: errors, caching, keyboard support, large data, lifecycle and cleanup.</p>
+        <blockquote>A framework that is pleasant on the light page and painful on the heavy page is a framework for prototypes. The reverse is a framework for teams that already know what they are building.</blockquote>
+        <table>
+          <thead><tr><th>Question</th><th>Light pages answer</th><th>Heavy pages answer</th></tr></thead>
+          <tbody>
+            <tr><td>What does the framework cost before it helps?</td><td>Bytes shipped, files needed, concepts required</td><td>Not applicable</td></tr>
+            <tr><td>What does the framework decide for me?</td><td>Rendering mode, routing convention</td><td>Data flow, caching, error boundaries</td></tr>
+            <tr><td>Where does it fight me?</td><td>Rarely visible</td><td>Imperative libraries, high-frequency updates, large lists</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="measurements">Measurements</h2>
+        <p>Collect the same numbers for every implementation. Where a number depends on the machine, record the machine and keep it constant.</p>
+        <table>
+          <thead><tr><th>Measurement</th><th>Where</th><th>How</th></tr></thead>
+          <tbody>
+            <tr><td>Shipped JavaScript and CSS per page</td><td>All pages</td><td>Production build output, gzip sizes, grouped per entry</td></tr>
+            <tr><td>Lines of code per page</td><td>All pages</td><td>Count only files that exist because of that page</td></tr>
+            <tr><td>Lighthouse performance and accessibility</td><td>Static, dynamic, media</td><td>Mobile preset, three runs, median</td></tr>
+            <tr><td>Render time under load</td><td>Client state, real-time, data grid</td><td>The pages print their own timings</td></tr>
+            <tr><td>Works without JavaScript</td><td>Static, forms, content</td><td>Scripts disabled in the browser</td></tr>
+            <tr><td>Decisions made for you</td><td>All pages</td><td>A list, written while porting</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="rubric">Rubric</h2>
+        <p>Score each criterion from 1 to 5 and keep a one-line justification. Totals are less useful than the shape of the scores; a framework that scores 5 on rendering and 2 on forms tells you where it will hurt.</p>
+        <h3>Criteria</h3>
+        <dl>
+          <dt>Floor</dt><dd>Cost and ceremony of the light pages.</dd>
+          <dt>Ceiling</dt><dd>How the heavy pages held up: performance, complexity, escape hatches.</dd>
+          <dt>Rendering</dt><dd>Static, server, client and streaming options, and how they mix.</dd>
+          <dt>Data</dt><dd>Loading, caching, invalidation, mutations, optimistic updates.</dd>
+          <dt>Forms</dt><dd>Progressive enhancement, validation, server round trips.</dd>
+          <dt>Interop</dt><dd>Imperative libraries, web components, workers.</dd>
+          <dt>Tooling</dt><dd>Build, dev server, TypeScript, tests, debugging.</dd>
+          <dt>Ecosystem and longevity</dt><dd>Maintenance, governance, hiring, migration history.</dd>
+        </dl>
+
+        <h2 id="procedure">Procedure</h2>
+        <ol>
+          <li>Read the framework's sheet in <code>docs/</code> and note the current version.</li>
+          <li>Scaffold with the framework's official starter. Record the dependency count.</li>
+          <li>Port the light pages in order, then the heavy pages. Keep <code>scripts/mock-api.js</code>.</li>
+          <li>Measure. Fill in the rubric the same day, while the pain is fresh.</li>
+          <li>File the implementation and the sheet. Repeat for the next candidate.</li>
+        </ol>
+
+        <h2 id="validity">Threats to validity</h2>
+        <p>The baseline author's habits leak into every port. Light pages favour frameworks with a static-first default; heavy pages favour frameworks the implementer already knows. Versions move monthly, so date every measurement. Lighthouse on a laptop says little about a phone on a slow network.</p>
+        <details>
+          <summary>How to reduce them</summary>
+          <p>Have two people port the same framework independently for at least one candidate. Use the official starters without modification. Record versions in the sheet. Run Lighthouse with CPU and network throttling.</p>
+        </details>
+
+        <h2 id="glossary">Glossary</h2>
+        <dl>
+          <dt>Hydration</dt><dd>Re-running component code in the browser to make server-rendered HTML interactive.</dd>
+          <dt>Island</dt><dd>An interactive component inside otherwise static HTML, with its own loading strategy.</dd>
+          <dt>Resumability</dt><dd>Serialising application state so the browser can continue without re-running the app.</dd>
+          <dt>Signal</dt><dd>A reactive value whose readers are tracked so that only they update when it changes.</dd>
+          <dt>Meta-framework</dt><dd>A framework around a UI library that adds routing, data loading, rendering modes and a server.</dd>
+        </dl>
+
+        <h2 id="commands">Appendix: commands</h2>
+<pre><code>npm install
+npm run dev        # dev server with the mock API
+npm run build      # dist/ with per-page assets
+npm run preview    # serves dist/ with the same mock API
+
+# Per-page sizes after a build
+du -b dist/assets/* | sort -n</code></pre>
+
+        <div class="footnotes">
+          <p id="fn1">1. Vite for bundling and three.js for the 3D pages. Both are infrastructure, not UI frameworks. <a href="#ref1">Back</a></p>
+        </div>
+      </article>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

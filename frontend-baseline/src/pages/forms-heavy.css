@@ -1,0 +1,9 @@
+.contact-layout { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 34rem) minmax(16rem, 1fr); align-items: start; }
+@media (max-width: 56rem) { .contact-layout { grid-template-columns: 1fr; } }
+.contact-notes ul { padding-left: 1.1rem; margin: 0; }
+.contact-notes li { margin-bottom: 0.35rem; font-size: 0.92rem; }
+.form-status { margin: var(--space-3) 0 0; color: var(--text-2); min-height: 1.4em; }
+#contact-success { margin-top: var(--space-5); }
+.attachment { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; }
+.attachment img { border-radius: 4px; object-fit: cover; }
+.attachment progress { flex: 1; accent-color: var(--accent); min-width: 6rem; }

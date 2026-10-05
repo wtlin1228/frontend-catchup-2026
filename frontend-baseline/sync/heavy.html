@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Notes with versions and peers (sync, heavy) · Frontend Baseline</title>
+  <meta name="description" content="Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 17 of 23: sync and local-first</p>
+      <!-- @include variant-nav.html -->
+      <h1>Notes with versions and peers</h1>
+      <p>Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit.</p>
+    </div>
+    <p id="status" class="muted"></p>
+    <form id="add" class="cluster" style="margin-bottom: var(--space-4)">
+      <input id="text" class="input" placeholder="New note" required style="max-width: 22rem" autocomplete="off">
+      <button class="btn btn--primary" type="submit">Add</button>
+      <button id="replay" class="btn" type="button">Replay outbox</button>
+      <button id="other" class="btn btn--ghost" type="button">Edit the first note as another device</button>
+    </form>
+    <div class="two-col">
+      <div><h2>Notes</h2><ul id="list" class="stack" style="list-style: none; padding: 0"></ul></div>
+      <div><h2>Conflicts</h2><div id="conflicts" class="stack"><p class="muted">None.</p></div><h2 style="margin-top: var(--space-5)">Feed</h2><ol id="log" class="log-list"></ol></div>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/sync-heavy.js"></script>
+</body>
+</html>

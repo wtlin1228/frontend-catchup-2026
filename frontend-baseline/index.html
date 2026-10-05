@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Frontend Baseline</title>
+  <meta name="description" content="A framework-free reference project: thirteen frontend patterns, each as a light page and a heavy page, to be re-implemented in each framework under survey.">
+  <link rel="stylesheet" href="/src/pages/index.css">
+  <script type="speculationrules">
+  {"prerender": [{"where": {"href_matches": "/*/light.html"}, "eagerness": "moderate"}],
+   "prefetch":  [{"where": {"href_matches": "/*/heavy.html"}, "eagerness": "moderate"}]}
+  </script>
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <h1>Twenty-three patterns, two weights each, no framework.</h1>
+        <p class="hero__lead">Every pattern frontend frameworks compete on, isolated on its own page. Each comes as a light page (the floor: what the simplest site needs) and a heavy page (the ceiling: what a demanding app needs). Rebuild them in a framework, then compare what got easier, what got heavier, and what the framework decided for you.</p>
+        <p class="hero__note">This page ships no JavaScript apart from the five-line theme reader in <code>&lt;head&gt;</code>. A speculation-rules block asks supporting browsers to prerender light pages as you hover them.</p>
+        <div class="cluster">
+          <a class="btn btn--primary" href="/dynamic/heavy.html">Open the dynamic data page</a>
+          <a class="btn" href="/state/heavy.html">Open the client state page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>Light and heavy</h2>
+      <p>A light page is the minimum the pattern needs: as little JavaScript as the platform allows, no shared state, no edge cases. It measures the floor, meaning the boilerplate a framework imposes before it earns anything. A heavy page adds what real products need: state, errors, caching, keyboard support, performance under load. It measures the ceiling, meaning how the framework holds up when things get complicated.</p>
+    </section>
+
+    <section class="container section">
+      <h2>The twenty-three patterns</h2>
+      <ol class="index">
+        <li><span class="index__name">Static content</span><span class="index__text">Light: an about page. Heavy: a long document with a table of contents, tables, code, an art-directed image and structured data.</span><span class="index__links"><a href="/static/light.html">Light</a><a href="/static/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Forms</span><span class="index__text">Light: a newsletter form with no script at all. Heavy: validation, async submit, server errors mapped to fields, drafts, a throttled file upload with progress.</span><span class="index__links"><a href="/forms/light.html">Light</a><a href="/forms/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Dynamic data and routing</span><span class="index__text">Light: fetch a list and render it. Heavy: a client router, URL as state, cache, prefetch, a guarded mutation and an optimistic update with rollback.</span><span class="index__links"><a href="/dynamic/light.html">Light</a><a href="/dynamic/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Client state</span><span class="index__text">Light: a persisted to-do list. Heavy: a kanban board with undo and redo, derived state, drag and drop, cross-tab sync and timed renders.</span><span class="index__links"><a href="/state/light.html">Light</a><a href="/state/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">3D and imperative libraries</span><span class="index__text">Light: a spinning cube. Heavy: a lazy-loaded scene with controls, picking, instancing, visibility-gated rendering and disposal.</span><span class="index__links"><a href="/scene/light.html">Light</a><a href="/scene/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Real-time updates</span><span class="index__text">Light: poll one value every two seconds. Heavy: server-sent events at up to 30 Hz, frame batching, patch versus rebuild, keyed rows.</span><span class="index__links"><a href="/realtime/light.html">Light</a><a href="/realtime/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Media and lazy loading</span><span class="index__text">Light: a responsive hero and lazy thumbnails, no script. Heavy: infinite scroll, a dialog lightbox, deep links, build-time data.</span><span class="index__links"><a href="/media/light.html">Light</a><a href="/media/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Cross-cutting concerns</span><span class="index__text">Light: a theme switch without a flash. Heavy: theme, i18n, a cookie session, protected content and redirect-after-login.</span><span class="index__links"><a href="/account/light.html">Light</a><a href="/account/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Content pipeline</span><span class="index__text">Light: one Markdown file becomes one page. Heavy: a collection with front matter, generated index, tags, tables of contents, search, RSS and a sitemap.</span><span class="index__links"><a href="/content/light.html">Light</a><a href="/content/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Data grid</span><span class="index__text">Light: a sortable, filterable table of sixty rows. Heavy: fifty thousand rows, virtual scrolling, sorting and filtering in a worker, selection, keyboard navigation, CSV export.</span><span class="index__links"><a href="/table/light.html">Light</a><a href="/table/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Composite widgets</span><span class="index__text">Light: native details, popover, dialog and datalist, no script. Heavy: ARIA tabs, combobox, menu button and a command palette built by hand.</span><span class="index__links"><a href="/components/light.html">Light</a><a href="/components/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Motion</span><span class="index__text">Light: CSS transitions, entry animations and scroll-driven animation, no script. Heavy: FLIP reordering, enter and leave animations, a spring-loaded draggable, view transitions between layouts.</span><span class="index__links"><a href="/motion/light.html">Light</a><a href="/motion/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Async consistency</span><span class="index__text">Light: switching tabs keeps the old content until the new content is ready, latest request wins. Heavy: a view composed from three sources that commits atomically, with per-source retry and an optimistic lane.</span><span class="index__links"><a href="/async/light.html">Light</a><a href="/async/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">State across navigation</span><span class="index__text">Light: back to the list restores scroll and filter. Heavy: hidden tabs keep scroll, half-typed input and a paused animation, with a destroy-and-recreate mode for comparison.</span><span class="index__links"><a href="/keepalive/light.html">Light</a><a href="/keepalive/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Server functions</span><span class="index__text">Light: call one server function. Heavy: batching, deduplication, validation errors, an auth-guarded mutation and a live subscription, all over one endpoint.</span><span class="index__links"><a href="/rpc/light.html">Light</a><a href="/rpc/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Sync and local-first</span><span class="index__text">Light: notes that keep working offline and replay when the network returns. Heavy: versions, conflict detection and resolution, and live changes from other devices.</span><span class="index__links"><a href="/sync/light.html">Light</a><a href="/sync/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Morphing and streaming HTML</span><span class="index__text">Light: server HTML morphed into the page without losing focus or input. Heavy: a streamed response applied chunk by chunk, and moveBefore versus insertBefore.</span><span class="index__links"><a href="/morph/light.html">Light</a><a href="/morph/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Platform navigation</span><span class="index__text">Light: cross-document view transitions, render blocking and speculation rules, no script. Heavy: a Navigation API router on real paths with URLPattern, scroll and focus handling.</span><span class="index__links"><a href="/navigation/light.html">Light</a><a href="/navigation/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Error boundaries</span><span class="index__text">Light: global handlers that report every uncaught error. Heavy: section-level boundaries with fallback, backoff retry and deduplicated reporting.</span><span class="index__links"><a href="/errors/light.html">Light</a><a href="/errors/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Observability</span><span class="index__text">Light: Web Vitals measured on the page itself. Heavy: a trace across a click, two requests with Server-Timing and a render, drawn as a waterfall and exportable.</span><span class="index__links"><a href="/observe/light.html">Light</a><a href="/observe/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Security hardening</span><span class="index__text">Light: a strict Content-Security-Policy with build-time hashes, and what it blocks. Heavy: Trusted Types, a sanitiser for untrusted HTML, and CSRF on a form.</span><span class="index__links"><a href="/security/light.html">Light</a><a href="/security/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Styling strategy</span><span class="index__text">Light: tokens, light-dark() and cascade layers, no script. Heavy: scoped styles with @scope, container queries, typed custom properties, :has(), logical properties and a CSS-only direction switch.</span><span class="index__links"><a href="/styling/light.html">Light</a><a href="/styling/heavy.html">Heavy</a></span></li>
+        <li><span class="index__name">Offline and installable</span><span class="index__text">Light: a web app manifest, install prompt and connectivity indicator. Heavy: a service worker with caching strategies, an offline fallback and an update prompt.</span><span class="index__links"><a href="/offline/light.html">Light</a><a href="/offline/heavy.html">Heavy</a></span></li>
+      </ol>
+    </section>
+
+    <section class="container section">
+      <h2>How to run a comparison</h2>
+      <ol class="steps">
+        <li><strong>Read the sheet.</strong> Each framework has a page under <code>docs/</code>: what it is, how each pattern maps onto it, migration steps, and what to watch for.</li>
+        <li><strong>Port the light pages first, then the heavy ones.</strong> Keep <code>scripts/mock-api.js</code> so every implementation talks to the same server.</li>
+        <li><strong>Measure the same things.</strong> Built JavaScript and CSS per page, lines of code, Lighthouse on the static and dynamic pages, render timings on the state, real-time and grid pages, and the list of decisions the framework made for you.</li>
+        <li><strong>Write it down.</strong> The rubric in <code>docs/README.md</code> keeps notes comparable across frameworks.</li>
+      </ol>
+    </section>
+
+    <section class="container section">
+      <h2>What is deliberately not here</h2>
+      <p>No component library, no router library, no state library, no CSS framework. The shared code in <code>src/lib</code> is a few hundred lines and exists only so the pages can be compared fairly. When a framework makes one of those files unnecessary, that is a finding worth writing down.</p>
+    </section>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

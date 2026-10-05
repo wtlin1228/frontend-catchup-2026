@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Routes on real paths (platform navigation, heavy) · Frontend Baseline</title>
+  <meta name="description" content="A client-side router built on the Navigation API and URLPattern: real URLs under /navigation/app, interception with scroll and focus handling, cancellation through the event signal, a view transition per navigation, and the history entries list the API exposes. The server serves this shell for any URL under that prefix, so deep links and reloads work. Browsers without the API get full page loads from the same links.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 19 of 23: platform navigation</p>
+      <!-- @include variant-nav.html -->
+      <h1 style="view-transition-name: page-title">Routes on real paths</h1>
+      <p>A client-side router built on the Navigation API and URLPattern: real URLs under /navigation/app, interception with scroll and focus handling, cancellation through the event signal, a view transition per navigation, and the history entries list the API exposes. The server serves this shell for any URL under that prefix, so deep links and reloads work. Browsers without the API get full page loads from the same links.</p>
+    </div>
+    <p class="cluster">
+      <button id="back" class="btn btn--sm" type="button">Back</button>
+      <button id="forward" class="btn btn--sm" type="button">Forward</button>
+      <span id="support" class="muted"></span>
+    </p>
+    <nav class="cluster" aria-label="App">
+      <a class="btn btn--ghost btn--sm" href="/navigation/app/">Home</a>
+      <a class="btn btn--ghost btn--sm" href="/navigation/app/about">About</a>
+    </nav>
+    <div id="app" style="margin-top: var(--space-4); min-height: 14rem"></div>
+    <h2 style="margin-top: var(--space-6)">History entries</h2>
+    <ol id="entries" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/navigation-heavy.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Tabs that wait (async, light) · Frontend Baseline</title>
+  <meta name="description" content="Switching a tab fetches its posts. In naive mode the old list is cleared and a skeleton shows on every switch. In transition mode the old list stays, dimmed, until the new one is ready, and only the latest request may paint. Click between tabs quickly to see the difference.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 14 of 23: async consistency</p>
+      <!-- @include variant-nav.html -->
+      <h1>Tabs that wait</h1>
+      <p>Switching a tab fetches its posts. In naive mode the old list is cleared and a skeleton shows on every switch. In transition mode the old list stays, dimmed, until the new one is ready, and only the latest request may paint. Click between tabs quickly to see the difference.</p>
+    </div>
+    <p><label class="switch"><input type="checkbox" id="transition" checked> Keep the old content while loading (transition)</label></p>
+    <div class="tabbar" role="tablist" id="tabs" aria-label="Tags"></div>
+    <div id="panel" role="tabpanel"></div>
+    <h2 style="margin-top: var(--space-6)">Log</h2>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/async-light.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+.widgets { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); align-items: start; }
+[role="tablist"] { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--border); margin-bottom: var(--space-3); }
+[role="tab"] { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; padding: 0.5rem 0.75rem; color: var(--text-2); cursor: pointer; margin-bottom: -1px; }
+[role="tab"][aria-selected="true"] { color: var(--accent-strong); border-bottom-color: var(--accent); font-weight: 500; }
+[role="tabpanel"] p { margin: 0; }
+.combobox { position: relative; display: grid; gap: 0.35rem; }
+.combobox label { font-weight: 500; font-size: 0.95rem; }
+.listbox { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; margin: 0.25rem 0 0; padding: 0.3rem; list-style: none; max-height: 14rem; overflow: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow); }
+.combobox--static .listbox { position: static; box-shadow: none; max-height: 18rem; }
+.listbox li { padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); cursor: default; }
+.listbox li[aria-selected="true"] { background: var(--accent-soft); color: var(--accent-strong); }
+.menu { position: relative; display: inline-block; }
+.menu__list { position: absolute; top: 100%; left: 0; z-index: 20; margin: 0.25rem 0 0; padding: 0.3rem; list-style: none; min-width: 11rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow); }
+.menu__list li { padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); cursor: default; }
+.menu__list li:focus { background: var(--surface-2); outline: none; }
+.palette { width: min(92vw, 34rem); }

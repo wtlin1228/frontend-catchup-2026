@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>3D scene (heavy) · Frontend Baseline</title>
+  <meta name="description" content="A three.js scene behind a lazy import: sizing, render loop, UI bindings and disposal.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 5 of 23: 3D and imperative libraries</p>
+      <!-- @include variant-nav.html -->
+      <h1>3D scene</h1>
+      <p>three.js loads in its own chunk when this page opens. The scene is built once; the controls mutate it rather than recreating it. The render loop stops when the canvas is off screen or the tab is hidden, and everything is disposed when the page is left. Pointer picking uses a raycaster; the orbiting cubes are one instanced draw call.</p>
+    </div>
+
+    <div class="scene">
+      <div id="scene-wrap" class="scene__canvas">
+        <canvas id="scene-canvas" aria-label="A rotating 3D shape you can orbit with the mouse"></canvas>
+        <p id="scene-status" class="scene__status">Loading 3D engine…</p>
+      </div>
+      <form id="scene-controls" class="scene__panel panel">
+        <div class="field">
+          <label for="shape">Shape</label>
+          <select id="shape" name="shape" class="select">
+            <option value="torusKnot">Torus knot</option>
+            <option value="icosahedron">Icosahedron</option>
+            <option value="torus">Torus</option>
+            <option value="box">Box</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="color">Colour</label>
+          <input id="color" name="color" type="color" value="#e76125">
+        </div>
+        <div class="field">
+          <label for="speed">Spin speed (<output id="speed-out">1.0</output>)</label>
+          <input id="speed" name="speed" type="range" min="0" max="3" step="0.1" value="1">
+        </div>
+        <div class="field">
+          <label for="instances">Instanced cubes (<output id="instances-out">500</output>)</label>
+          <input id="instances" name="instances" type="range" min="0" max="2000" step="50" value="500">
+        </div>
+        <div class="field field--check">
+          <input id="wireframe" name="wireframe" type="checkbox">
+          <label for="wireframe">Wireframe</label>
+        </div>
+        <div class="cluster">
+          <button id="pause" class="btn" type="button" aria-pressed="false">Pause</button>
+          <button id="snapshot" class="btn btn--ghost" type="button">Save PNG</button>
+        </div>
+        <p class="scene__stats muted"><span id="fps">0</span> fps, <span id="tris">0</span> triangles</p>
+        <p id="selected" class="muted" style="margin: 0.25rem 0 0; font-size: 0.9rem">Nothing selected. Hover the shape and click.</p>
+      </form>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/scene-heavy.js"></script>
+</body>
+</html>

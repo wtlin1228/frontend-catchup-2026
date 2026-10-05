@@ -1,0 +1,8 @@
+.account-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); align-items: start; }
+.account-session { grid-column: 1 / -1; }
+.account-session .form { max-width: 28rem; }
+.choices { display: grid; gap: 0.5rem; }
+.choices label { display: flex; align-items: center; gap: 0.5rem; }
+.choices input { accent-color: var(--accent); margin: 0; }
+#next-notice { margin-bottom: var(--space-5); }
+#lang { max-width: 14rem; }

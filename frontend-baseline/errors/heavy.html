@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Boundaries that recover (error boundaries, heavy)</title>
+  <meta name="description" content="Section-level error boundaries with fallback, backoff retry and deduplicated reporting.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 20 of 23: error boundaries</p>
+      <!-- @include variant-nav.html -->
+      <h1>Boundaries that recover</h1>
+      <p>Three sections, each inside its own boundary. One is stable, one calls an endpoint that fails half the time, one can be made to throw while rendering. A failing section shows a fallback, retries with backoff twice, then offers a button; the rest of the page never notices. Reports are fingerprinted so the same failure is counted, not resent.</p>
+    </div>
+    <p class="cluster">
+      <label class="switch"><input type="checkbox" id="bug"> Simulate a render bug in the third section</label>
+      <button id="reload" class="btn btn--sm" type="button">Re-run all sections</button>
+      <span id="counts" class="muted"></span>
+    </p>
+    <div class="two-col">
+      <section class="panel"><h2>Stable</h2><div id="s-stable"></div></section>
+      <section class="panel"><h2>Flaky endpoint</h2><div id="s-flaky"></div></section>
+      <section class="panel"><h2>Render bug</h2><div id="s-buggy"></div></section>
+    </div>
+    <h2 style="margin-top: var(--space-6)">Reports</h2>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/errors-heavy.js"></script>
+</body>
+</html>

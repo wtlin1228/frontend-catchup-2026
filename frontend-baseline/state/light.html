@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>To-do (state, light) · Frontend Baseline</title>
+  <meta name="description" content="A persisted to-do list: the smallest stateful UI.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 4 of 23: client state</p>
+      <!-- @include variant-nav.html -->
+      <h1>To-do</h1>
+      <p>Add, complete, remove, filter. State lives in one array, is saved to <code>localStorage</code>, and the list is re-rendered from scratch after every change. Sixty lines, and the first page where a framework's component model earns its keep.</p>
+    </div>
+    <form id="todo-form" class="cluster" style="margin-bottom: var(--space-4)">
+      <label for="todo-input" class="visually-hidden">New item</label>
+      <input id="todo-input" class="input" style="max-width: 24rem" placeholder="What needs doing?" required maxlength="80" autocomplete="off">
+      <button class="btn btn--primary" type="submit">Add</button>
+    </form>
+    <div class="cluster" role="group" aria-label="Filter" style="margin-bottom: var(--space-3)">
+      <button class="btn btn--sm" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="btn btn--sm" type="button" data-filter="active" aria-pressed="false">Active</button>
+      <button class="btn btn--sm" type="button" data-filter="done" aria-pressed="false">Done</button>
+    </div>
+    <ul id="todo-list" class="todo"></ul>
+    <p id="todo-count" class="muted"></p>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/state-light.js"></script>
+</body>
+</html>

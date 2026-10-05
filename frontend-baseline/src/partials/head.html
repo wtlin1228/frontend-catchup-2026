@@ -1,0 +1,16 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>
+  // Theme + language, applied before first paint so there is no flash of the wrong theme.
+  // Must be inline: anything loaded as a module runs too late. Frameworks with SSR solve the
+  // same problem with a cookie read on the server or an inline script like this one.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
+      var l = localStorage.getItem('lang'); if (l) document.documentElement.lang = l;
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="/src/styles/global.css">

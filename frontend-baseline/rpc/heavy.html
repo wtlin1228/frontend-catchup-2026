@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Functions, batched and live (server functions, heavy) · Frontend Baseline</title>
+  <meta name="description" content="What a server-function layer has to provide once it is real: calls in the same tick travel as one request, identical in-flight calls are shared, validation errors come back per call, an auth-guarded mutation redirects to sign-in, and a live subscription keeps a value fresh over server-sent events. The counters show requests versus calls.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 16 of 23: server functions</p>
+      <!-- @include variant-nav.html -->
+      <h1>Functions, batched and live</h1>
+      <p>What a server-function layer has to provide once it is real: calls in the same tick travel as one request, identical in-flight calls are shared, validation errors come back per call, an auth-guarded mutation redirects to sign-in, and a live subscription keeps a value fresh over server-sent events. The counters show requests versus calls.</p>
+    </div>
+    <div class="two-col">
+      <section class="panel stack">
+        <h2>Search (deduplicated)</h2>
+        <input id="q" class="input" type="search" placeholder="searchPosts({ q })" autocomplete="off">
+        <ul id="results" class="stack"></ul>
+      </section>
+      <section class="panel stack">
+        <h2>Batch</h2>
+        <p class="muted">Five calls issued in the same tick become one request.</p>
+        <button id="batch" class="btn" type="button">Call slowSquare() five times</button>
+        <p id="batch-out" class="muted"></p>
+      </section>
+      <section class="panel stack">
+        <h2>Mutation with validation</h2>
+        <form id="publish" class="stack">
+          <input name="title" class="input" placeholder="Title (3+ characters)">
+          <textarea name="body" class="textarea" rows="3" placeholder="Body (20+ characters)"></textarea>
+          <button class="btn btn--primary" type="submit">publish()</button>
+          <p id="publish-out" class="field__error" role="alert"></p>
+        </form>
+      </section>
+      <section class="panel stack">
+        <h2>Live value</h2>
+        <p>status() over SSE: <strong id="live">waiting</strong></p>
+        <p id="counters" class="muted"></p>
+      </section>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/rpc-heavy.js"></script>
+</body>
+</html>

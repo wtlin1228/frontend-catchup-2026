@@ -1,0 +1,28 @@
+{
+  "name": "frontend-baseline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.2.1",
+  "description": "Framework-free reference project: one page per frontend pattern, to be re-implemented in each framework under survey.",
+  "scripts": {
+    "predev": "node scripts/gen-images.mjs && node scripts/build-content.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/gen-images.mjs && node scripts/build-content.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "gen:images": "node scripts/gen-images.mjs --force",
+    "build:content": "node scripts/build-content.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/roboto": "^5.3.0",
+    "marked": "^18.0.14",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

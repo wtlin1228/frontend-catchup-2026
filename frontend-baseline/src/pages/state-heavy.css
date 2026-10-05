@@ -1,0 +1,23 @@
+.board-toolbar { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); align-items: center; margin-bottom: var(--space-3); }
+.board-toolbar form .input { width: 18rem; max-width: 60vw; }
+.board-filter .input { width: 12rem; }
+.board-stats { display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: 0.9rem; margin: 0 0 var(--space-2); font-variant-numeric: tabular-nums; }
+.progress { height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; margin-bottom: var(--space-5); }
+.progress__bar { height: 100%; background: var(--accent); width: 0; transition: width 0.3s var(--ease); }
+.board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); align-items: start; }
+@media (max-width: 48rem) { .board { grid-template-columns: 1fr; } }
+.column { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; min-height: 20rem; max-height: 70vh; }
+.column__header { display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); }
+.column__header h2 { font-size: 1rem; margin: 0; }
+.column__count { color: var(--text-2); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+.column__list { list-style: none; margin: 0; padding: var(--space-3); display: grid; gap: var(--space-2); align-content: start; overflow-y: auto; flex: 1; min-height: 6rem; border-radius: 0 0 var(--radius) var(--radius); transition: background 0.15s; }
+.column__list.is-over { background: var(--accent-soft); }
+.column__empty { color: var(--text-2); font-size: 0.9rem; text-align: center; padding: var(--space-4); border: 1px dashed var(--border-strong); border-radius: var(--radius-sm); }
+.card-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3); display: flex; gap: var(--space-2); align-items: center; cursor: grab; }
+.card-item:active { cursor: grabbing; }
+.card-item.is-dragging { opacity: 0.4; }
+.card-item__title { flex: 1; overflow-wrap: anywhere; }
+.card-item__actions { display: flex; gap: 0.1rem; opacity: 0; transition: opacity 0.15s; }
+.card-item:hover .card-item__actions, .card-item:focus .card-item__actions, .card-item:focus-within .card-item__actions { opacity: 1; }
+.board-help { margin-top: var(--space-6); color: var(--text-2); }
+.board-help ul { padding-left: 1.1rem; }

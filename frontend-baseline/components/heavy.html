@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Custom widgets (composite widgets, heavy) · Frontend Baseline</title>
+  <meta name="description" content="Tabs, combobox, menu button and a command palette implemented by hand to the ARIA authoring patterns.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 11 of 23: composite widgets</p>
+      <!-- @include variant-nav.html -->
+      <h1>Custom widgets</h1>
+      <p>The widgets component libraries exist for, written against the ARIA authoring patterns: roving tabindex, <code>aria-activedescendant</code>, typeahead, focus return, outside-click dismissal. Headless libraries (Radix, React Aria, Headless UI, Ark, Melt, Kobalte) package exactly this.</p>
+    </div>
+    <div class="widgets">
+      <section class="panel">
+        <h2>Tabs</h2>
+        <div data-widget="tabs" class="tabs">
+          <div role="tablist" aria-label="Framework families">
+            <button role="tab" id="tab-lib" aria-selected="true" aria-controls="panel-lib" type="button">Libraries</button>
+            <button role="tab" id="tab-meta" aria-selected="false" aria-controls="panel-meta" type="button" tabindex="-1">Meta-frameworks</button>
+            <button role="tab" id="tab-alt" aria-selected="false" aria-controls="panel-alt" type="button" tabindex="-1">Alternatives</button>
+          </div>
+          <div role="tabpanel" id="panel-lib" aria-labelledby="tab-lib" tabindex="0"><p>React, Vue, Svelte, Solid, Preact, Lit and Angular render components; most need a router and a data layer added.</p></div>
+          <div role="tabpanel" id="panel-meta" aria-labelledby="tab-meta" tabindex="0" hidden><p>Next.js, Nuxt, SvelteKit, React Router, TanStack Start, Astro and Analog add routing, data loading, rendering modes and a server.</p></div>
+          <div role="tabpanel" id="panel-alt" aria-labelledby="tab-alt" tabindex="0" hidden><p>htmx, Alpine.js and web components take a different shape: the server renders, the browser sprinkles.</p></div>
+        </div>
+        <p class="muted">Arrow keys move between tabs and activate them; Home and End jump.</p>
+      </section>
+      <section class="panel">
+        <h2>Combobox</h2>
+        <div class="combobox">
+          <label for="cb">Pick a framework</label>
+          <input id="cb" class="input" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="cb-list" autocomplete="off" placeholder="Type to filter">
+          <ul id="cb-list" class="listbox" role="listbox" hidden></ul>
+        </div>
+        <p id="cb-result" class="muted">Nothing chosen yet.</p>
+      </section>
+      <section class="panel">
+        <h2>Menu button</h2>
+        <div class="menu" data-widget="menu">
+          <button class="btn" id="mb" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="mb-menu">Actions</button>
+          <ul id="mb-menu" class="menu__list" role="menu" aria-labelledby="mb" hidden>
+            <li role="menuitem" tabindex="-1">Rename</li>
+            <li role="menuitem" tabindex="-1">Duplicate</li>
+            <li role="menuitem" tabindex="-1">Archive</li>
+            <li role="menuitem" tabindex="-1">Delete</li>
+          </ul>
+        </div>
+        <p class="muted">Arrow keys, Home, End, typeahead, Escape returns focus, clicking outside closes.</p>
+      </section>
+      <section class="panel">
+        <h2>Command palette</h2>
+        <p>Press <kbd>Ctrl</kbd>+<kbd>K</kbd> (or <kbd>⌘</kbd>+<kbd>K</kbd>) anywhere on this page. It is the combobox above inside a modal dialog, listing every page of this site.</p>
+        <button id="open-palette" class="btn" type="button">Open the palette</button>
+      </section>
+    </div>
+    <dialog id="palette" class="palette">
+      <div class="dialog__body combobox combobox--static">
+        <label for="palette-input" class="visually-hidden">Go to a page</label>
+        <input id="palette-input" class="input" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="palette-list" autocomplete="off" placeholder="Go to a page" autofocus>
+        <ul id="palette-list" class="listbox" role="listbox" hidden></ul>
+      </div>
+    </dialog>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/components-heavy.js"></script>
+</body>
+</html>

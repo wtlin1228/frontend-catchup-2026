@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Tokens and layers (styling, light)</title>
+  <meta name="description" content="Design tokens, light-dark() and cascade layers, with no script.">
+  <link rel="stylesheet" href="/src/pages/styling-light.css">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 23 of 23: styling strategy</p>
+      <!-- @include variant-nav.html -->
+      <h1>Tokens and layers</h1>
+      <p>The whole site is styled from one set of custom properties. Colours are declared once with light-dark() and switch with the colour scheme. Cascade layers decide which rules win regardless of order or specificity. This is the floor every styling approach, from CSS Modules to Tailwind to CSS-in-JS, builds on.</p>
+    </div>
+    <h2>Colour tokens</h2>
+    <div class="swatches">
+      <div class="swatch" style="background: var(--accent); color: #fff">--accent</div>
+      <div class="swatch" style="background: var(--accent-soft)">--accent-soft</div>
+      <div class="swatch" style="background: var(--bg)">--bg</div>
+      <div class="swatch" style="background: var(--bg-2)">--bg-2</div>
+      <div class="swatch" style="background: var(--surface-2)">--surface-2</div>
+      <div class="swatch" style="background: var(--text); color: var(--bg)">--text</div>
+      <div class="swatch" style="background: var(--text-2); color: var(--bg)">--text-2</div>
+      <div class="swatch" style="background: var(--danger); color: #fff">--danger</div>
+      <div class="swatch" style="background: var(--success); color: #fff">--success</div>
+      <div class="swatch" style="background: var(--info); color: #fff">--info</div>
+    </div>
+    <h2>Type and space</h2>
+    <ol class="scale">
+      <li style="font-size: 2.5rem">Display 2.5rem</li>
+      <li style="font-size: 1.75rem">Heading 1.75rem</li>
+      <li style="font-size: 1.125rem">Lead 1.125rem</li>
+      <li style="font-size: 1rem">Body 1rem</li>
+      <li style="font-size: 0.85rem">Meta 0.85rem</li>
+    </ol>
+    <div class="spaces"><span style="width: var(--space-1)"></span><span style="width: var(--space-2)"></span><span style="width: var(--space-3)"></span><span style="width: var(--space-4)"></span><span style="width: var(--space-5)"></span><span style="width: var(--space-6)"></span><span style="width: var(--space-7)"></span></div>
+    <h2>Cascade layers</h2>
+    <p>Both rules below target the same element. The "base" rule appears later in the stylesheet, but the layer order <code>@layer theme, base;</code> is reversed on purpose, so the theme wins.</p>
+    <div class="layered">Which layer painted me?</div>
+    <pre><code>@layer base, theme;
+@layer theme { .layered { background: var(--accent-soft); } }
+@layer base  { .layered { background: var(--surface-2); } }   /* later in the file, lower in the order */</code></pre>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

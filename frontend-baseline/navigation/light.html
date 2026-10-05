@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Pages that glide (platform navigation, light) · Frontend Baseline</title>
+  <meta name="description" content="No script. Cross-document view transitions animate between this page and the next; the title morphs because both pages name it. A render-blocking link makes the transition wait for the main content so it never snaps from a half-painted page, and speculation rules let supporting browsers prerender the links below as you hover them.">
+  <link rel="expect" href="#main" blocking="render">
+  <script type="speculationrules">
+  {"prerender": [{"where": {"href_matches": "/*/*.html"}, "eagerness": "moderate"}]}
+  </script>
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 19 of 23: platform navigation</p>
+      <!-- @include variant-nav.html -->
+      <h1 style="view-transition-name: page-title">Pages that glide</h1>
+      <p>No script. Cross-document view transitions animate between this page and the next; the title morphs because both pages name it. A render-blocking link makes the transition wait for the main content so it never snaps from a half-painted page, and speculation rules let supporting browsers prerender the links below as you hover them.</p>
+    </div>
+    <ul class="stack">
+      <li><a href="/navigation/heavy.html">The heavy variant: a Navigation API router</a></li>
+      <li><a href="/static/light.html">The static light page</a></li>
+      <li><a href="/motion/light.html">The motion light page</a></li>
+    </ul>
+    <pre><code>&lt;link rel="expect" href="#main" blocking="render"&gt;
+&lt;script type="speculationrules"&gt;{"prerender":[{"where":{"href_matches":"/*/light.html"},"eagerness":"moderate"}]}&lt;/script&gt;
+h1 { view-transition-name: page-title }</code></pre>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

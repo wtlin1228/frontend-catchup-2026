@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "slug": "hydration-is-a-tax",
+    "title": "Hydration is a tax, not a feature",
+    "excerpt": "Server rendering paints fast. Hydration then re-runs the app to make the paint interactive. That window is where SSR sites feel broken.",
+    "body": "Server rendering gives the browser HTML it can paint immediately. Hydration then downloads the component code, re-runs it, and attaches event handlers to markup that already exists. During that window the page looks interactive but is not, which is where most rage clicks on server-rendered sites come from.\n\nThe responses are familiar by now: send less JavaScript (islands), send it later (progressive and partial hydration), or avoid re-running it at all (resumability). The baseline's home page sidesteps the question by shipping no page JavaScript, which is a valid strategy more often than teams admit.",
+    "tags": ["rendering", "performance"],
+    "author": "Mika Tanaka",
+    "date": "2026-01-12",
+    "readingMinutes": 3
+  },
+  {
+    "id": 2,
+    "slug": "islands-in-one-paragraph",
+    "title": "Islands architecture in one paragraph",
+    "excerpt": "Static HTML around interactive components, each with its own loading strategy. The cost is coordination between islands.",
+    "body": "An island is an interactive component surrounded by static HTML. The page is rendered on the server or at build time, and only the islands ship JavaScript, each with its own loading strategy: on load, when visible, when idle, or never on the server at all.\n\nThe cost is coordination. Islands do not share a component tree, so state that two of them need has to live in a store, the URL, or the DOM. The board and dashboard pages are deliberately all-island to make that cost visible when porting.",
+    "tags": ["rendering", "architecture"],
+    "author": "Lena Ortiz",
+    "date": "2026-01-28",
+    "readingMinutes": 2
+  },
+  {
+    "id": 3,
+    "slug": "signals-spreadsheet",
+    "title": "Signals, explained with a spreadsheet",
+    "excerpt": "A signal is a cell, a computed value is a formula, an effect is a cell whose side effect updates the DOM. Only dependants recalculate.",
+    "body": "A signal is a cell. A computed value is a formula cell that depends on other cells. An effect is a cell whose side effect is \"update this piece of the DOM\". When you write to a cell, only the formulas that read it recalculate, and only the DOM nodes bound to those formulas change.\n\nThat is the whole idea behind Solid, Preact Signals, Vue's refs, Angular signals and Svelte 5 runes, and why they can skip diffing entirely. The board page measures the alternative: rebuild everything and let the browser sort it out.",
+    "tags": ["reactivity", "state"],
+    "author": "Mika Tanaka",
+    "date": "2026-02-09",
+    "readingMinutes": 4
+  },
+  {
+    "id": 4,
+    "slug": "virtual-dom-was-never-the-point",
+    "title": "Why the virtual DOM was never the point",
+    "excerpt": "The diff was the price of a programming model, not the product. Compilers and fine-grained reactivity keep the model and drop the diff.",
+    "body": "The virtual DOM made a programming model possible: describe the UI as a function of state, re-run the function, and let a diff work out what to touch. The diff was the price, not the product. React's own compiler now spends most of its effort avoiding re-running that function.\n\nCompilers (Svelte) and fine-grained reactivity (Solid) keep the model and drop the diff. The useful question for a survey is not \"virtual DOM or not\" but \"when state changes, what code runs, and who decided that\".",
+    "tags": ["reactivity", "rendering"],
+    "author": "Jonas Weber",
+    "date": "2026-02-20",
+    "readingMinutes": 3
+  },
+  {
+    "id": 5,
+    "slug": "server-components-data-layer",
+    "title": "Server components move the data layer into the tree",
+    "excerpt": "A component that runs only on the server can read the database directly. The price is a second mental model about where code runs.",
+    "body": "React Server Components let a component run only on the server: it can read a database or the file system directly, and its output is sent to the browser as a serialized tree rather than as code. Client components are the islands inside that tree.\n\nThe upside is less client JavaScript and no API layer for reads. The cost is a second mental model: which file runs where, what can cross the boundary, and how caching behaves. The posts page is the one to port first if you want to feel that boundary.",
+    "tags": ["rendering", "data"],
+    "author": "Lena Ortiz",
+    "date": "2026-03-03",
+    "readingMinutes": 4
+  },
+  {
+    "id": 6,
+    "slug": "forms-before-javascript",
+    "title": "Forms should work before JavaScript arrives",
+    "excerpt": "A form already validates, serializes and submits. Script should improve each step, not replace it.",
+    "body": "A form element already knows how to validate, serialize and submit. JavaScript can improve each step: inline messages, no full reload, optimistic UI. It should not replace them, because the window between HTML arriving and scripts running is real, and so are broken scripts.\n\nFrameworks rediscovered this: React Router's Form, SvelteKit's use:enhance, and server actions in Next.js and Astro all start from a working HTML form. The contact page is the baseline version of that idea.",
+    "tags": ["forms", "progressive-enhancement"],
+    "author": "Priya Natarajan",
+    "date": "2026-03-17",
+    "readingMinutes": 3
+  },
+  {
+    "id": 7,
+    "slug": "view-transitions-without-a-router",
+    "title": "View transitions without a router",
+    "excerpt": "One CSS rule animates between two separate pages. That removes the main reason many sites became single-page apps.",
+    "body": "Cross-document view transitions animate between two separate pages with one CSS rule. No client router is needed, which removes the main reason many sites became single-page apps in the first place.\n\nSame-document transitions cover the other case: wrap a DOM change in document.startViewTransition and the browser crossfades old and new. The gallery lightbox uses it; the posts page could too.",
+    "tags": ["ux", "css"],
+    "author": "Jonas Weber",
+    "date": "2026-04-02",
+    "readingMinutes": 2
+  },
+  {
+    "id": 8,
+    "slug": "what-image-components-do",
+    "title": "What image components actually do",
+    "excerpt": "Format, sizes, srcset, reserved space, lazy loading. Five things, all available in HTML plus a build step.",
+    "body": "Strip away the component API and an image component does five things: pick a format, generate several sizes, write srcset and sizes, reserve space with width and height, and lazy-load below the fold. All five are available in plain HTML plus a build step.\n\nThe gallery page does them by hand with a short generator script. When comparing frameworks, check which of the five their component really handles, and what happens to images that come from a CMS at runtime.",
+    "tags": ["performance", "media"],
+    "author": "Priya Natarajan",
+    "date": "2026-04-15",
+    "readingMinutes": 3
+  },
+  {
+    "id": 9,
+    "slug": "the-url-is-state",
+    "title": "The URL is state",
+    "excerpt": "If it should survive a refresh or be shareable, it belongs in the URL. Everything else can live in memory.",
+    "body": "Search text, page number, selected tab, open dialog: if it should survive a refresh or be shareable, it belongs in the URL. Everything else is ephemeral and can live in memory.\n\nFrameworks differ in how much they help. Some give typed search params (TanStack Router), some give loaders keyed by URL (React Router, SvelteKit), some leave it to you. The posts page keeps its search and page number in the hash and treats the router as the source of truth.",
+    "tags": ["routing", "state"],
+    "author": "Mika Tanaka",
+    "date": "2026-05-04",
+    "readingMinutes": 3
+  },
+  {
+    "id": 10,
+    "slug": "keyed-lists",
+    "title": "Keyed lists: the bug every framework fixes for you",
+    "excerpt": "Rebuild a list and you lose focus and input. Reuse nodes by index and state attaches to the wrong item. Keys fix both.",
+    "body": "Rebuild a list from scratch and you lose focus, scroll position, text selection and any in-progress input inside it. Reuse DOM nodes by index and you get the wrong node's state attached to the wrong item after a reorder. The fix is a stable key per item.\n\nThe dashboard's event log does this by hand with a Map from id to row. It is twelve lines, and it is the first thing to break when someone edits them.",
+    "tags": ["rendering", "state"],
+    "author": "Jonas Weber",
+    "date": "2026-05-21",
+    "readingMinutes": 2
+  },
+  {
+    "id": 11,
+    "slug": "web-components-distribution-format",
+    "title": "Web components are a distribution format",
+    "excerpt": "Custom elements are how a component gets used from any framework, or none. Good at the edges, thin in the middle.",
+    "body": "Custom elements are not a framework. They are how a component can be used from any framework, or from none, because the browser owns the lifecycle. That makes them good at the edges: design systems, embeds, widgets inside a CMS.\n\nInside an app they lack what frameworks add: declarative rendering, reactive state, server rendering. Lit fills some of that gap. The baseline's relative-time element shows the lifecycle; decide for yourself whether you want to build a whole app out of it.",
+    "tags": ["components", "interop"],
+    "author": "Lena Ortiz",
+    "date": "2026-06-08",
+    "readingMinutes": 3
+  },
+  {
+    "id": 12,
+    "slug": "bundlers-2026",
+    "title": "Bundlers in 2026: Vite 8, Rolldown and the Rust toolchain",
+    "excerpt": "Vite 8 replaced Rollup and esbuild with one Rust bundler. Because most frameworks sit on Vite, the change reached all of them at once.",
+    "body": "Vite 8 replaced its Rollup and esbuild pair with Rolldown, a single Rust bundler with a Rollup-compatible plugin API. Builds got faster and the dev-versus-build inconsistencies of running two bundlers went away. Most frameworks now sit on Vite, so the change reached SvelteKit, Astro, Nuxt, Qwik and others at once.\n\nFor the survey the build tool is a shared constant: compare what each framework adds on top, not how fast Rolldown runs.",
+    "tags": ["tooling"],
+    "author": "Priya Natarajan",
+    "date": "2026-06-24",
+    "readingMinutes": 3
+  },
+  {
+    "id": 13,
+    "slug": "sse-websockets-polling",
+    "title": "Streaming updates: SSE, WebSockets or polling",
+    "excerpt": "Server-sent events are one-way and reconnect by themselves. WebSockets are two-way and yours to manage. Polling is still right surprisingly often.",
+    "body": "Server-sent events are one-way, text-only, auto-reconnecting and work over plain HTTP. WebSockets are two-way and binary-capable, with a connection you manage yourself. Polling is neither, and it is still the right answer surprisingly often.\n\nThe dashboard uses EventSource because reconnection and backpressure are handled for you. That keeps the client code focused on the part frameworks differ on: turning a firehose of events into a bounded number of DOM updates.",
+    "tags": ["data", "realtime"],
+    "author": "Mika Tanaka",
+    "date": "2026-07-13",
+    "readingMinutes": 4
+  },
+  {
+    "id": 14,
+    "slug": "spa-announce-itself",
+    "title": "Making a single-page app announce itself",
+    "excerpt": "A full page load tells assistive technology a new document arrived. A client-side navigation tells it nothing unless the app does.",
+    "body": "A full page load tells assistive technology that a new document arrived: the title is read, focus starts at the top. A client-side navigation does none of that unless the app does it. The minimum is to update document.title, move focus to the new content or its heading, and announce the new page in a live region.\n\nMost routers do some of this now; few do all of it by default. The posts page has a visually hidden live region for exactly this reason, so you can check what each framework's router does with it.",
+    "tags": ["accessibility", "routing"],
+    "author": "Priya Natarajan",
+    "date": "2026-08-05",
+    "readingMinutes": 3
+  }
+]

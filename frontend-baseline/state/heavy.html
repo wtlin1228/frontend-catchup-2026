@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Board (heavy) · Frontend Baseline</title>
+  <meta name="description" content="A kanban board: central store, undo/redo, drag and drop, and a deliberately naive, timed render.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 4 of 23: client state</p>
+      <!-- @include variant-nav.html -->
+      <h1>Board</h1>
+      <p>One immutable store with undo and redo, derived counts, persistence with cross-tab sync, native drag and drop. Rendering is deliberately naive: every change rebuilds all three columns and the time it took is shown. Press "Add 300 cards" to see why frameworks exist.</p>
+    </div>
+
+    <div class="board-toolbar">
+      <form id="new-card-form" class="cluster">
+        <label for="new-card-title" class="visually-hidden">New card title</label>
+        <input id="new-card-title" class="input" placeholder="Add a card (press n)" required maxlength="80" autocomplete="off">
+        <button class="btn btn--primary" type="submit">Add card</button>
+      </form>
+      <label class="board-filter">
+        <span class="visually-hidden">Filter cards</span>
+        <input id="filter" class="input" type="search" placeholder="Filter (press /)">
+      </label>
+      <div class="cluster">
+        <button id="undo" class="btn" type="button" disabled>Undo</button>
+        <button id="redo" class="btn" type="button" disabled>Redo</button>
+        <button id="stress" class="btn btn--ghost" type="button">Add 300 cards</button>
+        <button id="reset" class="btn btn--ghost btn--danger" type="button">Reset board</button>
+      </div>
+    </div>
+
+    <p class="board-stats muted">
+      <span id="stat-count">0 cards</span>
+      <span id="stat-done">0 done</span>
+      <span id="stat-render" title="Time to rebuild the DOM after the last change">last render 0 ms</span>
+    </p>
+    <div class="progress" aria-hidden="true"><div id="progress-bar" class="progress__bar"></div></div>
+
+    <div id="board" class="board" aria-label="Kanban board"></div>
+
+    <details class="board-help">
+      <summary>Keyboard shortcuts</summary>
+      <ul>
+        <li><kbd>n</kbd> new card, <kbd>/</kbd> filter</li>
+        <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> undo, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> redo</li>
+        <li>With a card focused: <kbd>[</kbd> and <kbd>]</kbd> move it between columns, <kbd>Enter</kbd> edits, <kbd>Delete</kbd> removes</li>
+      </ul>
+    </details>
+
+    <dialog id="edit-dialog">
+      <form method="dialog" class="dialog__body" id="edit-form">
+        <h2>Edit card</h2>
+        <div class="field">
+          <label for="edit-title">Title</label>
+          <input id="edit-title" class="input" required maxlength="80">
+        </div>
+        <div class="field">
+          <label for="edit-column">Column</label>
+          <select id="edit-column" class="select">
+            <option value="todo">To do</option>
+            <option value="doing">In progress</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+        <div class="dialog__actions">
+          <button class="btn" value="cancel" formnovalidate>Cancel</button>
+          <button class="btn btn--primary" value="save">Save</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/state-heavy.js"></script>
+</body>
+</html>

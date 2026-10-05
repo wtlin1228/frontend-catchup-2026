@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Vitals on the page (observability, light)</title>
+  <meta name="description" content="Core Web Vitals measured by the page itself with PerformanceObserver.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 21 of 23: observability</p>
+      <!-- @include variant-nav.html -->
+      <h1>Vitals on the page</h1>
+      <p>The numbers Lighthouse reports, measured live by this page with PerformanceObserver: time to first byte, first and largest contentful paint, cumulative layout shift, the slowest interaction and long tasks. The buttons make them worse on purpose. The web-vitals library and framework dev tools wrap exactly these observers.</p>
+    </div>
+    <p class="cluster">
+      <button id="shift" class="btn" type="button">Cause a layout shift</button>
+      <button id="block" class="btn" type="button">Block the main thread for 300 ms</button>
+      <button id="slow" class="btn" type="button">Slow interaction (250 ms)</button>
+    </p>
+    <div id="before-table"></div>
+    <dl id="vitals" class="kv panel" style="max-width: 32rem"></dl>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/observe-light.js"></script>
+</body>
+</html>

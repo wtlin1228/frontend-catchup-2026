@@ -1,0 +1,33 @@
+.resizable { resize: horizontal; overflow: auto; max-width: 100%; width: min(100%, 40rem); min-width: 16rem; padding: var(--space-3); border: 1px dashed var(--border-strong); border-radius: var(--radius); container: card / inline-size; margin-bottom: var(--space-6); }
+
+/* Scoped: these rules cannot leak out of .card, and stop at .card__content-note (the "slot"). */
+@scope (.card) to (.card__content-note) {
+  :scope { display: grid; gap: var(--space-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-4); }
+  img { width: 100%; height: auto; border-radius: var(--radius-sm); }
+  h3 { margin: 0 0 var(--space-2); }
+  p { margin: 0 0 var(--space-2); color: var(--text-2); }
+}
+@container card (min-width: 26rem) {
+  .card { grid-template-columns: 10rem 1fr; align-items: start; }
+}
+
+@property --progress { syntax: "<percentage>"; inherits: false; initial-value: 20%; }
+.meter { --progress: 20%; height: 1rem; border-radius: 999px; margin-bottom: var(--space-6); max-width: 32rem; background: linear-gradient(to right, var(--accent) var(--progress), var(--surface-2) 0); transition: --progress 0.8s var(--ease); }
+.meter:hover { --progress: 100%; }
+
+.state-form { max-width: 28rem; margin-bottom: var(--space-6); }
+.state-form .field__error { display: none; }
+.state-form .field:has(input:user-invalid) .field__error { display: block; }
+.state-form .field:has(input:user-invalid) .input { border-color: var(--danger); }
+.state-form:has(input:invalid) button[type="submit"] { opacity: 0.5; pointer-events: none; }
+.state-form:has(input:valid) .submit-note { color: var(--success); }
+
+.direction { margin-bottom: var(--space-6); }
+.direction:has(#rtl:checked) .dir-demo { direction: rtl; }
+.dir-demo { margin-top: var(--space-3); padding-inline-start: var(--space-5); padding-block: var(--space-3); border-inline-start: 4px solid var(--accent); background: var(--bg-2); border-start-end-radius: var(--radius); border-end-end-radius: var(--radius); max-width: 40rem; margin-inline-end: var(--space-6); }
+.dir-demo p { margin: 0; }
+
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-4); }
+.feature-grid article { display: grid; grid-row: span 3; grid-template-rows: subgrid; gap: 0.5rem; padding: var(--space-4); border-radius: var(--radius); background: color-mix(in srgb, var(--accent) 8%, var(--surface)); border: 1px solid var(--border); }
+.feature-grid p { margin: 0; }
+.fluid { font-size: clamp(1.25rem, 1rem + 1.2vw, 2rem); margin: 0; }

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>CSS motion (motion, light) · Frontend Baseline</title>
+  <meta name="description" content="Transitions, entry animations and scroll-driven animation with CSS alone.">
+  <link rel="stylesheet" href="/src/pages/motion-light.css">
+</head>
+<body>
+  <!-- @include header.html -->
+  <div class="read-progress" aria-hidden="true"></div>
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 12 of 23: motion</p>
+      <!-- @include variant-nav.html -->
+      <h1>CSS motion</h1>
+      <p>No script. Hover and focus transitions, a panel that animates in and out with <code>@starting-style</code> and discrete transitions, a reading-progress bar driven by scroll, and items that reveal as they enter the viewport. Everything honours <code>prefers-reduced-motion</code>.</p>
+    </div>
+
+    <h2>Enter and leave</h2>
+    <button class="btn" type="button" popovertarget="panel">Toggle panel</button>
+    <div id="panel" popover class="panel-pop">
+      <p>This popover transitions opacity and translate on open and close. Discrete transitions on <code>display</code> and <code>overlay</code> keep it in the DOM while it fades out.</p>
+    </div>
+
+    <h2>Hover and focus</h2>
+    <div class="motion-cards">
+      <a class="motion-card" href="#">Static content</a>
+      <a class="motion-card" href="#">Forms</a>
+      <a class="motion-card" href="#">Dynamic data</a>
+    </div>
+
+    <h2>Scroll-driven reveal</h2>
+    <p class="muted">Scroll down. Each item fades and rises as it enters the viewport; the bar at the top of the page tracks reading progress. Both use <code>animation-timeline</code>.</p>
+    <ol class="reveal-list">
+      <li>Ask what the motion is for. Confirmation, orientation, or decoration.</li>
+      <li>Prefer transforms and opacity: they skip layout and paint.</li>
+      <li>Animate from a declared starting state, not from "whatever it was".</li>
+      <li>Keep durations short: 150 to 350 ms for interface motion.</li>
+      <li>Give every animation a reduced-motion fallback.</li>
+      <li>Let the platform drive it when it can: scroll, view and transition timelines.</li>
+      <li>Measure on a slow device, not on the machine it was built on.</li>
+      <li>Remove one animation before shipping.</li>
+    </ol>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>

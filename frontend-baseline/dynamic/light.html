@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Latest posts (dynamic, light) · Frontend Baseline</title>
+  <meta name="description" content="Fetch a list from an API and render it: loading state, error state, done.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 3 of 23: dynamic data and routing</p>
+      <!-- @include variant-nav.html -->
+      <h1>Latest posts</h1>
+      <p>The smallest dynamic page: request <code>/api/posts</code>, show a loading state, render the list, handle failure. No router, no cache, no URL state. Links go to the heavy variant, which has all of those.</p>
+    </div>
+    <div id="list" aria-busy="true"><p class="muted">Loading posts…</p></div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/dynamic-light.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Account (heavy) · Frontend Baseline</title>
+  <meta name="description" content="Theme, language and sign-in: the settings every page has to agree on.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 8 of 23: cross-cutting concerns</p>
+      <!-- @include variant-nav.html -->
+      <h1 data-i18n="account.title">Account</h1>
+      <p data-i18n="account.lead">Theme, language and sign-in: the settings every page has to agree on.</p>
+    </div>
+
+    <div id="next-notice" class="notice notice--info" hidden>
+      <p data-i18n="next.notice">Sign in to continue to the page you requested.</p>
+    </div>
+
+    <div class="account-grid">
+      <section class="panel">
+        <h2 data-i18n="theme.title">Theme</h2>
+        <p class="muted" data-i18n="theme.help">Applied before first paint by an inline script in &lt;head&gt;, so there is no flash of the wrong theme.</p>
+        <form id="theme-form" class="choices">
+          <label><input type="radio" name="theme" value="system"> <span data-i18n="theme.system">Match the system</span></label>
+          <label><input type="radio" name="theme" value="light"> <span data-i18n="theme.light">Light</span></label>
+          <label><input type="radio" name="theme" value="dark"> <span data-i18n="theme.dark">Dark</span></label>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2 data-i18n="lang.title">Language</h2>
+        <p class="muted" data-i18n="lang.help">Strings swap at runtime from a dictionary; the &lt;html lang&gt; attribute follows.</p>
+        <label for="lang" class="visually-hidden">Language</label>
+        <select id="lang" class="select"></select>
+      </section>
+
+      <section class="panel account-session">
+        <h2 data-i18n="session.title">Sign-in</h2>
+        <p class="muted" data-i18n="session.help">Any email works. The password is "demo". The server sets a cookie; protected content loads from /api/me.</p>
+        <div id="login-panel">
+          <form id="login-form" class="form">
+            <div class="field">
+              <label for="email" data-i18n="login.email">Email</label>
+              <input id="email" name="email" type="email" class="input" required autocomplete="username">
+            </div>
+            <div class="field">
+              <label for="password" data-i18n="login.password">Password</label>
+              <input id="password" name="password" type="password" class="input" required autocomplete="current-password">
+            </div>
+            <p id="login-error" class="field__error" role="alert"></p>
+            <button id="login-submit" class="btn btn--primary" type="submit" data-i18n="login.submit">Sign in</button>
+          </form>
+        </div>
+        <div id="profile-panel" hidden>
+          <p><span data-i18n="profile.signedInAs">Signed in as</span> <strong id="profile-name"></strong> (<span id="profile-email"></span>)</p>
+          <p class="muted" data-i18n="profile.hint">This block renders only after /api/me confirms the session. "New post" on the Posts page is guarded by the same cookie.</p>
+          <button id="logout" class="btn" type="button" data-i18n="logout">Sign out</button>
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/account-heavy.js"></script>
+</body>
+</html>

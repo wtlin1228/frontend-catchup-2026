@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Theme (cross-cutting, light) · Frontend Baseline</title>
+  <meta name="description" content="A theme switch that never flashes the wrong theme.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 8 of 23: cross-cutting concerns</p>
+      <!-- @include variant-nav.html -->
+      <h1>Theme</h1>
+      <p>One preference that every page must agree on before it paints. The read side is a five-line inline script in <code>&lt;head&gt;</code>; this page is the write side. Server-rendered frameworks have to solve the same thing with a cookie or the same inline script.</p>
+    </div>
+    <form id="theme-form" class="panel" style="max-width: 24rem; display: grid; gap: 0.5rem">
+      <label style="display: flex; gap: 0.5rem; align-items: center"><input type="radio" name="theme" value="system" style="accent-color: var(--accent)"> Match the system</label>
+      <label style="display: flex; gap: 0.5rem; align-items: center"><input type="radio" name="theme" value="light" style="accent-color: var(--accent)"> Light</label>
+      <label style="display: flex; gap: 0.5rem; align-items: center"><input type="radio" name="theme" value="dark" style="accent-color: var(--accent)"> Dark</label>
+    </form>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/account-light.js"></script>
+</body>
+</html>

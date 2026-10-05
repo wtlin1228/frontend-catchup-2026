@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Contact form (heavy) · Frontend Baseline</title>
+  <meta name="description" content="A contact form that works without JavaScript and gets better with it.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 2 of 23: forms</p>
+      <!-- @include variant-nav.html -->
+      <h1>Contact</h1>
+      <p>Native form first, JavaScript second. With scripts disabled the page still submits, validates on the server and comes back with a result. With scripts, you get inline messages, no reload, a pending state and server errors mapped onto fields.</p>
+    </div>
+
+    <div class="contact-layout">
+      <form id="contact-form" class="form panel" action="/api/contact" method="post">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" class="input" required minlength="2" autocomplete="name">
+          <p class="field__error" id="name-error"></p>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="input" required autocomplete="email">
+          <p class="field__hint">Try an address ending in @example.com to see a server-only validation error.</p>
+          <p class="field__error" id="email-error"></p>
+        </div>
+        <div class="field">
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic" class="select" required>
+            <option value="">Choose a topic</option>
+            <option value="sales">Sales</option>
+            <option value="support">Support</option>
+            <option value="other">Something else</option>
+          </select>
+          <p class="field__error" id="topic-error"></p>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="textarea" required minlength="10" maxlength="1000" rows="5"></textarea>
+          <p class="field__hint"><span id="message-count">0</span> / 1000</p>
+          <p class="field__error" id="message-error"></p>
+        </div>
+        <div class="field">
+          <label for="attachment">Attachment (optional, up to 5 MB)</label>
+          <input id="attachment" name="attachment" type="file" accept="image/*,.pdf,.txt">
+          <input type="hidden" name="attachmentId" id="attachment-id">
+          <div id="attachment-status" class="attachment" hidden>
+            <img id="attachment-thumb" alt="" width="48" height="48" hidden>
+            <span id="attachment-name"></span>
+            <progress id="attachment-progress" max="100" value="0"></progress>
+            <button id="attachment-cancel" class="btn btn--sm" type="button">Cancel</button>
+          </div>
+          <p class="field__hint">Uploaded as soon as it is chosen, with progress. The server throttles on purpose.</p>
+          <p class="field__error" id="attachment-error"></p>
+        </div>
+        <div class="field field--check">
+          <input id="consent" name="consent" type="checkbox" required>
+          <label for="consent">You may contact me about this request.</label>
+          <p class="field__error" id="consent-error"></p>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div class="cluster">
+          <button id="send" class="btn btn--primary" type="submit">Send message</button>
+          <span id="draft-note" class="muted"></span>
+        </div>
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="contact-notes stack">
+        <div class="notice notice--info">
+          <p><strong>What this page exercises</strong></p>
+          <ul>
+            <li>Constraint Validation API for messages, with <code>novalidate</code> added by script only.</li>
+            <li>Validation on blur, then live after a field was touched.</li>
+            <li>Submission via <code>fetch</code> with the same <code>action</code> the plain form uses.</li>
+            <li>Field errors returned by the server (400) rendered next to the inputs.</li>
+            <li>Draft kept in <code>sessionStorage</code> until it is sent.</li>
+            <li>A honeypot field instead of a captcha.</li>
+            <li>A file upload with progress via <code>XMLHttpRequest</code>, cancellable, referenced by id on submit.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div id="contact-success" class="notice notice--success" hidden>
+      <p><strong>Message sent.</strong> Your ticket is <code id="ticket-id"></code>. Expect a reply within two working days.</p>
+      <button id="send-another" class="btn btn--sm" type="button">Send another message</button>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/forms-heavy.js"></script>
+</body>
+</html>

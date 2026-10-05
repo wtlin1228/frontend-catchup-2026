@@ -1,0 +1,9 @@
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: var(--space-3); margin-bottom: var(--space-6); }
+.swatch { height: 4.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; align-items: flex-end; padding: 0.4rem; font-size: 0.78rem; font-family: var(--font-mono); }
+.scale { list-style: none; padding: 0; margin: 0 0 var(--space-4); }
+.scale li { line-height: 1.2; margin-bottom: 0.4rem; }
+.spaces { display: flex; gap: 0.5rem; align-items: flex-end; margin-bottom: var(--space-6); }
+.spaces span { display: inline-block; height: 2rem; background: var(--accent); border-radius: 2px; }
+@layer base, theme;
+@layer theme { .layered { background: var(--accent-soft); padding: var(--space-4); border-radius: var(--radius-sm); margin-bottom: var(--space-4); } }
+@layer base { .layered { background: var(--surface-2); } }

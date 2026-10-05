@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Installable (offline, light) · Frontend Baseline</title>
+  <meta name="description" content="A web app manifest, an install prompt and a connectivity indicator.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#e76125">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 13 of 23: offline and installable</p>
+      <!-- @include variant-nav.html -->
+      <h1>Installable</h1>
+      <p>A manifest, two icons and a theme colour make the site installable. The script here only wires the install prompt and shows whether the browser thinks it is online. The heavy variant adds the service worker that makes "installed" mean something when the network is gone.</p>
+    </div>
+    <div class="panel stack" style="max-width: 32rem">
+      <p>Connection: <strong id="conn">checking</strong></p>
+      <p id="mode" class="muted">Running in a browser tab.</p>
+      <p><button id="install" class="btn btn--primary" type="button" hidden>Install this site</button> <span id="install-status" class="muted">Install prompt not offered yet (needs HTTPS or localhost, and a browser that supports it).</span></p>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/offline-light.js"></script>
+</body>
+</html>

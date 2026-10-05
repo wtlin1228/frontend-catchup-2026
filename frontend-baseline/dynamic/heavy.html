@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Posts (heavy) · Frontend Baseline</title>
+  <meta name="description" content="A small single-page app: client-side routing, data fetching, caching and a guarded mutation.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 3 of 23: dynamic data and routing</p>
+      <!-- @include variant-nav.html -->
+      <h1>Posts</h1>
+      <p>A small single-page app inside a multi-page site. The URL hash carries the route and the search query; data comes from <code>/api/posts</code> with artificial latency so loading states stay visible. The like button on a post updates optimistically and rolls back when the flaky endpoint fails.</p>
+    </div>
+    <p id="route-announcer" class="visually-hidden" aria-live="polite"></p>
+    <div id="app"></div>
+    <noscript>
+      <p class="notice notice--warning">This page is client-rendered on purpose and needs JavaScript. In each framework, compare it with a server-rendered version of the same page.</p>
+    </noscript>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/dynamic-heavy.js"></script>
+</body>
+</html>

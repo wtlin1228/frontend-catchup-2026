@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Grid (data grid, heavy) · Frontend Baseline</title>
+  <meta name="description" content="Fifty thousand rows: virtual scrolling, sorting and filtering in a worker, selection, keyboard navigation, CSV export.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 10 of 23: data grid</p>
+      <!-- @include variant-nav.html -->
+      <h1>Grid</h1>
+      <p>Rows are generated in a Web Worker. Only the rows in view exist in the DOM. Sorting and filtering run in the worker or, for comparison, on the main thread, where you can feel the difference while typing. Rows can be selected with the mouse or keyboard and exported as CSV.</p>
+    </div>
+    <div class="grid-toolbar">
+      <label>Rows
+        <select id="rows" class="select">
+          <option value="1000">1,000</option>
+          <option value="50000" selected>50,000</option>
+          <option value="200000">200,000</option>
+        </select>
+      </label>
+      <label for="filter" class="visually-hidden">Filter rows</label>
+      <input id="filter" class="input" type="search" placeholder="Filter by name, team or status" style="max-width: 18rem" autocomplete="off">
+      <fieldset>
+        <legend>Sort and filter on</legend>
+        <label><input type="radio" name="compute" value="worker" checked> Worker</label>
+        <label><input type="radio" name="compute" value="main"> Main thread</label>
+      </fieldset>
+      <button id="export" class="btn" type="button">Export CSV</button>
+      <span id="status" class="muted" aria-live="polite"></span>
+    </div>
+    <div id="viewport" class="grid-viewport" tabindex="0" role="grid" aria-label="Rows" aria-rowcount="0" aria-multiselectable="true">
+      <div class="grid-row grid-row--head" role="row" id="head"></div>
+      <div id="spacer" class="grid-spacer"><div id="rows-container" class="grid-rows"></div></div>
+    </div>
+    <p id="selection" class="muted" style="margin-top: var(--space-3)">No rows selected. Click selects, shift-click extends, arrow keys move, space toggles.</p>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/table-heavy.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Morph, do not replace (morphing, light) · Frontend Baseline</title>
+  <meta name="description" content="A server-rendered fragment is fetched every three seconds. Replacing it with innerHTML throws away whatever was in the DOM: focus, the text you typed, the order of nodes. Morphing walks both trees and changes only what differs. Type in the box and wait.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 18 of 23: morphing and streaming HTML</p>
+      <!-- @include variant-nav.html -->
+      <h1>Morph, do not replace</h1>
+      <p>A server-rendered fragment is fetched every three seconds. Replacing it with innerHTML throws away whatever was in the DOM: focus, the text you typed, the order of nodes. Morphing walks both trees and changes only what differs. Type in the box and wait.</p>
+    </div>
+    <p class="cluster">
+      <label class="switch"><input type="radio" name="mode" value="morph" checked> Morph</label>
+      <label class="switch"><input type="radio" name="mode" value="replace"> Replace with innerHTML</label>
+      <span class="muted">Typed text lost <strong id="lost">0</strong> times. Next refresh in <span id="countdown">3</span>s.</span>
+    </p>
+    <div id="target"></div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/morph-light.js"></script>
+</body>
+</html>

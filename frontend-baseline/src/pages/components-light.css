@@ -1,0 +1,9 @@
+.widgets { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); align-items: start; }
+details { border-bottom: 1px solid var(--border); padding: 0.5rem 0; }
+summary { cursor: pointer; font-weight: 500; }
+details p { margin: 0.5rem 0 0; color: var(--text-2); }
+#actions-button { anchor-name: --actions; }
+.popover-menu { position: absolute; inset: auto; position-anchor: --actions; top: anchor(bottom); left: anchor(left); margin: 0.3rem 0 0; min-width: 11rem; padding: 0.3rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); color: var(--text); }
+@supports not (anchor-name: --x) { .popover-menu { inset: 1rem auto auto 1rem; } }
+.popover-menu a { display: block; padding: 0.4rem 0.6rem; border-radius: var(--radius-sm); color: inherit; text-decoration: none; }
+.popover-menu a:hover, .popover-menu a:focus-visible { background: var(--surface-2); }

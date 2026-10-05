@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Catch everything (error boundaries, light)</title>
+  <meta name="description" content="Global error and rejection handlers that report every uncaught failure.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 20 of 23: error boundaries</p>
+      <!-- @include variant-nav.html -->
+      <h1>Catch everything</h1>
+      <p>Two listeners, one for thrown errors and one for rejected promises nobody awaited, plus a beacon to the server. Nothing is recovered here; the point is that nothing is lost. Frameworks add the recovery part on top, which is the heavy variant.</p>
+    </div>
+    <p class="cluster">
+      <button id="throw" class="btn" type="button">Throw in a timer</button>
+      <button id="reject" class="btn" type="button">Reject a promise</button>
+      <button id="fetch" class="btn" type="button">Fetch something missing</button>
+      <button id="report" class="btn" type="button">reportError()</button>
+    </p>
+    <p class="muted">Reports sent: <strong id="count">0</strong>, server has <strong id="server">0</strong>.</p>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/errors-light.js"></script>
+</body>
+</html>

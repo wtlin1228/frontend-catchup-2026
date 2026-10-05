@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Table (data grid, light) · Frontend Baseline</title>
+  <meta name="description" content="A sortable, filterable table of sixty rows.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 10 of 23: data grid</p>
+      <!-- @include variant-nav.html -->
+      <h1>Table</h1>
+      <p>Sixty rows in a real <code>&lt;table&gt;</code>: click a header to sort, type to filter. The whole body is re-rendered on each change, which is fine at this size and the reason the heavy variant exists.</p>
+    </div>
+    <div class="cluster" style="margin-bottom: var(--space-3)">
+      <label for="filter" class="visually-hidden">Filter rows</label>
+      <input id="filter" class="input" type="search" placeholder="Filter by name, team or status" style="max-width: 20rem" autocomplete="off">
+      <span id="count" class="muted"></span>
+    </div>
+    <table class="data-table"><thead><tr id="head"></tr></thead><tbody id="body"></tbody></table>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/table-light.js"></script>
+</body>
+</html>

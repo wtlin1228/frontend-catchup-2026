@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+  <!-- @include head.html -->
+  <title>A strict policy (security, light)</title>
+  <meta name="description" content="A strict Content-Security-Policy with build-time hashes, and what it blocks.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 22 of 23: security hardening</p>
+      <!-- @include variant-nav.html -->
+      <h1>A strict policy</h1>
+      <p>This page carries a Content-Security-Policy that allows scripts only from this origin plus the hashes of its own inline scripts, which the build computes. The theme reader in the head is one of them: every framework with an inline bootstrap or an inline hydration script has the same problem to solve, with a nonce or a hash. Try the buttons and watch the violation log.</p>
+    </div>
+    <p class="cluster">
+      <button id="eval" class="btn" type="button">Try eval</button>
+      <button id="inline" class="btn" type="button">Inject an inline onclick</button>
+      <button id="third" class="btn" type="button">Load a third-party script</button>
+    </p>
+    <div id="injected"></div>
+    <h2>Policy in effect</h2>
+    <pre><code id="policy"></code></pre>
+    <h2>Violations</h2>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/security-light.js"></script>
+</body>
+</html>

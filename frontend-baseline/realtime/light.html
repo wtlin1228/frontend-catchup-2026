@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Status (real-time, light) · Frontend Baseline</title>
+  <meta name="description" content="Poll one endpoint every two seconds and show the result.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 6 of 23: real-time updates</p>
+      <!-- @include variant-nav.html -->
+      <h1>Status</h1>
+      <p>Polling: a timer, a fetch, three text nodes. It stops while the tab is hidden and resumes when it is shown. Still the right answer for a surprising share of "live" data.</p>
+    </div>
+    <div class="panel" style="max-width: 32rem">
+      <p style="font-size: 1.5rem; margin-bottom: 0.25rem"><strong id="online">–</strong> visitors online</p>
+      <p class="muted" style="margin-bottom: 0.25rem">Server load <span id="load">–</span></p>
+      <p class="muted" style="margin: 0">Server time <time id="time">–</time>, updated <span id="updated">never</span></p>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/realtime-light.js"></script>
+</body>
+</html>

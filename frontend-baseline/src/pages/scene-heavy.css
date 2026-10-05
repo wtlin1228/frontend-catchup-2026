@@ -1,0 +1,9 @@
+.scene { display: grid; grid-template-columns: minmax(0, 1fr) 16rem; gap: var(--space-5); align-items: start; }
+@media (max-width: 56rem) { .scene { grid-template-columns: 1fr; } }
+.scene__canvas { position: relative; aspect-ratio: 16 / 10; background: radial-gradient(circle at 50% 40%, var(--surface-2), var(--bg-2) 70%); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.scene__canvas canvas { width: 100%; height: 100%; touch-action: none; }
+.scene__status { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--text-2); }
+.scene__panel .field { margin-bottom: var(--space-3); }
+.scene__panel input[type="color"] { width: 3.5rem; height: 2rem; padding: 0.1rem; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); }
+.scene__panel input[type="range"] { width: 100%; accent-color: var(--accent); }
+.scene__stats { margin: var(--space-3) 0 0; font-variant-numeric: tabular-nums; font-size: 0.9rem; }

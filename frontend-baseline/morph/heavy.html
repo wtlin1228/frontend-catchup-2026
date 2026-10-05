@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Streamed HTML and moveBefore (morphing, heavy) · Frontend Baseline</title>
+  <meta name="description" content="Two things frameworks hide: a response that arrives in pieces (streaming SSR, htmx 4 streaming, Turbo) applied progressively by morphing the partial document each time a chunk lands, and reordering nodes without resetting their state, which Element.moveBefore does where supported and insertBefore cannot.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 18 of 23: morphing and streaming HTML</p>
+      <!-- @include variant-nav.html -->
+      <h1>Streamed HTML and moveBefore</h1>
+      <p>Two things frameworks hide: a response that arrives in pieces (streaming SSR, htmx 4 streaming, Turbo) applied progressively by morphing the partial document each time a chunk lands, and reordering nodes without resetting their state, which Element.moveBefore does where supported and insertBefore cannot.</p>
+    </div>
+    <div class="two-col">
+      <section class="panel stack">
+        <h2>Streamed fragment</h2>
+        <p class="muted">Six chunks over about two seconds, each morphed in as it arrives.</p>
+        <button id="stream" class="btn btn--primary" type="button">Stream it</button>
+        <div id="stream-target"><p class="muted">Nothing streamed yet.</p></div>
+        <p id="stream-status" class="muted"></p>
+      </section>
+      <section class="panel stack">
+        <h2>Reorder without resetting</h2>
+        <p class="muted">Each bar is a 30-second CSS animation. Reversing with insertBefore restarts them; moveBefore keeps them running.</p>
+        <p class="cluster"><button id="reverse-insert" class="btn" type="button">Reverse with insertBefore</button><button id="reverse-move" class="btn" type="button">Reverse with moveBefore</button></p>
+        <ul id="bars" class="stack" style="list-style: none; padding: 0"></ul>
+        <p id="move-support" class="muted"></p>
+      </section>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/morph-heavy.js"></script>
+</body>
+</html>

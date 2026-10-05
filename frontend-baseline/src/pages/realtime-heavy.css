@@ -1,0 +1,27 @@
+.dash-toolbar { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); align-items: center; margin-bottom: var(--space-5); }
+.dash-status { margin: 0; display: inline-flex; align-items: center; gap: 0.5rem; min-width: 9rem; }
+.dot { width: 0.65rem; height: 0.65rem; border-radius: 50%; background: var(--text-2); display: inline-block; }
+.dot[data-state="live"] { background: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 25%, transparent); }
+.dot[data-state="connecting"], .dot[data-state="reconnecting"] { background: var(--warning); }
+.dot[data-state="closed"] { background: var(--danger); }
+.dash-rate { display: inline-flex; align-items: center; gap: 0.5rem; }
+.dash-rate .select { width: auto; }
+.dash-strategy { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.35rem 0.75rem; margin: 0; display: inline-flex; gap: var(--space-3); align-items: center; }
+.dash-strategy legend { font-size: 0.8rem; color: var(--text-2); padding: 0 0.25rem; }
+.dash-strategy input { accent-color: var(--accent); }
+.dash-perf { margin: 0; font-variant-numeric: tabular-nums; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+.metric { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-4); }
+.metric__label { font-size: 0.9rem; font-weight: 500; color: var(--text-2); margin: 0 0 0.25rem; }
+.metric__value { font-size: 2rem; font-weight: 600; margin: 0 0 var(--space-2); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.spark { width: 100%; height: 3.5rem; overflow: visible; }
+.spark__line { fill: none; stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.spark__area { fill: var(--accent); opacity: 0.12; }
+.metric__stats { margin: var(--space-2) 0 0; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.log { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.log th { text-align: left; font-weight: 500; color: var(--text-2); border-bottom: 1px solid var(--border); padding: 0.4rem 0.5rem; }
+.log td { padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.log td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--text-2); }
+.level { font-size: 0.75rem; padding: 0.05rem 0.45rem; border-radius: 999px; background: var(--surface-2); }
+.log__row--warn .level { background: color-mix(in srgb, var(--warning) 20%, transparent); color: var(--warning); }
+.log__row--error .level { background: color-mix(in srgb, var(--danger) 15%, transparent); color: var(--danger); }

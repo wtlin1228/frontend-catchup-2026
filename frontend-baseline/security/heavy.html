@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types baseline 'allow-duplicates'">
+  <!-- @include head.html -->
+  <title>Untrusted input, handled (security, heavy)</title>
+  <meta name="description" content="Trusted Types, a sanitiser for untrusted HTML and CSRF protection on a form.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 22 of 23: security hardening</p>
+      <!-- @include variant-nav.html -->
+      <h1>Untrusted input, handled</h1>
+      <p>Three defences in one page. Trusted Types make every assignment to innerHTML go through a named policy, so unsanitised HTML cannot reach the DOM even by accident. The policy runs an allow-list sanitiser. And a form carries a CSRF token that must match a cookie, which the mock API checks.</p>
+    </div>
+    <div class="two-col">
+      <section class="panel stack">
+        <h2>Sanitised HTML</h2>
+        <textarea id="raw" class="textarea" rows="5">&lt;p&gt;Hello &lt;b&gt;world&lt;/b&gt; &lt;img src=x onerror="alert(1)"&gt; &lt;a href="javascript:alert(1)"&gt;link&lt;/a&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/p&gt;</textarea>
+        <p class="cluster"><button id="render" class="btn btn--primary" type="button">Render through the policy</button><button id="raw-inject" class="btn" type="button">Try raw innerHTML</button></p>
+        <div id="preview" class="notice"></div>
+        <p id="tt" class="muted"></p>
+      </section>
+      <section class="panel stack">
+        <h2>CSRF on a form</h2>
+        <form id="secure" class="stack">
+          <input name="value" class="input" placeholder="A value to submit" autocomplete="off">
+          <p class="cluster"><button class="btn btn--primary" type="submit">Submit with token</button><button id="without" class="btn" type="button">Submit without token</button></p>
+        </form>
+        <p id="csrf-out" class="muted"></p>
+      </section>
+    </div>
+    <h2 style="margin-top: var(--space-6)">Log</h2>
+    <ol id="log" class="log-list"></ol>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/security-heavy.js"></script>
+</body>
+</html>

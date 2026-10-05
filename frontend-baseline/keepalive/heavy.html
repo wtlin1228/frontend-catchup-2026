@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Tabs that remember (keep-alive, heavy) · Frontend Baseline</title>
+  <meta name="description" content="Three tabs with state worth keeping: a scrolled list, a half-written form and a running animation. In keep-alive mode a hidden tab stays in the DOM, hidden and inert, with its animation paused. In destroy mode each switch rebuilds the tab, and the counters show what that costs. React's Activity, Vue's KeepAlive and Angular's route reuse are the framework versions of the first mode.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 15 of 23: state across navigation</p>
+      <!-- @include variant-nav.html -->
+      <h1>Tabs that remember</h1>
+      <p>Three tabs with state worth keeping: a scrolled list, a half-written form and a running animation. In keep-alive mode a hidden tab stays in the DOM, hidden and inert, with its animation paused. In destroy mode each switch rebuilds the tab, and the counters show what that costs. React's Activity, Vue's KeepAlive and Angular's route reuse are the framework versions of the first mode.</p>
+    </div>
+    <p><label class="switch"><input type="checkbox" id="keep" checked> Keep hidden tabs alive</label></p>
+    <div class="tabbar" role="tablist" id="tabs" aria-label="Views"></div>
+    <div id="panels"></div>
+    <p id="stats" class="muted" style="margin-top: var(--space-4)"></p>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/keepalive-heavy.js"></script>
+</body>
+</html>

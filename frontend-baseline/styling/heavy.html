@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Scoped, contained, typed (styling, heavy)</title>
+  <meta name="description" content="Component-scoped styles, container queries, typed custom properties, :has(), logical properties and a CSS-only direction switch.">
+  <link rel="stylesheet" href="/src/pages/styling-heavy.css">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 23 of 23: styling strategy</p>
+      <!-- @include variant-nav.html -->
+      <h1>Scoped, contained, typed</h1>
+      <p>No script. What scoped styles, CSS Modules and CSS-in-JS exist to provide, done with the platform: @scope keeps a component's rules inside it, container queries make a card respond to its own width, @property makes a custom property animatable, :has() styles a form from the state of its inputs, and logical properties flip correctly when the direction changes.</p>
+    </div>
+
+    <h2>Container queries</h2>
+    <p class="muted">Drag the corner of the box to resize it. The card switches layout based on the box, not the viewport.</p>
+    <div class="resizable">
+      <article class="card">
+        <img src="/images/photo-13-400.png" width="400" height="300" alt="Generated landscape 13" loading="lazy">
+        <div class="card__content">
+          <h3>Dusk on the plateau</h3>
+          <p>At narrow widths the image sits on top; past 26rem of container width it moves to the side.</p>
+          <p class="card__content-note">This paragraph is a slot: the card's scope stops here, so page styles apply to it.</p>
+        </div>
+      </article>
+    </div>
+
+    <h2>Typed custom property</h2>
+    <p class="muted">Hover the bar. The transition works because --progress is registered as a percentage, so the browser can interpolate it.</p>
+    <div class="meter" aria-hidden="true"></div>
+
+    <h2>Form state with :has()</h2>
+    <form class="state-form">
+      <div class="field">
+        <label for="email">Email (type something invalid, then leave the field)</label>
+        <input id="email" class="input" type="email" required placeholder="name@company.example">
+        <p class="field__error">Enter a valid address.</p>
+      </div>
+      <p class="submit-note">The button becomes enabled by CSS when the form has no invalid field.</p>
+      <button class="btn btn--primary" type="submit">Continue</button>
+    </form>
+
+    <h2>Logical properties and direction</h2>
+    <div class="direction">
+      <label class="switch"><input type="checkbox" id="rtl"> Right-to-left</label>
+      <div class="dir-demo">
+        <p>This block uses <code>padding-inline-start</code>, <code>border-inline-start</code> and <code>margin-inline-end</code>. Tick the box: the layout mirrors without any rule mentioning left or right. The switch itself is CSS, with <code>:has()</code>.</p>
+      </div>
+    </div>
+
+    <h2>Fluid type and subgrid</h2>
+    <div class="feature-grid">
+      <article><h3 class="fluid">clamp()</h3><p>Headings size between 1.25rem and 2rem with the viewport.</p><p class="muted">Row 1</p></article>
+      <article><h3 class="fluid">subgrid</h3><p>Headings, bodies and footers align across cards because each card inherits the parent's rows.</p><p class="muted">Row 2 aligned</p></article>
+      <article><h3 class="fluid">color-mix()</h3><p>The background mixes the accent into the surface.</p><p class="muted">Row 3 aligned</p></article>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+</body>
+</html>
