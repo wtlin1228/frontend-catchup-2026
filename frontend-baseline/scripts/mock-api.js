@@ -5,9 +5,19 @@
 //   GET  /api/posts?q=&tag=&page=&limit=   paginated list (no body field)
 //   GET  /api/posts/:id                    one post
 //   POST /api/posts                        create (requires session cookie)
+//   POST /api/posts/:id/like               toggle a like; fails 30% of the time on purpose
+//   POST /api/subscribe                    newsletter form, JSON or form-encoded
 //   POST /api/contact                      JSON (fetch) or form-encoded (plain <form>) submission
+//   PUT  /api/upload                       throttled upload, 5 MB limit
 //   POST /api/login  /api/logout  GET /api/me
+//   GET  /api/status                       one JSON sample for polling
 //   GET  /api/stream?hz=10                 server-sent events: `metric` and `log` events
+//   POST /api/rpc                          server functions, one call or a batch; GET /api/rpc/live?fn= subscribes over SSE
+//   GET  /api/sync?since=  POST /api/sync  GET /api/sync/stream   versioned change log, idempotent pushes, live changes
+//   GET  /api/fragment/status  /api/fragment/stream   server-rendered HTML, whole and chunked
+//   POST /api/errors  GET /api/flaky       error reports; an endpoint that fails half the time
+//   GET  /api/csrf  POST /api/secure-action   double-submit CSRF token and the action that checks it
+//   *    /navigation/app/*                 serves navigation/heavy.html, the app shell for the Navigation API page
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
@@ -155,6 +165,8 @@ export function mockApi({ dataFile = 'public/data/posts.json' } = {}) {
         author: user.name,
         date: new Date().toISOString().slice(0, 10),
         readingMinutes: Math.max(1, Math.round(text.split(/\s+/).length / 200)),
+        likes: 0,
+        liked: false,
       };
       all.push(created);
       return json(res, 201, created);
@@ -410,7 +422,7 @@ function json(res, status, body, headers = {}) {
 function page(res, status, title, body, back = '/forms/heavy.html') {
   res.writeHead(status, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' });
   res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>
-<style>body{font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;line-height:1.5}a{color:#c24f1a}</style></head>
+<style>@view-transition{navigation:auto}body{font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem;line-height:1.5}a{color:#c24f1a}</style></head>
 <body><h1>${title}</h1>${body}<p><a href="${back}">Back to the form</a></p></body></html>`);
 }
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

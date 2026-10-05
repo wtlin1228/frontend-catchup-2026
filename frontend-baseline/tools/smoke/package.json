@@ -1,0 +1,13 @@
+{
+  "name": "frontend-baseline-smoke",
+  "private": true,
+  "type": "module",
+  "description": "Browser smoke tests for the baseline. Kept out of the root package.json so the project's dependency count stays honest.",
+  "scripts": {
+    "pages": "node pages.mjs",
+    "flows": "node flows.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

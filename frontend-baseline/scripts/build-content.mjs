@@ -88,7 +88,8 @@ articles.forEach((a, i) => {
     title: a.meta.title,
     description: a.meta.description,
     head: `  <meta property="og:type" content="article">\n  <meta property="article:published_time" content="${a.meta.date}">\n`,
-    body: `    <div class="page-header">
+    body: `    <!-- @variant heavy -->
+    <div class="page-header">
 ${patternHeader}
       <p><a href="/content/heavy.html">All articles</a></p>
       <h1>${escape(a.meta.title)}</h1>

@@ -20,6 +20,7 @@ pnpm install
 pnpm dev       # http://localhost:5173, generates images and content pages first
 pnpm build     # dist/ with per-page assets: compare sizes here
 pnpm preview   # serves dist/ with the same mock API
+pnpm check     # builds, then checks every page's links, assets and structure
 ```
 
 Requires Node 22 and pnpm (`corepack enable` picks the version from `packageManager`). Generated files (`public/images`, `content/`, feed, sitemap, icons) are git-ignored and rebuilt before `dev` and `build`.
@@ -172,7 +173,7 @@ For each: the pages, what the pattern is, why it matters, and where the frontend
 
 ### Still under consideration
 
-From `docs/landscape-2026.md`: agent-ready UI beyond the registered contact form (WebMCP over a whole page), compile targets inside one framework (Vue Vapor on or off, React Compiler on or off) as a measurement, and the caching model as an explicit measurement on pattern 3.
+From `docs/landscape-2026.md`: agent-ready UI as a page of its own. Today the contact form and the dynamic heavy page register their actions as WebMCP tools where `document.modelContext` exists; the candidate is a page whose every action is a tool with a schema, plus structured data. Compile targets inside one framework (Vue Vapor on or off, React Compiler on or off) and the caching model on pattern 3 are rows in the measurements table in `docs/README.md`.
 
 ## Patterns considered and left out
 
@@ -203,7 +204,7 @@ From `docs/landscape-2026.md`: agent-ready UI beyond the registered contact form
 
 ## Survey
 
-Each framework has a sheet in `docs/<name>.md`: what it is, how all thirteen patterns map onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric.
+Each framework has a sheet in `docs/<name>.md`: what it is, how each pattern maps onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric.
 
 ## Layout
 
@@ -219,6 +220,7 @@ src/lib/                   shared plumbing (see above)
 src/styles/                tokens (light-dark()), base styles
 src/data/gallery.json      generated build-time data
 public/                    mock database, generated images, manifest, service worker
-scripts/                   Vite plugins, content build, image generator
+scripts/                   Vite plugins, content build, image generator, dist checker (pnpm check)
+tools/smoke/               headless-Chrome page and flow tests, own package.json (see its README)
 docs/                      one sheet per framework, survey guide, template
 ```

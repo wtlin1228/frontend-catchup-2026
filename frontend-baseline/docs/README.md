@@ -29,14 +29,14 @@ Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](lan
 
 ## Patterns 14 to 23
 
-The framework sheets map patterns 1 to 13 in detail. Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review; `_template.md` has rows for them, and each sheet's "From the 2025–26 blog" section names the framework feature that covers the most important ones. Fill the rows in while porting.
+Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Fourteen sheets map them; [angular.md](angular.md), [qwik.md](qwik.md) and [sveltekit.md](sveltekit.md) still stop at row 13 and need the rows from `_template.md`. Rows written from memory rather than from a port end in "(verify)": confirm those against the current docs while porting.
 
 ## Procedure
 
 1. Read the sheet. Write down the current version and anything that changed since the sheet was written.
 2. Scaffold with the framework's official starter. Record dependency count and install size.
 3. Register `scripts/mock-api.js` (and `html-partials.js` if the framework has no layouts) in the framework's Vite config, or run the mock API as a separate process. Every port must talk to the same API.
-4. Port the light pages in order 1 to 13, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
+4. Port the light pages in order 1 to 23, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
 5. Measure (below). Fill in the rubric the same day.
 6. File the implementation under `impl/<name>/` (or a sibling repository) and link it from the sheet.
 
@@ -58,6 +58,8 @@ The framework sheets map patterns 1 to 13 in detail. Patterns 14 to 23 (async co
 | Install and dependency count, lifecycle scripts | Project | `pnpm ls --depth=0`, `du -sh node_modules`, `npm query ":attr(scripts, [postinstall])"` |
 | Build time, cold and warm | Project | `time pnpm build` twice |
 | Server throughput for the dynamic heavy page | Project (SSR ports) | `autocannon` or `oha` against the route, 10 s |
+| Caching model | Dynamic heavy | How invalidation is expressed (`invalidate`, tags, `"use cache"`, route caching, CDN providers), what is cached where, and what a like does to the cached list |
+| Compile targets inside one framework | State heavy, real-time heavy | Where a framework has two modes (Vue Vapor on or off, React Compiler on or off, Svelte runes or legacy), record shipped bytes and the on-page render numbers for both |
 
 ## Rubric
 

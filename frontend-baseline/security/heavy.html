@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types baseline 'allow-duplicates'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'; require-trusted-types-for 'script'; trusted-types baseline baseline-parse 'allow-duplicates'">
   <!-- @include head.html -->
   <title>Untrusted input, handled (security, heavy)</title>
   <meta name="description" content="Trusted Types, a sanitiser for untrusted HTML and CSRF protection on a form.">
@@ -13,7 +13,7 @@
       <p class="pattern">Pattern 22 of 23: security hardening</p>
       <!-- @include variant-nav.html -->
       <h1>Untrusted input, handled</h1>
-      <p>Three defences in one page. Trusted Types make every assignment to innerHTML go through a named policy, so unsanitised HTML cannot reach the DOM even by accident. The policy runs an allow-list sanitiser. And a form carries a CSRF token that must match a cookie, which the mock API checks.</p>
+      <p>Three defences in one page. Trusted Types make every assignment to innerHTML go through a named policy, so unsanitised HTML cannot reach the DOM even by accident. The policy runs an allow-list sanitiser; parsing the untrusted string is a sink as well, so a second, parse-only policy feeds that step. And a form carries a CSRF token that must match a cookie, which the mock API checks.</p>
     </div>
     <div class="two-col">
       <section class="panel stack">

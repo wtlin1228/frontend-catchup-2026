@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' {{csp-hashes}}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ws: wss:; object-src 'none'; base-uri 'none'; form-action 'self'">
   <!-- @include head.html -->
   <title>A strict policy (security, light)</title>
   <meta name="description" content="A strict Content-Security-Policy with build-time hashes, and what it blocks.">
@@ -13,7 +13,7 @@
       <p class="pattern">Pattern 22 of 23: security hardening</p>
       <!-- @include variant-nav.html -->
       <h1>A strict policy</h1>
-      <p>This page carries a Content-Security-Policy that allows scripts only from this origin plus the hashes of its own inline scripts, which the build computes. The theme reader in the head is one of them: every framework with an inline bootstrap or an inline hydration script has the same problem to solve, with a nonce or a hash. Try the buttons and watch the violation log.</p>
+      <p>This page carries a Content-Security-Policy that allows scripts only from this origin plus the hashes of its own inline scripts, which the build computes. The theme reader in the head is one of them: every framework with an inline bootstrap or an inline hydration script has the same problem to solve, with a nonce or a hash. Try the buttons and watch the violation log. One directive is missing on purpose: <code>frame-ancestors</code> is ignored in a <code>&lt;meta&gt;</code> tag and only works as a response header, so clickjacking protection stays the server's job.</p>
     </div>
     <p class="cluster">
       <button id="eval" class="btn" type="button">Try eval</button>

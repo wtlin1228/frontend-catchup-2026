@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import { basename, relative, resolve, sep } from 'node:path';
 
 const INCLUDE = /<!--\s*@include\s+([\w./-]+)\s*-->/g;
+// `<!-- @variant heavy -->` marks a page that is not named light.html or heavy.html (generated articles) as one of the two.
+const VARIANT = /<!--\s*@variant\s+(\w+)\s*-->\n?/;
 
 export function htmlPartials({ dir = 'src/partials' } = {}) {
   let root;
@@ -19,14 +21,14 @@ export function htmlPartials({ dir = 'src/partials' } = {}) {
         // '/abs/static/light.html' -> pattern 'static', variant 'light'; the root index is pattern 'index'.
         const parts = relative(root, ctx.filename).split(sep);
         const pattern = parts.length > 1 ? parts[0] : 'index';
-        const variant = basename(ctx.filename, '.html');
+        const variant = html.match(VARIANT)?.[1] ?? basename(ctx.filename, '.html');
         const expand = (src, depth = 0) =>
           src.replace(INCLUDE, (_, name) => {
             if (depth > 5) throw new Error(`[html-partials] include loop in ${name}`);
             return expand(readFileSync(resolve(root, dir, name), 'utf8'), depth + 1);
           });
         // Mark the current pattern and variant links. Frameworks do this with an "active link" helper.
-        let out = expand(html)
+        let out = expand(html.replace(VARIANT, ''))
           .replaceAll('{{pattern}}', pattern)
           .replace(`data-page="${pattern}"`, `$& aria-current="page"`)
           .replace(`data-variant="${variant}"`, `$& aria-current="page"`);

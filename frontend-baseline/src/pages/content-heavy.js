@@ -25,7 +25,10 @@ function apply() {
     shown += visible;
   }
   count.textContent = `${shown} of ${items.length}`;
-  for (const a of document.querySelectorAll('#tags a')) a.toggleAttribute('aria-current', a.dataset.tag === tag);
+  for (const a of document.querySelectorAll('#tags a')) {
+    if (a.dataset.tag === tag) a.setAttribute('aria-current', 'true');
+    else a.removeAttribute('aria-current');
+  }
 }
 
 search.addEventListener('input', apply);

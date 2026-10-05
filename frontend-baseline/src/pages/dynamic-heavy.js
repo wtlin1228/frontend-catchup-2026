@@ -5,6 +5,7 @@ import { getJSON, postJSON, prefetch, invalidate, HttpError } from '../lib/api.j
 import { createRouter } from '../lib/router.js';
 import { hasSessionCookie } from '../lib/auth.js';
 import { toast } from '../lib/toast.js';
+import { registerTool } from '../lib/agent.js';
 
 const root = document.getElementById('app');
 const announcer = document.getElementById('route-announcer');
@@ -20,10 +21,14 @@ const router = createRouter(
   ],
   { root, announce: (title) => { announcer.textContent = `Navigated to ${title}`; } },
 );
-router.start();
 
 const setTitle = (text) => { document.title = `${text} · Posts · Frontend Baseline`; };
-const loginRedirect = () => location.replace(`/account/heavy.html?next=${encodeURIComponent(location.pathname + location.hash)}`);
+const loginRedirect = () => {
+  // A redirect before first paint has nothing to snapshot: skip the cross-document view transition explicitly,
+  // otherwise Chrome reports the aborted transition as an uncaught error on the page being left.
+  addEventListener('pageswap', (e) => e.viewTransition?.skipTransition(), { once: true });
+  location.replace(`/account/heavy.html?next=${encodeURIComponent(location.pathname + location.hash)}`);
+};
 
 // ---------------------------------------------------------------- list
 async function listView({ query, signal, root, navigate }) {
@@ -256,3 +261,22 @@ function notFoundView({ root }) {
     ),
   );
 }
+
+// ---------------------------------------------------------------- agent-ready UI
+// The page's main actions as WebMCP tools, feature-detected like the contact form's (no-op without
+// document.modelContext). A framework with agent-facing hooks would derive these from routes and loaders.
+registerTool({
+  name: 'search_posts',
+  description: 'Search posts by title or tag. Navigates the page to the results and returns the first page of matches.',
+  inputSchema: { type: 'object', properties: { q: { type: 'string' } }, required: ['q'] },
+  execute: async ({ q }) => { router.navigate('/', { q }); return (await getJSON(`/api/posts?${new URLSearchParams({ q, limit: PAGE_SIZE })}`)).items; },
+});
+registerTool({
+  name: 'open_post',
+  description: 'Open a post by id and return its title, author, tags and body.',
+  inputSchema: { type: 'object', properties: { id: { type: 'integer', minimum: 1 } }, required: ['id'] },
+  execute: ({ id }) => { router.navigate(`/posts/${id}`); return getJSON(`/api/posts/${id}`); },
+});
+
+// Module code runs top to bottom: the first view must not run before the helpers above it exist.
+router.start();

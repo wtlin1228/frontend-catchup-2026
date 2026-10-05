@@ -9,7 +9,8 @@ document.addEventListener('securitypolicyviolation', (e) => log(`${e.violatedDir
 const ALLOWED = { P: [], B: [], I: [], EM: [], STRONG: [], A: ['href'], UL: [], OL: [], LI: [], CODE: [], PRE: [], BR: [], H3: [] };
 const DROP = new Set(['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'TEMPLATE']);
 function sanitize(html) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
+  // DOMParser.parseFromString is a Trusted Types sink too; the parse-only policy wraps the raw string for it.
+  const doc = new DOMParser().parseFromString(parsePolicy ? parsePolicy.createHTML(html) : html, 'text/html');
   const clean = (node) => {
     for (const child of [...node.childNodes]) {
       if (child.nodeType === Node.TEXT_NODE) continue;
@@ -27,6 +28,9 @@ function sanitize(html) {
   clean(doc.body);
   return doc.body.innerHTML;
 }
+// Two policies: 'baseline-parse' only turns untrusted text into an inert DOMParser document inside the sanitiser;
+// 'baseline' is the one the page assigns from, and it always sanitises.
+const parsePolicy = window.trustedTypes?.createPolicy('baseline-parse', { createHTML: (s) => s });
 const policy = window.trustedTypes?.createPolicy('baseline', { createHTML: sanitize });
 $('tt').textContent = policy ? 'Trusted Types are enforced here: raw strings cannot be assigned to innerHTML.' : 'Trusted Types are not supported in this browser; the sanitiser still runs, but nothing stops a raw assignment.';
 

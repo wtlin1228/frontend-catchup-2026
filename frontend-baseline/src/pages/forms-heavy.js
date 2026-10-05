@@ -16,7 +16,7 @@ const DRAFT_KEY = 'contact:draft';
 
 // 1. Take over validation. Without this script the browser validates and submits on its own.
 form.noValidate = true;
-const fields = [...form.elements].filter((el) => el.name && el.name !== 'website' && el.tagName !== 'BUTTON');
+const fields = [...form.elements].filter((el) => el.name && el.name !== 'website' && el.type !== 'hidden' && el.tagName !== 'BUTTON');
 
 // 2. Field validation with the Constraint Validation API and our own wording.
 function messageFor(field) {

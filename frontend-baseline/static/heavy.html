@@ -40,7 +40,7 @@
 
       <article class="doc__body">
         <h2 id="scope">Scope</h2>
-        <p>The survey compares frontend libraries, frameworks and meta-frameworks on the same thirteen patterns, implemented against the same mock API. It does not compare hosting, pricing, or ecosystems in the abstract; those show up only where they change how a page is built.</p>
+        <p>The survey compares frontend libraries, frameworks and meta-frameworks on the same twenty-three patterns, implemented against the same mock API. It does not compare hosting, pricing, or ecosystems in the abstract; those show up only where they change how a page is built.</p>
         <p>Each candidate gets its own implementation directory and its own sheet under <code>docs/</code>. The baseline in this repository is the control group: plain HTML, CSS and JavaScript with a build tool and nothing else.<sup><a href="#fn1" id="ref1">1</a></sup></p>
         <figure>
           <picture>
@@ -84,10 +84,17 @@
           <dt>Ceiling</dt><dd>How the heavy pages held up: performance, complexity, escape hatches.</dd>
           <dt>Rendering</dt><dd>Static, server, client and streaming options, and how they mix.</dd>
           <dt>Data</dt><dd>Loading, caching, invalidation, mutations, optimistic updates.</dd>
-          <dt>Forms</dt><dd>Progressive enhancement, validation, server round trips.</dd>
+          <dt>Forms</dt><dd>Progressive enhancement, validation, server round trips, uploads.</dd>
+          <dt>State and reactivity</dt><dd>Model clarity, performance under load, derived state.</dd>
           <dt>Interop</dt><dd>Imperative libraries, web components, workers.</dd>
-          <dt>Tooling</dt><dd>Build, dev server, TypeScript, tests, debugging.</dd>
-          <dt>Ecosystem and longevity</dt><dd>Maintenance, governance, hiring, migration history.</dd>
+          <dt>Widgets and motion</dt><dd>Headless primitives, animation support, accessibility defaults.</dd>
+          <dt>Content</dt><dd>Markdown and MDX, collections, feeds, search.</dd>
+          <dt>Tooling</dt><dd>Build, dev server, TypeScript, tests, debugging, deploy targets.</dd>
+          <dt>Ecosystem and longevity</dt><dd>Maintenance, governance, licensing, support windows, upgrade history.</dd>
+          <dt>AI fluency and agent integration</dt><dd>How well coding assistants generate it; docs in <code>node_modules</code>, skills, MCP servers; WebMCP or agent-facing hooks.</dd>
+          <dt>Supply chain</dt><dd>Dependency count, lifecycle scripts, provenance and trusted publishing, response to incidents.</dd>
+          <dt>Observability</dt><dd>Built-in tracing, performance tracks, error reporting, dev tools.</dd>
+          <dt>Portability</dt><dd>Runtimes (Node, Bun, Deno, workers), deployment targets, build tool coupling.</dd>
         </dl>
 
         <h2 id="procedure">Procedure</h2>
@@ -116,10 +123,11 @@
         </dl>
 
         <h2 id="commands">Appendix: commands</h2>
-<pre><code>npm install
-npm run dev        # dev server with the mock API
-npm run build      # dist/ with per-page assets
-npm run preview    # serves dist/ with the same mock API
+<pre><code>pnpm install
+pnpm dev           # dev server with the mock API
+pnpm build         # dist/ with per-page assets
+pnpm preview       # serves dist/ with the same mock API
+pnpm check         # builds, then checks every page's links, assets and structure
 
 # Per-page sizes after a build
 du -b dist/assets/* | sort -n</code></pre>

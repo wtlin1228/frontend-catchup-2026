@@ -8,3 +8,5 @@ public/feed.xml
 public/sitemap.xml
 public/data/content-index.json
 public/icon-*.png
+
+tools/smoke/node_modules
