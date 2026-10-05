@@ -29,7 +29,7 @@ Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](lan
 
 ## Patterns 14 to 23
 
-Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Fourteen sheets map them; [angular.md](angular.md), [qwik.md](qwik.md) and [sveltekit.md](sveltekit.md) still stop at row 13 and need the rows from `_template.md`. Rows written from memory rather than from a port end in "(verify)": confirm those against the current docs while porting.
+Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them. Rows written from memory rather than from a port end in "(verify)": confirm those against the current docs while porting, and replace the cell with what the port actually did.
 
 ## Procedure
 
