@@ -21,6 +21,7 @@ pnpm dev       # http://localhost:5173, generates images and content pages first
 pnpm build     # dist/ with per-page assets: compare sizes here
 pnpm preview   # serves dist/ with the same mock API
 pnpm check     # builds, then checks every page's links, assets and structure
+pnpm weight    # shipped bytes per page (gzip) from the last build
 ```
 
 Requires Node 22 and pnpm (`corepack enable` picks the version from `packageManager`). Generated files (`public/images`, `content/`, feed, sitemap, icons) are git-ignored and rebuilt before `dev` and `build`.
@@ -204,7 +205,7 @@ From `docs/landscape-2026.md`: agent-ready UI as a page of its own. Today the co
 
 ## Survey
 
-Each framework has a sheet in `docs/<name>.md`: what it is, how each pattern maps onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric.
+Each framework has a sheet in `docs/<name>.md`: what it is, how each pattern maps onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric; `docs/verify.md` says how to verify a port pattern by pattern, by tool and by hand.
 
 ## Layout
 
@@ -220,7 +221,7 @@ src/lib/                   shared plumbing (see above)
 src/styles/                tokens (light-dark()), base styles
 src/data/gallery.json      generated build-time data
 public/                    mock database, generated images, manifest, service worker
-scripts/                   Vite plugins, content build, image generator, dist checker (pnpm check)
+scripts/                   Vite plugins, content build, image generator, dist checker (pnpm check), page weights (pnpm weight)
 tools/smoke/               headless-Chrome page and flow tests, own package.json (see its README)
 docs/                      one sheet per framework, survey guide, template
 ```

@@ -32,8 +32,14 @@ $('other').addEventListener('click', async () => {
   // A write from "another device": straight to the server, no base version, so it always wins there.
   const first = client.notes[0];
   if (!first) return;
-  await fetch('/api/sync', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ client: 'other-device', ops: [{ opId: uid('op'), type: 'put', note: { id: first.id, text: `Edited elsewhere at ${new Date().toLocaleTimeString()}` } }] }) });
-  log('other device wrote to the server', 'ok');
+  try {
+    const res = await fetch('/api/sync', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ client: 'other-device', ops: [{ opId: uid('op'), type: 'put', note: { id: first.id, text: `Edited elsewhere at ${new Date().toLocaleTimeString()}` } }] }) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    log('other device wrote to the server', 'ok');
+  } catch (err) {
+    // DevTools "Offline" blocks this request too; real offline (Wi-Fi off) still reaches localhost.
+    log(`other device could not reach the server (${err.message}); use a second tab for this button`, 'err');
+  }
 });
 window.addEventListener('online', () => { log('online'); render(); });
 window.addEventListener('offline', () => { log('offline'); render(); });

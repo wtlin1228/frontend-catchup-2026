@@ -37,14 +37,14 @@ Patterns 14 to 23 (async consistency, state across navigation, server functions,
 2. Scaffold with the framework's official starter. Record dependency count and install size.
 3. Register `scripts/mock-api.js` (and `html-partials.js` if the framework has no layouts) in the framework's Vite config, or run the mock API as a separate process. Every port must talk to the same API.
 4. Port the light pages in order 1 to 23, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
-5. Measure (below). Fill in the rubric the same day.
+5. Measure (below) and verify each pattern as [verify.md](verify.md) describes, by tool where one exists and by hand where not. Fill in the rubric the same day.
 6. File the implementation under `impl/<name>/` (or a sibling repository) and link it from the sheet.
 
 ## Measurements
 
 | Measurement | Pages | How |
 |---|---|---|
-| Shipped JS and CSS per page (gzip) | All | `pnpm build`; group chunks per entry; shared chunks count once per page that loads them |
+| Shipped JS and CSS per page (gzip) | All | `pnpm build && pnpm weight` (point `scripts/page-weight.mjs` at a port's dist to compare); shared chunks count once per page that loads them |
 | Lines of code per page | All | Only files that exist because of that page; config counts once |
 | Works without JavaScript | Static, forms, content, media light | Disable scripts in the browser |
 | Lighthouse, mobile preset, median of 3 | Static heavy, dynamic heavy, media heavy | Throttled CPU and network |

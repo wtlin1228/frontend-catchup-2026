@@ -3,7 +3,7 @@
 <head>
   <!-- @include head.html -->
   <title>Notes with versions and peers (sync, heavy) · Frontend Baseline</title>
-  <meta name="description" content="Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit.">
+  <meta name="description" content="Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit. Offline means the network, not DevTools' Offline toggle: that blocks the other-device request as well, so press its button from a second tab.">
 </head>
 <body>
   <!-- @include header.html -->
@@ -12,7 +12,7 @@
       <p class="pattern">Pattern 17 of 23: sync and local-first</p>
       <!-- @include variant-nav.html -->
       <h1>Notes with versions and peers</h1>
-      <p>Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit.</p>
+      <p>Every note carries a server version. A push with a stale base version is rejected as a conflict and you choose which text wins. Other devices show up live through a change feed. Try it: go offline, edit the first note, press the other-device button, go online. Your push conflicts; the feed brings their edit. Offline means the network, not DevTools' Offline toggle: that blocks the other-device request as well, so press its button from a second tab.</p>
     </div>
     <p id="status" class="muted"></p>
     <form id="add" class="cluster" style="margin-bottom: var(--space-4)">
