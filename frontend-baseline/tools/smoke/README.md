@@ -17,7 +17,7 @@ Each script also runs on its own against any server (a port keeps the URLs and i
 
 ```sh
 node pages.mjs http://localhost:4173 [pathFilter]     # every page: console errors, page errors, failed requests, structure
-node flows.mjs http://localhost:4173 [nameFilter]     # 20 interactive flows; "state" runs only the ones whose name contains it
+node flows.mjs http://localhost:4173 [nameFilter]     # 23 interactive flows; "state" runs only the ones whose name contains it
 node measure.mjs http://localhost:4173 [pageFilter]   # the numbers the pages print: board render, dashboard rate, grid sort, rpc batching, vitals, trace
 ```
 

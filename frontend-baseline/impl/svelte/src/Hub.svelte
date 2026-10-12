@@ -8,6 +8,7 @@
     ['Real-time updates', null, '/realtime/heavy.html'],
     ['Data grid', null, '/table/heavy.html'],
     ['Motion', null, '/motion/heavy.html'],
+    ['Async consistency', '/async/light.html', '/async/heavy.html'],
   ];
 </script>
 

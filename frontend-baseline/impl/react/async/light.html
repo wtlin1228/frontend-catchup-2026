@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;var l=localStorage.getItem('lang');if(l)document.documentElement.lang=l;}catch(e){}})();</script>
+  <title>Tabs that wait (async, light) · Frontend Baseline, React port</title>
+  <meta name="description" content="Switching a tab fetches its posts. In naive mode the old list is cleared and a skeleton shows on every switch. In transition mode the old list stays, dimmed, until the new one is ready, and only the latest request may paint. Click between tabs quickly to see the difference.">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/pages/async-light.jsx"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;var l=localStorage.getItem('lang');if(l)document.documentElement.lang=l;}catch(e){}})();</script>
+  <title>Composed view (async, heavy) · Frontend Baseline, React port</title>
+  <meta name="description" content="One screen built from three sources: the post, related posts (which depend on the post) and a status call that fails half the time. Atomic mode waits for everything and paints once, so the screen never shows a mix of old and new data. Stream mode paints each part as it lands. Changing the post mid-flight drops stale responses; a failed source retries alone; likes apply in an optimistic lane and roll back when the server refuses.">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/pages/async-heavy.jsx"></script>
+</body>
+</html>

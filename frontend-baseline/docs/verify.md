@@ -89,7 +89,7 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 
 ### 14. Async consistency
 - **Better:** no skeleton flash on refetch, no screen showing a mix of old and new data, stale responses dropped, a failed source retried alone, optimistic updates rolled back on refusal.
-- **Tool:** Network throttling with 2 s added latency, then click tabs or change posts quickly: the page's timeline logs "stale response dropped" and "committed in one paint".
+- **Tool:** Network throttling with 2 s added latency, then click tabs or change posts quickly: the page's timeline logs "stale response dropped" and "committed in one paint"; flows "async light: the latest tab wins and naive mode shows the skeleton" and "async heavy: atomic commit, stale answer dropped, retry alone, optimistic like reconciles" check the contract from the DOM, including that the like button ends up agreeing with the server.
 - **Hand:** light: with "Keep the old content" off a skeleton flashes on every click, on it dims and swaps; heavy: atomic on, change the post, all three panels change together; atomic off, they fill one by one; when status fails, "Retry status only" refetches only that panel; Like flips at once, and on a 503 it rolls back with a toast and the log says so.
 
 ### 15. State across navigation

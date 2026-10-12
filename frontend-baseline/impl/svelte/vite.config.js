@@ -25,7 +25,7 @@ function htmlFiles(dir, depth = 0) {
 export default defineConfig({
   appType: 'mpa',
   publicDir: resolve(baseline, 'public'),
-  plugins: [svelte(), mockApi({ dataFile: resolve(baseline, 'public/data/posts.json') })],
+  plugins: [svelte({ compilerOptions: { experimental: { async: true } } }), mockApi({ dataFile: resolve(baseline, 'public/data/posts.json') })],
   resolve: { alias: { '@baseline': baseline } },
   server: { fs: { allow: [baseline] } },
   build: { rolldownOptions: { input: htmlFiles(root) } },

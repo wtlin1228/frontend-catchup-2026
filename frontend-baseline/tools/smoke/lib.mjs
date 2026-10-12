@@ -22,7 +22,8 @@ export const isMain = (moduleUrl) => Boolean(process.argv[1]) && moduleUrl === p
 export const isHeadlessNoise = (text) => /ViewTransition opt-in disabled/.test(text);
 
 /** Expected console noise: deliberately failing endpoints, GPU warnings, and resource lines whose status is tracked separately. */
-export const isExpectedConsole = (text) => /GPU stall|api\/flaky|Failed to load resource|TrustedHTML/.test(text);
+// "status answered 500": the flaky source's failure, which React reports through console.error when a boundary catches it.
+export const isExpectedConsole = (text) => /GPU stall|api\/flaky|Failed to load resource|TrustedHTML|status answered 500/.test(text);
 
 /** Wait until a URL answers, for scripts that start their own preview server. */
 export async function waitFor(url, { tries = 40, ms = 500 } = {}) {

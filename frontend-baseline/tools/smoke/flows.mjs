@@ -92,13 +92,13 @@ flow('forms heavy: draft survives a reload, upload gets an id, send another rese
   await page.waitForTimeout(500); // let the debounced draft save land before the send clears it
   await page.click('#send');
   await page.waitForSelector('#contact-success:not([hidden])', { timeout: 8000 });
-  expect((await page.evaluate(() => document.activeElement.id)) === 'send-another', 'focus not on the success button');
+  await page.waitForFunction(() => document.activeElement.id === 'send-another', null, { timeout: 2000 }).catch(() => expect(false, 'focus not on the success button'));
   expect((await page.evaluate(() => sessionStorage.getItem('contact:draft'))) === null, 'draft not cleared after send');
   await page.click('#send-another');
   await page.waitForSelector('#contact-form:not([hidden])', { timeout: 2000 });
   expect((await page.inputValue('#name')) === '', 'name not reset');
   expect((await page.textContent('#message-count')) === '0', 'count not reset');
-  expect((await page.evaluate(() => document.activeElement.id)) === 'name', 'focus not on the first field');
+  await page.waitForFunction(() => document.activeElement.id === 'name', null, { timeout: 2000 }).catch(() => expect(false, 'focus not on the first field'));
 });
 flow('dynamic heavy: list, search, detail, back', async (page) => {
   await page.goto(`${base}/dynamic/heavy.html`);
@@ -194,6 +194,53 @@ flow('motion heavy: tiles reorder, add, remove and switch layout; the card sprin
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => /translate\(0px, 0px\)/.test(document.getElementById('drag-card').style.transform), null, { timeout: 5000 });
 });
+flow('async light: the latest tab wins and naive mode shows the skeleton', async (page) => {
+  await page.goto(`${base}/async/light.html`);
+  const settled = () => page.waitForFunction(() => !document.querySelector('#tabs [aria-busy="true"]') && !document.querySelector('#panel .skeleton') && !document.querySelector('#panel.stale') && document.querySelector('#panel ul, #panel p.muted'), null, { timeout: 8000 });
+  await settled();
+  await page.click('#tabs [role=tab]:nth-child(2)');
+  await page.click('#tabs [role=tab]:nth-child(3)');
+  expect((await page.getAttribute('#tabs [role=tab]:nth-child(3)', 'aria-selected')) === 'true', 'the third tab is not selected at once');
+  await settled();
+  const expected = await page.evaluate(async () => (await (await fetch('/api/posts?tag=forms&limit=5')).json()).items.map((p) => String(p.id)));
+  const shown = await page.$$eval('#panel a', (links) => links.map((a) => a.getAttribute('href').split('/').pop()));
+  expect(JSON.stringify(shown) === JSON.stringify(expected), `panel shows ${shown} for forms, expected ${expected}`);
+  await page.uncheck('#transition');
+  await page.click('#tabs [role=tab]:nth-child(4)');
+  await page.waitForSelector('#panel .skeleton', { timeout: 3000 });
+  await settled();
+  expect((await page.$$('#log li')).length >= 2, 'the log is empty');
+});
+flow('async heavy: atomic commit, stale answer dropped, retry alone, optimistic like reconciles', async (page) => {
+  await page.goto(`${base}/async/heavy.html`);
+  const title = (id) => page.evaluate(async (id) => (await (await fetch(`/api/posts/${id}`)).json()).title, id);
+  const settled = () => page.waitForFunction(() => !document.querySelector('#view .skeleton') && !document.querySelector('#view.stale, .stale #view, #view .stale') && document.querySelectorAll('#view section').length === 3 && document.querySelector('#view section strong'), null, { timeout: 15000 });
+  await settled();
+  expect((await page.textContent('#view section strong')) === (await title(3)), 'post 3 not shown');
+  await page.selectOption('#post', '4'); // two changes in flight: only the latest may paint
+  await page.selectOption('#post', '5');
+  await settled();
+  expect((await page.textContent('#view section strong')) === (await title(5)), 'post 5 not shown after a stale answer');
+  const statusLines = () => page.$$eval('#log li', (lis) => lis.filter((li) => /status: (ready|failed)/.test(li.textContent)).length);
+  for (let i = 0; i < 8 && !(await page.$('#view p:has-text("Server value")')); i++) { // the flaky part fails half the time; retry it alone until it lands
+    const seen = await statusLines();
+    await page.click('#view button:has-text("Retry")');
+    await page.waitForFunction((seen) => [...document.querySelectorAll('#log li')].filter((li) => /status: (ready|failed)/.test(li.textContent)).length > seen, seen, { timeout: 10000 });
+    await settled();
+  }
+  expect(await page.$('#view p:has-text("Server value")'), 'the status part never landed');
+  const before = await page.textContent('#view section button');
+  await page.click('#view section button:has-text("Like")');
+  await page.waitForFunction((before) => document.querySelector('#view section button').textContent !== before, before, { timeout: 2000 }); // optimistic at once
+  await page.waitForFunction(() => !document.getElementById('lane').textContent, null, { timeout: 8000 });
+  const server = await page.evaluate(async () => { const p = await (await fetch('/api/posts/5')).json(); return `${p.liked ? 'Liked' : 'Like'} (${p.likes})`; });
+  expect((await page.textContent('#view section button')) === server, `button shows ${await page.textContent('#view section button')}, the server says ${server}`);
+  await page.uncheck('#atomic');
+  await page.selectOption('#post', '6');
+  await page.waitForSelector('#view .skeleton', { timeout: 3000 }); // stream mode paints placeholders first
+  await settled();
+  expect((await page.textContent('#view section strong')) === (await title(6)), 'post 6 not shown in stream mode');
+});
 flow('content heavy: tag filter highlights and filters', async (page) => {
   await page.goto(`${base}/content/heavy.html`);
   await page.waitForTimeout(500);
@@ -216,6 +263,33 @@ flow('components heavy: palette opens with Ctrl+K and filters', async (page) => 
   expect(n === 2, `expected 2 options, got ${n}`);
 });
 
+flow('components heavy: tabs, combobox and menu follow the ARIA patterns', async (page) => {
+  await page.goto(`${base}/components/heavy.html`);
+  // Tabs: arrow keys move selection and focus; the panel follows.
+  await page.focus('#tab-lib');
+  await page.keyboard.press('ArrowRight');
+  await page.waitForFunction(() => document.getElementById('tab-meta').getAttribute('aria-selected') === 'true' && document.activeElement.id === 'tab-meta' && !document.getElementById('panel-meta').hidden && document.getElementById('panel-lib').hidden, null, { timeout: 2000 });
+  await page.keyboard.press('End');
+  await page.waitForFunction(() => document.activeElement.id === 'tab-alt' && document.getElementById('tab-alt').tabIndex === 0 && document.getElementById('tab-lib').tabIndex === -1, null, { timeout: 2000 });
+  // Combobox: typing filters, ArrowDown moves the active descendant, Enter chooses it.
+  await page.fill('#cb', 'svelte');
+  await page.waitForFunction(() => document.querySelectorAll('#cb-list [role=option]').length === 2 && document.getElementById('cb').getAttribute('aria-expanded') === 'true', null, { timeout: 2000 });
+  await page.keyboard.press('ArrowDown');
+  await page.waitForFunction(() => document.getElementById('cb').getAttribute('aria-activedescendant') === 'cb-list-option-1', null, { timeout: 2000 });
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => document.getElementById('cb-result').textContent === 'Chosen: SvelteKit (meta-framework).' && document.getElementById('cb-list').hidden && document.getElementById('cb').value === 'SvelteKit', null, { timeout: 2000 });
+  // Menu: opens on the first item, typeahead, Escape closes and returns focus, an outside click closes without it.
+  await page.click('#mb');
+  await page.waitForFunction(() => !document.getElementById('mb-menu').hidden && document.activeElement.textContent.trim() === 'Rename', null, { timeout: 2000 });
+  await page.keyboard.press('d');
+  await page.waitForFunction(() => document.activeElement.textContent.trim() === 'Duplicate', null, { timeout: 2000 });
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => document.getElementById('mb-menu').hidden && document.activeElement.id === 'mb' && document.getElementById('mb').getAttribute('aria-expanded') === 'false', null, { timeout: 2000 });
+  await page.click('#mb');
+  await page.waitForFunction(() => !document.getElementById('mb-menu').hidden, null, { timeout: 2000 });
+  await page.mouse.click(5, 5);
+  await page.waitForFunction(() => document.getElementById('mb-menu').hidden && document.activeElement.id !== 'mb', null, { timeout: 2000 });
+});
 flow('rpc heavy: batch is one request', async (page) => {
   await page.goto(`${base}/rpc/heavy.html`);
   await page.click('#batch');

@@ -149,7 +149,7 @@ const focusCard = (id) => boardEl.querySelector(`[data-id="${id}"]`)?.focus();
 document.addEventListener('keydown', (e) => {
   const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
   if (typing || dialog.open) return;
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? store.redo() : store.undo(); }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); if (e.shiftKey) store.redo(); else store.undo(); }
   else if (e.key === 'n') { e.preventDefault(); newInput.focus(); }
   else if (e.key === '/') { e.preventDefault(); filterInput.focus(); }
 });
