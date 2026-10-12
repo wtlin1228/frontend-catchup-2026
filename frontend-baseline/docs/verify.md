@@ -69,7 +69,7 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 
 ### 10. Data grid
 - **Better:** lower sort and filter time (printed on the page) for 50,000 and 200,000 rows, typing stays smooth with the work in a worker, only visible rows are in the DOM, keyboard and ARIA grid semantics kept, CSV export of the filtered order.
-- **Tool:** flow "table heavy: worker generates rows, sort, filter"; the page's "sorted and filtered in N ms on the worker" versus "on the main thread"; Elements panel: around 30 `.grid-row` elements (visible rows plus overscan) whatever the row count; Performance panel while typing in main-thread mode shows long tasks, worker mode shows none.
+- **Tool:** flow "table heavy: worker generates rows, sort, filter"; the page's "sorted and filtered in N ms on the worker" versus "on the main thread", and "rendered in N ms" for the framework's own share, the window of about 30 rows; Elements panel: around 30 `.grid-row` elements (visible rows plus overscan) whatever the row count; Performance panel while typing in main-thread mode shows long tasks, worker mode shows none.
 - **Hand:** choose 200,000 rows and scroll to the end without jank; type a filter in main-thread mode (input lags) then worker mode (it does not); click headers for both sort directions; click, Shift-click a range, arrow keys and Space; Export CSV: rows equal the filtered count plus a header; Accessibility tree: `grid`, `aria-rowcount`, `aria-selected` on rows.
 
 ### 11. Composite widgets

@@ -4,7 +4,8 @@
   "preview": 4174,
   "pageFiles": [
     "{pattern}/{variant}.html",
-    "src/pages/{pattern}-{variant}.jsx"
+    "src/pages/{pattern}-{variant}.jsx",
+    "src/{pattern}-{variant}/*"
   ],
   "shared": [
     "src/Layout.jsx",

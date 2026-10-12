@@ -77,13 +77,17 @@ measurement('data grid heavy', async (page, base) => {
       await page.waitForFunction((rows) => new RegExp(`of ${Number(rows).toLocaleString('en-US')} rows, sorted and filtered in`).test(document.getElementById('status').textContent), rows, { timeout: 60000 });
       const where = compute === 'worker' ? 'worker' : 'main thread';
       const times = [];
+      const renders = [];
       for (let i = 0; i < 3; i++) {
         const before = await page.textContent('#status');
         await page.click('#head [role=columnheader] button:has-text("Score")');
         await page.waitForFunction(([prev, where]) => { const t = document.getElementById('status').textContent; return t !== prev && t.includes(`on the ${where}`); }, [before, where], { timeout: 60000 });
-        times.push(num(await page.textContent('#status'), /in ([\d.]+) ms/));
+        const status = await page.textContent('#status');
+        times.push(num(status, /in ([\d.]+) ms/));
+        renders.push(num(status, /rendered in ([\d.]+) ms/));
       }
       record('data grid heavy', `${Number(rows).toLocaleString('en-US')} rows: sort by score on the ${where}`, median(times), 'ms');
+      if (compute === 'worker') record('data grid heavy', `${Number(rows).toLocaleString('en-US')} rows: render the window after the sort`, median(renders), 'ms');
     }
   }
 });

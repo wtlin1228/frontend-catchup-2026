@@ -7,6 +7,7 @@ const PORTED = [
   ['Dynamic data and routing', '/dynamic/light.html', '/dynamic/heavy.html'],
   ['Client state', '/state/light.html', '/state/heavy.html'],
   ['Real-time updates', null, '/realtime/heavy.html'],
+  ['Data grid', null, '/table/heavy.html'],
 ];
 
 mount(

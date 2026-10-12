@@ -57,6 +57,7 @@ Every sheet maps all 24 patterns in the same order as `_template.md`. A cell tha
 | Board: "last render" after Add 300 cards | State heavy | Printed on the page |
 | Dashboard: renders/s and render ms at 30 Hz, both strategies | Real-time heavy | Printed on the page |
 | Grid: sort time for 50,000 rows, worker vs main | Data grid heavy | Printed on the page |
+| Grid: render of the visible window after a sort | Data grid heavy | Printed on the page, after the sort time |
 | Requests per five same-tick calls | Server functions heavy | Printed on the page (1 in the baseline) |
 | Vitals and trace duration | Observability pages | Printed on the page |
 | Inline scripts the framework needs allowed | Security light | Count the hashes or nonces required for the page to work |

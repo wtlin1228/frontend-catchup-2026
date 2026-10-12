@@ -44,8 +44,10 @@ function applyOrder(order, ms, where) {
   state.active = Math.min(state.active, Math.max(0, order.length - 1));
   spacer.style.height = `${order.length * ROW_H}px`;
   viewport.setAttribute('aria-rowcount', order.length);
-  $('status').textContent = `${order.length.toLocaleString()} of ${state.rows.length.toLocaleString()} rows, sorted and filtered in ${ms.toFixed(1)} ms on the ${where}`;
+  const t0 = performance.now();
   render();
+  void container.offsetHeight; // force layout so the render time includes it
+  $('status').textContent = `${order.length.toLocaleString()} of ${state.rows.length.toLocaleString()} rows, sorted and filtered in ${ms.toFixed(1)} ms on the ${where}, rendered in ${(performance.now() - t0).toFixed(1)} ms`;
 }
 
 // --- virtual window: render only what is visible plus overscan ---

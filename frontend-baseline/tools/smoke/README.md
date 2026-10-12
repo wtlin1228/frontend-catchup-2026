@@ -11,7 +11,7 @@ From the project root:
 | Command | What it does |
 |---|---|
 | `pnpm verify` | Build, check `dist/`, then open every page and run every flow against a preview server; exits non-zero on any problem |
-| `pnpm compare` | Build the baseline and every `impl/<name>` with a `compare.config.json`, weigh the pages, open them, run the flows and the measurements, write `docs/results.md` and `tools/smoke/results.json`; `--lighthouse` adds Lighthouse, `--only <name>` redoes one port, `--no-build` reuses `dist/` |
+| `pnpm compare` | Build the baseline and every `impl/<name>` with a `compare.config.json`, weigh the pages, open them, run the flows and the measurements, write `docs/results.md` and `tools/smoke/results.json`; `--lighthouse` refreshes the Lighthouse scores (the last ones are kept otherwise), `--only <name>` redoes one port, `--no-build` reuses `dist/` |
 
 Each script also runs on its own against any server (a port keeps the URLs and ids, so nothing needs changing):
 
