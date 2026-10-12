@@ -230,6 +230,6 @@ public/                    mock database, generated images, manifest, service wo
 scripts/                   Vite plugins, content build, image generator, dist checker (pnpm check), page weights (pnpm weight)
 tools/smoke/               headless-Chrome page and flow tests, own package.json (see its README)
 docs/                      one sheet per framework, survey guide, template
-impl/react/                the first port (React 19 on Vite): patterns 1 to 4 light and the board, with its measurements
+impl/react/                the first port (React 19 on Vite): patterns 1 to 4 light, the board and the dashboard, with measurements
 impl/svelte/               the second port (Svelte 5 on Vite), same pages, same setup
 ```

@@ -51,13 +51,15 @@ React Foundation (Linux Foundation) now owns React; Compiler 1.0; 19.2 added `<A
 
 ## Measured, 2026-10-12 (`impl/react`)
 
-Patterns 1 to 4 light and the board, React 19.3 on Vite 8 with the Compiler off, measured the same way as the baseline on the same machine (headless Chrome; full table in `impl/react/README.md`).
+Patterns 1 to 4 light, the board and the dashboard, React 19.3 on Vite 8 with the Compiler off, measured the same way as the baseline on the same machine (headless Chrome; full table in `impl/react/README.md`).
 
 | | Baseline | React |
 |---|---|---|
 | Static light, shipped gzip | 6.6 kB, no JS | 73.3 kB, of which 67.4 kB is react + react-dom |
 | State heavy, shipped gzip | 11.6 kB | 76.7 kB (3.6 kB of page code against 3.7) |
 | Board render after "Add 300 cards" / second 300 / filter keystroke | 16.1 / 22.6 / 5.3 ms | 14.6 / 14.0 / 3.0 ms |
+| Dashboard at 30 Hz: renders per second and render time, patch / rebuild | 31, 0.6 ms / 32, 1.4 ms | 31, 0.8 ms / 31, 1.4 ms |
+| Real-time heavy, shipped gzip and lines | 10.3 kB, 238 lines | 75.4 kB, 155 lines |
 | Lines for the board page | 273 plus `store.js` and `dom.js` | 225, neither needed |
 | Works without JavaScript | static and forms light | none of the ported pages |
 

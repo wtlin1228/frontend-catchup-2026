@@ -5,6 +5,7 @@
     ['Forms', '/forms/light.html', null],
     ['Dynamic data and routing', '/dynamic/light.html', null],
     ['Client state', '/state/light.html', '/state/heavy.html'],
+    ['Real-time updates', null, '/realtime/heavy.html'],
   ];
 </script>
 
@@ -15,7 +16,7 @@
   {/snippet}
   <ul class="stack">
     {#each PORTED as [name, light, heavy] (name)}
-      <li>{name}: <a href={light}>light</a>{#if heavy} and <a href={heavy}>heavy</a>{/if}</li>
+      <li>{name}: {#if light}<a href={light}>light</a>{/if}{#if light && heavy} and {/if}{#if heavy}<a href={heavy}>heavy</a>{/if}</li>
     {/each}
   </ul>
   <p class="muted">Build it with <code>pnpm build</code>, then <code>pnpm weight</code> prints shipped bytes per page next to the baseline's.</p>

@@ -17,7 +17,7 @@ node measure.mjs http://localhost:4175 state              # the board's numbers
 
 ## Ported so far
 
-Patterns 1 to 4 light and pattern 4 heavy: `static/light.html`, `forms/light.html`, `dynamic/light.html`, `state/light.html`, `state/heavy.html`, plus a hub. Links to pages that are not ported lead nowhere in this build.
+Patterns 1 to 4 light, pattern 4 heavy and pattern 6 heavy: `static/light.html`, `forms/light.html`, `dynamic/light.html`, `state/light.html`, `state/heavy.html`, `realtime/heavy.html`, plus a hub. Links to pages that are not ported lead nowhere in this build.
 
 ## Measured on 2026-10-12
 
@@ -31,14 +31,18 @@ Headless Chrome, Linux, Intel i7-13850HX; the baseline and the React port measur
 | State light | 8.5 kB, 1.6 JS | 73.7 kB | 23.9 kB, 1.5 page JS | |
 | State heavy | 11.6 kB, 3.7 JS | 76.7 kB | 27.1 kB, 4.2 page JS | the compiled board is slightly larger than the hand-written one; `store.js` and `dom.js` are not needed |
 | Hub | 9.6 kB, 0 JS | 72.9 kB | 23.1 kB | |
+| Real-time heavy | 10.3 kB, 2.8 JS | 75.4 kB | 26.3 kB, 3.3 page JS | ring buffers outside the component, one signal write per frame |
 | Board: render after "Add 300 cards" (306 cards) | 16.1 ms | 14.6 ms | 15.3 ms | dispatch to updated DOM, layout forced, like the baseline |
 | Board: second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms | keyed `each` keeps the 306 existing nodes |
 | Board: filter keystroke with 606 cards | 5.3 ms | 3.0 ms | 11.8 ms | the derived view removes most of 606 keyed items; worth profiling before drawing a conclusion |
+| Dashboard at 30 Hz, patch strategy: renders per second, last render | 31, 0.6 ms | 31, 0.8 ms | 31, 0.6 ms | fine-grained updates match the baseline's hand-written patching |
+| Dashboard at 30 Hz, rebuild strategy: renders per second, last render | 32, 1.4 ms | 31, 1.4 ms | 31, 1.4 ms | `{#key frame}` recreates the subtree every frame |
 | Lines, static light | 30 | 40 | 43 | plus 48 for `Layout.svelte` and 11 shared, which replace the baseline's 66 lines of partials |
 | Lines, forms light | 33 | 43 | 45 | |
 | Lines, dynamic light | 49 | 71 | 69 | |
 | Lines, state light | 75 | 74 | 71 | |
 | Lines, state heavy | 273 | 225 | 219 | `store.js` (71) and `dom.js` (54) not needed; `toast.js` still imported |
+| Lines, real-time heavy | 238 | 155 | 148 | the two strategies are one `{#key}` block instead of two render functions |
 | Works without JavaScript | static, forms: yes | none | none | the built HTML has no `<h1>` and no `<main>`; `check-dist` flags every page |
 | Install | 4 direct dependencies, 42 MB | 4, 42 MB | 3 direct dependencies, 43 MB | svelte, vite, @sveltejs/vite-plugin-svelte; no lifecycle scripts |
 

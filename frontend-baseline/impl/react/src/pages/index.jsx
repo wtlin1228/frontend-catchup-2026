@@ -6,6 +6,7 @@ const PORTED = [
   ['Forms', '/forms/light.html', null],
   ['Dynamic data and routing', '/dynamic/light.html', null],
   ['Client state', '/state/light.html', '/state/heavy.html'],
+  ['Real-time updates', null, '/realtime/heavy.html'],
 ];
 
 mount(
@@ -16,7 +17,7 @@ mount(
     </>
     <ul className="stack">
       {PORTED.map(([name, light, heavy]) => (
-        <li key={name}>{name}: <a href={light}>light</a>{heavy && <> and <a href={heavy}>heavy</a></>}</li>
+        <li key={name}>{name}: {light && <a href={light}>light</a>}{light && heavy && ' and '}{heavy && <a href={heavy}>heavy</a>}</li>
       ))}
     </ul>
     <p className="muted">Build it with <code>pnpm build</code>, then <code>pnpm weight</code> prints shipped bytes per page next to the baseline's.</p>

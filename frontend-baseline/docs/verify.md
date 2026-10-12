@@ -69,7 +69,7 @@ The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the
 
 ### What a comparison looks like: the React and Svelte ports, 2026-10-12
 
-`impl/react` and `impl/svelte` port patterns 1 to 4 light and the board with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+`impl/react` and `impl/svelte` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
 
 | Measurement | Baseline | React port | Svelte port |
 |---|---|---|---|
@@ -78,11 +78,14 @@ The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the
 | Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms |
 | Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms |
 | Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms |
+| Real-time heavy, shipped gzip | 10.3 kB | 75.4 kB | 26.3 kB |
+| Dashboard at 30 Hz, patch: renders per second, last render | 31, 0.6 ms | 31, 0.8 ms | 31, 0.6 ms |
+| Dashboard at 30 Hz, rebuild: renders per second, last render | 32, 1.4 ms | 31, 1.4 ms | 31, 1.4 ms |
 | Lines for the board page (plus shared code it still needs) | 273 (+ `store.js`, `dom.js`, `toast.js`) | 225 (+ `toast.js`) | 219 (+ `toast.js`) |
 | `check-dist` on the build | clean | every page: no `<h1>`, no `<main>` in the HTML | the same |
 | Flows "state heavy" and "forms light" | pass | pass | pass |
 
-Two readings already: the light pages measure the runtime (67 kB, 17 kB, 0) and nothing else, because both ports render in the browser; and the heavy page's numbers depend on which action you time, so record all three before concluding anything about rendering models.
+Three readings already: the light pages measure the runtime (67 kB, 17 kB, 0) and nothing else, because both ports render in the browser; the board's numbers depend on which action you time, so record all three before concluding anything about rendering models; and at 30 Hz with one update per frame all three implementations are indistinguishable (the frame budget, not the framework, is the limit), so the dashboard separates frameworks only when the scheduling is left to them.
 
 ## Per pattern
 

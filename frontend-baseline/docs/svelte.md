@@ -50,13 +50,15 @@ Async Svelte (`await` in components), remote functions (`query`, `form`, `comman
 
 ## Measured, 2026-10-12 (`impl/svelte`)
 
-Patterns 1 to 4 light and the board, Svelte 5.57 (runes) on Vite 8, measured the same way as the baseline and the React port on the same machine (headless Chrome; full table in `impl/svelte/README.md`).
+Patterns 1 to 4 light, the board and the dashboard, Svelte 5.57 (runes) on Vite 8, measured the same way as the baseline and the React port on the same machine (headless Chrome; full table in `impl/svelte/README.md`).
 
 | | Baseline | React | Svelte |
 |---|---|---|---|
 | Static light, shipped gzip | 6.6 kB, no JS | 73.3 kB | 23.3 kB, of which 17.2 kB is the runtime plus layout |
 | State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB (4.2 kB of page code against 3.7) |
 | Board render after "Add 300 cards" / second 300 / filter keystroke | 16.1 / 22.6 / 5.3 ms | 14.6 / 14.0 / 3.0 ms | 15.3 / 11.8 / 11.8 ms |
+| Dashboard at 30 Hz: renders per second and render time, patch / rebuild | 31, 0.6 ms / 32, 1.4 ms | 31, 0.8 ms / 31, 1.4 ms | 31, 0.6 ms / 31, 1.4 ms |
+| Real-time heavy, shipped gzip and lines | 10.3 kB, 238 lines | 75.4 kB, 155 lines | 26.3 kB, 148 lines |
 | Lines for the board page | 273 plus `store.js` and `dom.js` | 225 | 219, neither needed |
 | Works without JavaScript | static and forms light | none | none |
 

@@ -29,7 +29,7 @@ How to compare frameworks against the baseline, so that notes taken months apart
 | [vike.md](vike.md) | Vite-native meta-framework core (React, Vue, Solid) | vike 0.4.267, vike-react 0.6.29 |
 | [others.md](others.md) | Hotwire, Unpoly, Eleventy, Stencil, Enhance, Ember, Inferno, Fresh, Hono, Mitosis and the non-JavaScript stacks | see sheet |
 
-Two ports exist, set up identically so they compare with each other as well as with the baseline: `impl/react/` and `impl/svelte/` (patterns 1 to 4 light and the board, measured on 2026-10-12; see react.md and svelte.md). Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](landscape-2026.md) summarises what each project's maintainers were writing about this year and which patterns the baseline still lacks. Re-check versions with `npm view <package> version` before porting; this landscape moves monthly.
+Two ports exist, set up identically so they compare with each other as well as with the baseline: `impl/react/` and `impl/svelte/` (patterns 1 to 4 light, the board and the dashboard, measured on 2026-10-12; see react.md and svelte.md). Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](landscape-2026.md) summarises what each project's maintainers were writing about this year and which patterns the baseline still lacks. Re-check versions with `npm view <package> version` before porting; this landscape moves monthly.
 
 ## Patterns 14 to 23
 
