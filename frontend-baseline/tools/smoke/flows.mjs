@@ -1,31 +1,45 @@
-// Interactive flow checks on top of smoke.mjs. Usage: node flows.mjs <baseUrl>
-import { chromium } from 'playwright-core';
+// Interactive flows: each one drives a page the way a person would and asserts the outcome.
+//   node flows.mjs <baseUrl> [nameFilter]        as a script ("state" runs only the flows whose name contains it)
+//   import { runFlows } from './flows.mjs'        from compare.mjs
+// A flow's name starts with the page it drives ("forms heavy: ..."); `requires` lists other pages it visits,
+// so a partial port only runs the flows its pages can support.
+import { isExpectedConsole, isHeadlessNoise, isMain, launch } from './lib.mjs';
 
-const base = process.argv[2] ?? 'http://localhost:5173';
-const only = process.argv[3] ?? ''; // run only the flows whose name contains this, e.g. "state" for a partial port
-const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true });
-const context = await browser.newContext({ viewport: { width: 1200, height: 800 } });
-let failed = 0;
-
-async function flow(name, fn) {
-  if (only && !name.includes(only)) return;
-  const page = await context.newPage();
-  const errors = [];
-  page.on('pageerror', (err) => { if (/ViewTransition opt-in disabled/.test(String(err))) return; errors.push(`pageerror: ${String(err).slice(0, 200)}`) });
-  page.on('console', (msg) => { if (msg.type() === 'error' && !/Failed to load resource|TrustedHTML/.test(msg.text())) errors.push(`console.error: ${msg.text().slice(0, 200)}`); });
-  try {
-    await fn(page);
-    if (errors.length) throw new Error(errors.join(' | '));
-    console.log(`OK   ${name}`);
-  } catch (err) {
-    failed++;
-    console.log(`FAIL ${name}\n      ${String(err.message ?? err).slice(0, 400)}`);
-  }
-  await page.close();
-}
+export const FLOWS = [];
+let base = '';
+const flow = (name, fn, requires = []) => FLOWS.push({ name, fn, requires });
 const expect = (cond, msg) => { if (!cond) throw new Error(msg); };
 
-await flow('forms heavy: submit valid form via fetch', async (page) => {
+/** The page a flow drives, as a site path: "forms heavy: ..." -> "/forms/heavy.html". */
+export const flowPage = (name) => { const [pattern, variant] = name.split(':')[0].split(' '); return `/${pattern}/${variant}.html`; };
+
+/** Run the flows on `base`; returns [{ name, ok, error }]. `has(path)` says which pages exist; `only` filters by name. */
+export async function runFlows(baseUrl, { only = '', has = () => true, context: shared } = {}) {
+  base = baseUrl;
+  const own = shared ? null : await launch();
+  const context = shared ?? own.context;
+  const results = [];
+  for (const { name, fn, requires } of FLOWS) {
+    if (only && !name.includes(only)) continue;
+    if (![flowPage(name), ...requires].every(has)) continue;
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', (err) => { if (!isHeadlessNoise(String(err))) errors.push(`pageerror: ${String(err).slice(0, 200)}`); });
+    page.on('console', (msg) => { if (msg.type() === 'error' && !isExpectedConsole(msg.text())) errors.push(`console.error: ${msg.text().slice(0, 200)}`); });
+    try {
+      await fn(page);
+      if (errors.length) throw new Error(errors.join(' | '));
+      results.push({ name, ok: true });
+    } catch (err) {
+      results.push({ name, ok: false, error: String(err.message ?? err).slice(0, 400) });
+    }
+    await page.close();
+  }
+  await own?.browser.close();
+  return results;
+}
+
+flow('forms heavy: submit valid form via fetch', async (page) => {
   await page.goto(`${base}/forms/heavy.html`);
   await page.fill('#name', 'Ada Lovelace');
   await page.fill('#email', 'ada@company.test');
@@ -38,7 +52,7 @@ await flow('forms heavy: submit valid form via fetch', async (page) => {
   expect(/^MSG-/.test(ticket), `ticket id ${ticket}`);
 });
 
-await flow('forms heavy: server-only error maps to field', async (page) => {
+flow('forms heavy: server-only error maps to field', async (page) => {
   await page.goto(`${base}/forms/heavy.html`);
   await page.fill('#name', 'Ada Lovelace');
   await page.fill('#email', 'ada@example.com');
@@ -50,7 +64,7 @@ await flow('forms heavy: server-only error maps to field', async (page) => {
   expect((await page.getAttribute('#email', 'aria-invalid')) === 'true', 'email not marked invalid');
 });
 
-await flow('dynamic heavy: list, search, detail, back', async (page) => {
+flow('dynamic heavy: list, search, detail, back', async (page) => {
   await page.goto(`${base}/dynamic/heavy.html`);
   await page.waitForSelector('.post-card:not(.post-card--skeleton)', { timeout: 8000 });
   expect((await page.title()).startsWith('All posts'), `title ${await page.title()}`);
@@ -65,13 +79,13 @@ await flow('dynamic heavy: list, search, detail, back', async (page) => {
   expect((await page.inputValue('input[type=search]')) === 'state', 'search not restored');
 });
 
-await flow('dynamic heavy: guarded route redirects to login', async (page) => {
+flow('dynamic heavy: guarded route redirects to login', async (page) => {
   await page.goto(`${base}/dynamic/heavy.html#/new`);
   await page.waitForURL(/account\/heavy\.html\?next=/, { timeout: 8000 });
   expect(await page.isVisible('#next-notice'), 'next notice hidden');
 });
 
-await flow('account heavy: login, protected content, logout', async (page) => {
+flow('account heavy: login, protected content, logout', async (page) => {
   await page.goto(`${base}/account/heavy.html`);
   await page.fill('#email', 'ada@company.test');
   await page.fill('#password', 'demo');
@@ -82,7 +96,7 @@ await flow('account heavy: login, protected content, logout', async (page) => {
   await page.waitForSelector('#login-panel:not([hidden])', { timeout: 8000 });
 });
 
-await flow('dynamic heavy: publish a post when signed in, then like it', async (page) => {
+flow('dynamic heavy: publish a post when signed in, then like it', async (page) => {
   await page.goto(`${base}/account/heavy.html`);
   await page.fill('#email', 'ada@company.test');
   await page.fill('#password', 'demo');
@@ -102,7 +116,7 @@ await flow('dynamic heavy: publish a post when signed in, then like it', async (
   expect(/\(\d+\)/.test(after), `like button after click "${after}"`);
 });
 
-await flow('state heavy: add card, undo, stress', async (page) => {
+flow('state heavy: add card, undo, stress', async (page) => {
   await page.goto(`${base}/state/heavy.html`);
   await page.fill('#new-card-title', 'Smoke card');
   await page.press('#new-card-title', 'Enter');
@@ -114,7 +128,7 @@ await flow('state heavy: add card, undo, stress', async (page) => {
   expect(/306 cards/.test(stat), `stat ${stat}`);
 });
 
-await flow('table heavy: worker generates rows, sort, filter', async (page) => {
+flow('table heavy: worker generates rows, sort, filter', async (page) => {
   await page.goto(`${base}/table/heavy.html`);
   await page.waitForFunction(() => /50,000 of 50,000/.test(document.getElementById('status').textContent), null, { timeout: 20000 });
   await page.click('#head [role=columnheader] button:has-text("Score")');
@@ -124,7 +138,7 @@ await flow('table heavy: worker generates rows, sort, filter', async (page) => {
   expect((await page.$$('.grid-row[data-index]')).length > 5, 'no rows rendered');
 });
 
-await flow('content heavy: tag filter highlights and filters', async (page) => {
+flow('content heavy: tag filter highlights and filters', async (page) => {
   await page.goto(`${base}/content/heavy.html`);
   await page.waitForTimeout(500);
   const tag = await page.getAttribute('#tags a:nth-child(2)', 'data-tag');
@@ -137,7 +151,7 @@ await flow('content heavy: tag filter highlights and filters', async (page) => {
   expect(bg !== other, 'active tag not styled differently');
 });
 
-await flow('components heavy: palette opens with Ctrl+K and filters', async (page) => {
+flow('components heavy: palette opens with Ctrl+K and filters', async (page) => {
   await page.goto(`${base}/components/heavy.html`);
   await page.keyboard.press('Control+k');
   await page.waitForSelector('#palette[open]', { timeout: 3000 });
@@ -146,13 +160,13 @@ await flow('components heavy: palette opens with Ctrl+K and filters', async (pag
   expect(n === 2, `expected 2 options, got ${n}`);
 });
 
-await flow('rpc heavy: batch is one request', async (page) => {
+flow('rpc heavy: batch is one request', async (page) => {
   await page.goto(`${base}/rpc/heavy.html`);
   await page.click('#batch');
   await page.waitForFunction(() => /came back in 1 request/.test(document.getElementById('batch-out').textContent), null, { timeout: 8000 });
 });
 
-await flow('security heavy: raw innerHTML refused, csrf ok and rejected', async (page) => {
+flow('security heavy: raw innerHTML refused, csrf ok and rejected', async (page) => {
   await page.goto(`${base}/security/heavy.html`);
   await page.waitForFunction(() => /token issued/.test(document.getElementById('log').textContent), null, { timeout: 5000 });
   await page.click('#raw-inject');
@@ -166,7 +180,7 @@ await flow('security heavy: raw innerHTML refused, csrf ok and rejected', async 
   await page.waitForFunction(() => /Rejected/.test(document.getElementById('csrf-out').textContent), null, { timeout: 5000 });
 });
 
-await flow('navigation heavy: intercepted navigation renders a post', async (page) => {
+flow('navigation heavy: intercepted navigation renders a post', async (page) => {
   await page.goto(`${base}/navigation/app/`);
   await page.waitForSelector('#app ul li a', { timeout: 8000 });
   await page.click('#app ul li a');
@@ -175,7 +189,7 @@ await flow('navigation heavy: intercepted navigation renders a post', async (pag
   expect((await page.title()).startsWith('Post'), `title ${await page.title()}`);
 });
 
-await flow('morph light: typed text survives a morph refresh', async (page) => {
+flow('morph light: typed text survives a morph refresh', async (page) => {
   await page.goto(`${base}/morph/light.html`);
   await page.waitForSelector('#status-note', { timeout: 5000 });
   await page.fill('#status-note', 'keep me');
@@ -184,7 +198,7 @@ await flow('morph light: typed text survives a morph refresh', async (page) => {
   expect((await page.textContent('#lost')) === '0', 'lost counter incremented');
 });
 
-await flow('sync heavy: add a note and it syncs', async (page) => {
+flow('sync heavy: add a note and it syncs', async (page) => {
   await page.goto(`${base}/sync/heavy.html`);
   await page.waitForTimeout(800);
   await page.fill('#text', 'smoke note');
@@ -193,14 +207,14 @@ await flow('sync heavy: add a note and it syncs', async (page) => {
   await page.waitForFunction(() => /0 changes in the outbox/.test(document.getElementById('status').textContent), null, { timeout: 8000 });
 });
 
-await flow('forms light: no-JS post returns server page', async (page) => {
+flow('forms light: no-JS post returns server page', async (page) => {
   await page.goto(`${base}/forms/light.html`);
   await page.fill('#email', 'ada@company.test');
   await page.click('button[type=submit]');
   await page.waitForSelector('h1:has-text("Subscribed")', { timeout: 8000 });
 });
 
-await flow('agent light: GET form reaches the posts app route', async (page) => {
+flow('agent light: GET form reaches the posts app route', async (page) => {
   await page.goto(`${base}/agent/light.html`);
   await page.fill('#q', 'state');
   await page.click('button[type=submit]');
@@ -209,7 +223,7 @@ await flow('agent light: GET form reaches the posts app route', async (page) => 
   await page.waitForSelector('.post-card:not(.post-card--skeleton)', { timeout: 8000 });
 });
 
-await flow('agent heavy: console calls a tool through the schema check', async (page) => {
+flow('agent heavy: console calls a tool through the schema check', async (page) => {
   await page.goto(`${base}/agent/heavy.html`);
   await page.waitForSelector('.agent-posts__item', { timeout: 8000 });
   await page.selectOption('#tool', 'list_posts');
@@ -225,6 +239,15 @@ await flow('agent heavy: console calls a tool through the schema check', async (
   await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark', null, { timeout: 5000 });
 });
 
-await browser.close();
-console.log(failed ? `\n${failed} flow(s) failed` : '\nall flows passed');
-process.exit(failed ? 1 : 0);
+// Flows that visit a second page say so, so a port without that page skips them instead of failing.
+FLOWS.find((f) => f.name.startsWith('dynamic heavy: guarded route')).requires.push('/account/heavy.html');
+FLOWS.find((f) => f.name.startsWith('dynamic heavy: publish')).requires.push('/account/heavy.html');
+FLOWS.find((f) => f.name.startsWith('agent light')).requires.push('/dynamic/heavy.html');
+
+if (isMain(import.meta.url)) {
+  const results = await runFlows(process.argv[2] ?? 'http://localhost:5173', { only: process.argv[3] ?? '' });
+  for (const r of results) console.log(r.ok ? `OK   ${r.name}` : `FAIL ${r.name}\n      ${r.error}`);
+  const failed = results.filter((r) => !r.ok).length;
+  console.log(failed ? `\n${failed} flow(s) failed` : '\nall flows passed');
+  process.exit(failed ? 1 : 0);
+}

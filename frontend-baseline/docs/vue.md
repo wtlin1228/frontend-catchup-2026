@@ -48,23 +48,9 @@
 
 Vapor Mode is the 3.6 headline (per-component `<script setup vapor>`, interop plugin for mixed trees, sub-10 kB base when fully Vapor); measure the state and real-time pages in both modes. VoidZero's Vite+ and Void are commercial layers around the MIT tools underneath.
 
-## Measured, 2026-10-12 (`impl/vue`)
+## Measured
 
-Patterns 1 to 4 light, the board and the dashboard, Vue 3.5.43 (Composition API, `<script setup>`) on Vite 8, measured the same way as the baseline and the other ports on the same machine (headless Chrome; full table in `impl/vue/README.md`).
-
-| | Baseline | React | Svelte | Vue |
-|---|---|---|---|---|
-| Static light, shipped gzip | 6.6 kB, no JS | 73.3 kB | 23.3 kB | 32.4 kB, of which 26.5 kB is the runtime plus layout |
-| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB | 36.3 kB (4.0 kB of page code against 3.7) |
-| Board render after "Add 300 cards" / second 300 / filter keystroke | 16.1 / 22.6 / 5.3 ms | 14.6 / 14.0 / 3.0 ms | 15.3 / 11.8 / 11.8 ms | 18.1 / 22.6 / 22.6 ms |
-| Dashboard at 30 Hz: renders per second and render time, patch / rebuild | 31, 0.6 ms / 32, 1.4 ms | 31, 0.8 / 31, 1.4 ms | 31, 0.6 / 31, 1.4 ms | 31, 0.4 / 31, 0.6 ms |
-| Lines for the board page | 273 plus `store.js` and `dom.js` | 225 | 219 | 220, neither needed |
-| Lighthouse static light: performance, LCP | 100, 1.4 s | 99, 1.8 s | 100, 1.5 s | 100, 1.4 s |
-| Works without JavaScript | static and forms light | none | none | none |
-
-What it decided: client rendering with a 26 kB runtime (Nuxt's prerendering is what makes the light pages count), template compilation with a virtual DOM that patches the dashboard faster than anything else here, and a board whose whole template re-renders on every change (the filter keystroke over 606 cards costs 22.6 ms against Svelte's 11.8 and React's 3.0, so memoising the columns, `v-memo` or splitting components is the first optimisation a Vue port needs), post-flush watchers for timing, `shallowRef` for immutable history. Where it fought: template refs through `useTemplateRef`, the dialog's uncontrolled fields reset with a keyed `<template>`, drag-and-drop classes, focus after a keyboard move, and the inline theme script and `<title>` that stay in the HTML file.
-
-Numbers taken before the same day's stylesheet fixes (see `docs/verify.md` for the final table); the fixes add about 0.1 kB of CSS to every build and make the accessibility score 100 in every build.
+Patterns 1 to 4 light, the board and the dashboard are ported in `impl/vue` (Vue 3.5.43, Composition API, on Vite 8). The numbers are in [results.md](results.md). What they said: a 26 kB runtime and browser rendering, so Nuxt's prerendering is what makes the light pages count; the template compiler and virtual DOM patch the dashboard faster than anything else here, while the board's whole template re-renders on every change and the filter keystroke over 606 cards is the slowest of the four until the columns are memoised (`v-memo` or child components with their own computeds); post-flush watchers make timing a render one line; `shallowRef` holds immutable history; `useTemplateRef`, the dialog's uncontrolled fields, drag-and-drop classes and focus after a keyboard move were the friction.
 
 ## Watch out for
 

@@ -1,114 +1,30 @@
 # Verifying a port
 
-How to tell whether a framework port of a pattern is an improvement on the baseline, with tools where a tool exists and by hand where it does not. Run everything against the baseline first, on the same machine, the same day, and write the baseline's numbers next to the port's in the framework's sheet. "Better" always means one of three things: fewer bytes, files or concepts for the same behaviour (the light pages); the same behaviour holding up under load, failure and keyboard use (the heavy pages); or a decision the framework made for you that you would have made anyway.
+How to tell whether a framework port of a pattern is an improvement on the baseline, with tools where a tool exists and by hand where it does not. The numbers come from `pnpm compare` and live in [results.md](results.md); this page is the method, and the per-pattern checklist of what to look at by hand. "Better" always means one of three things: fewer bytes, files or concepts for the same behaviour (the light pages); the same behaviour holding up under load, failure and keyboard use (the heavy pages); or a decision the framework made for you that you would have made anyway.
 
-## Tools, in the order to run them
+## Tools
 
-| Tool | What it answers | Command |
-|---|---|---|
-| Dist checker | Does every built page have a title, one `h1`, `main`, `lang`, working links, assets, anchors, manifest and sitemap? | `pnpm check` for the baseline; `node scripts/check-dist.mjs <port>/dist` for a port. A port that does not generate the baseline's manifest, sitemap, feed or service worker gets lines about those files: write them down under patterns 9 and 13, they are findings, not failures. |
-| Page weight | What does each page ship, gzip, HTML + CSS + JS, and which chunks load lazily? | `pnpm weight`; `node scripts/page-weight.mjs <port>/dist`. Counts what the HTML references (`<link rel="stylesheet">`, `<script type="module">`, `modulepreload`); fonts and images are not counted; lazy chunks (`import()`, workers) are listed apart. |
-| Browser smoke tests | Does every page load without errors, and do the 17 interactive flows still pass? | `cd tools/smoke && pnpm install`, then `node pages.mjs <url>` and `node flows.mjs <url>` against `pnpm dev` or `pnpm preview`. They find elements by the ids in the baseline's HTML; a port that keeps the URLs and ids runs them unchanged, otherwise edit the selectors at the top of each flow. |
-| Lighthouse | Performance and accessibility under mobile throttling. | `pnpm dlx lighthouse <url> --only-categories=performance,accessibility,best-practices --chrome-flags="--headless=new" --output=json --output-path=lh.json`, three runs, take the median. Use the preview server so the mock API answers. |
-| The pages themselves | Render time, renders per second, sort time, requests per call, vitals, trace spans, counters. | Printed on the state, real-time, grid, server-function, observability, keep-alive, morph and error pages. Read them after the action named below, or let `node tools/smoke/measure.mjs <url>` collect them in one run (`--json` for a file to diff against a port). |
-| DevTools | Requests and their cancellation (Network), long tasks and the first-paint filmstrip (Performance), layout shift regions and reduced motion (Rendering), service worker, caches, cookies and storage (Application), roles and names (Accessibility tree), CSP violations (Console). | Per pattern below. |
-| Project numbers | Install size, dependency count, lifecycle scripts, build time. | `pnpm ls --depth=0`, `du -sh node_modules`, `npm query ":attr(scripts, [postinstall])"`, `time pnpm build` twice. |
+Run everything the scripts cover first, then verify by hand what they cannot.
 
-### The baseline's weights on 2026-10-05
+| Command | What it answers |
+|---|---|
+| `pnpm verify` | Is the baseline green: build, `dist/` structure and links, every page opened without errors, every flow passing |
+| `pnpm compare` | How do the implementations compare: shipped bytes per page, the numbers the pages print, lines per page, checks and dependency footprint, in one table per measure in [results.md](results.md); `--lighthouse` adds Lighthouse scores |
+| `node scripts/check-dist.mjs <dir>` | The structure and link checks on any build; a partial port gets lines about the baseline's generated files (sitemap, feed, manifest), which are findings for patterns 9 and 13, not failures |
+| `node tools/smoke/pages.mjs`, `flows.mjs`, `measure.mjs` | The same checks and measurements one at a time against any running server (see `tools/smoke/README.md`) |
+| DevTools | Requests and their cancellation (Network), long tasks and the first-paint filmstrip (Performance), layout shift regions and reduced motion (Rendering), service worker, caches, cookies and storage (Application), roles and names (Accessibility tree), CSP violations (Console); named per pattern below |
 
-`pnpm weight`, gzip kilobytes, total of HTML, CSS and JS per page, after the stylesheet fixes described under Lighthouse below. The shared stylesheet with tokens and base styles is 4.5 kB of every number; the self-hosted font and the images are extra. A port's light pages should land near the left column; its heavy pages are allowed to cost more than the right column only if they do more.
+Two rules make the numbers mean something. Compare implementations measured by the same run on the same machine, never against numbers from another machine or another day: `pnpm compare` guarantees that by measuring everything in one go. And read differences of a few milliseconds as none; headless Chrome adds that much noise even with medians.
 
-| # | Pattern | Light | Heavy | Loaded on demand |
-|---|---|---|---|---|
-| 1 | Static content | 6.7 | 10.0 | |
-| 2 | Forms | 6.6 | 11.9 | |
-| 3 | Dynamic data and routing | 7.8 | 13.8 | |
-| 4 | Client state | 8.5 | 11.6 | |
-| 5 | 3D and imperative libraries | 188.2 | 10.4 | three.js 181.0 and OrbitControls 4.3 on the heavy page only |
-| 6 | Real-time updates | 7.1 | 10.4 | |
-| 7 | Media and lazy loading | 6.6 | 9.9 | images |
-| 8 | Cross-cutting concerns | 7.1 | 11.7 | |
-| 9 | Content pipeline | 7.3 | 8.8 | articles 7.5 to 7.8, no JS |
-| 10 | Data grid | 9.5 | 11.2 | worker 0.9 |
-| 11 | Composite widgets | 7.5 | 10.9 | |
-| 12 | Motion | 7.4 | 9.4 | |
-| 13 | Offline and installable | 7.3 | 8.8 | fallback page 6.1 |
-| 14 | Async consistency | 8.7 | 10.3 | |
-| 15 | State across navigation | 9.5 | 10.2 | |
-| 16 | Server functions | 7.6 | 9.9 | |
-| 17 | Sync and local-first | 9.7 | 10.7 | |
-| 18 | Morphing and streaming HTML | 8.3 | 9.5 | |
-| 19 | Platform navigation | 6.5 | 10.0 | |
-| 20 | Error boundaries | 9.0 | 9.2 | |
-| 21 | Observability | 9.0 | 9.6 | |
-| 22 | Security hardening | 9.0 | 9.8 | |
-| 23 | Styling strategy | 7.1 | 8.0 | |
-| 24 | Agent-ready UI | 8.5 | 13.2 | |
-| | Hub | 9.6 | | |
-
-Ten light pages ship no JavaScript at all (static, forms, media, content, components, motion, navigation, styling, both static pages and all articles). A framework that cannot produce a zero-JS page for them has its first finding.
-
-### The baseline's on-page numbers on one machine, 2026-10-12
-
-`node tools/smoke/measure.mjs http://localhost:4173` against the production preview, headless Chrome, Linux, Intel i7-13850HX. Headless numbers are indicative; measure a port the same way on the same machine and compare the two columns you get, not a port against this table.
-
-| Page | Measurement | Baseline |
-|---|---|---|
-| State heavy | Render after "Add 300 cards" (306 on the board) | 16.1 ms |
-| State heavy | Render after a second "Add 300" (606 on the board) | 22.6 ms |
-| State heavy | Render after a filter keystroke with 606 cards | 5.3 ms |
-| Real-time heavy | Patch strategy at 30 Hz: renders per second, last render | 31 per second, 0.6 ms |
-| Real-time heavy | Rebuild strategy at 30 Hz: renders per second, last render | 32 per second, 1.4 ms |
-| Data grid heavy | 50,000 rows, sort by score: worker, main thread | 22 ms, 17.5 ms |
-| Data grid heavy | 200,000 rows, sort by score: worker, main thread | 87.9 ms, 98.9 ms |
-| Server functions heavy | Requests for five same-tick calls | 1 |
-| Observability light | TTFB, FCP, LCP, CLS on the page itself | 2 ms, 92 ms, 92 ms, 0.026 |
-| Observability heavy | Trace: spans and total (two API calls with mock latency plus a render) | 6 spans, 793 ms |
-
-The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the main thread is faster because the index array is not copied back), 11 ms at 200,000, and in both cases the typing stays smooth only in worker mode because the main thread is free. A port's numbers for the same actions go next to these in its sheet.
-
-### Lighthouse on the same machine, 2026-10-12
-
-`pnpm dlx lighthouse@13.5.0 <url> --only-categories=performance,accessibility,best-practices --chrome-flags="--headless=new"` against the production previews, one run each (the guide asks for the median of three; these are the first anchor). Performance 99 or 100 everywhere says the mobile throttling, not the framework, sets these pages' scores at this size; the numbers that move are LCP and CLS.
-
-| Page | Baseline | React | Svelte | Vue |
-|---|---|---|---|---|
-| Static light: performance, accessibility, best practices | 100, 100, 96 | 99, 100, 96 | 100, 100, 96 | 100, 100, 96 |
-| Static light: LCP, CLS | 1.4 s, 0 | 1.8 s, 0 | 1.5 s, 0 | 1.4 s, 0 |
-| State heavy: performance, accessibility, LCP, CLS | 99, 100, 1.7 s, 0 | 99, 100, 1.8 s, 0 | 100, 100, 1.5 s, 0 | 99, 100, 1.4 s, 0 |
-| Static heavy (baseline only) | 100, 100, 100; LCP 1.4 s, CLS 0 | | | |
-| Dynamic heavy (baseline only) | 99, 100, 100; LCP 1.7 s, CLS 0 | | | |
-
-The first run found three defects in the baseline, which the ports had inherited through the shared stylesheet, and all three were fixed the same day: images with size attributes lost their aspect ratio when `max-width` shrank them (no `height: auto`), white text on the brand orange was 3.1:1 and muted text on the grey surface 4.47:1 (new `--accent-fill` and `--on-accent` tokens, `code` in the full text colour, tags on `--bg-2`), and the dynamic heavy page shifted its footer by 0.10 to 0.17 CLS when the client-rendered list appeared (the app region now reserves most of a viewport before any script runs, so the footer starts below the fold). The remaining 96 on the light static pages is the hero image audit: at DPR 1.75 Lighthouse wants a candidate 1.5 times the rendered device pixels, and `sizes` selects the 800w file where it would like the 1200w one; serving it would cost bytes on every phone, so it stays. All three are the kind of thing a port copies by accident; run the audits on the baseline first and on the port second, and diff.
-
-### What a comparison looks like: the React, Svelte and Vue ports, 2026-10-12
-
-`impl/react`, `impl/svelte` and `impl/vue` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day (bytes after the stylesheet fixes), which is the only comparison this guide endorses.
-
-| Measurement | Baseline | React | Svelte | Vue |
-|---|---|---|---|---|
-| Static light, shipped gzip (HTML + CSS + JS) | 6.7 kB, 0 JS | 73.3 kB | 23.8 kB | 32.5 kB |
-| State heavy, shipped gzip | 11.6 kB | 76.8 kB | 27.7 kB | 36.3 kB |
-| Real-time heavy, shipped gzip | 10.4 kB | 75.4 kB | 26.3 kB | 34.9 kB |
-| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms | 18.1 ms |
-| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms | 22.6 ms |
-| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms | 22.6 ms |
-| Dashboard at 30 Hz, patch: renders per second, last render | 31, 0.6 ms | 31, 0.8 ms | 31, 0.6 ms | 31, 0.4 ms |
-| Dashboard at 30 Hz, rebuild: renders per second, last render | 32, 1.4 ms | 31, 1.4 ms | 31, 1.4 ms | 31, 0.6 ms |
-| Lines for the board page (plus shared code it still needs) | 273 (+ `store.js`, `dom.js`, `toast.js`) | 225 (+ `toast.js`) | 219 (+ `toast.js`) | 220 (+ `toast.js`) |
-| Lines for the dashboard page | 238 | 155 | 148 | 151 |
-| `check-dist` on the build | clean | no `<h1>`, no `<main>` in any page's HTML | the same | the same |
-| Flows "state heavy" and "forms light" | pass | pass | pass | pass |
-
-Three readings already: the light pages measure the runtime (67 kB, 17 kB, 26 kB, 0) and nothing else, because all three ports render in the browser; the board's numbers depend on which action you time (React wins the keystroke, Svelte the bulk add, Vue neither without memoisation), so record all three before concluding anything about rendering models; and at 30 Hz with one update per frame all four implementations are within a millisecond (the frame budget, not the framework, is the limit), so the dashboard separates frameworks only when the scheduling is left to them.
+What the numbers have said so far, in one paragraph. The light pages measure the runtime and nothing else (React's react-dom is 67 kB gzip, Svelte's runtime 17 kB, Vue's 26 kB, the baseline ships none), because every port renders in the browser and none of the ported light pages works without JavaScript; prerendering is what a meta-framework adds. The board's three timings disagree about the winner, so record all three before concluding anything about rendering models. At 30 Hz with one update per frame all implementations are within a millisecond: the frame budget, not the framework, is the limit, and the dashboard separates frameworks only when scheduling is left to them. Lighthouse's first run found three defects in the baseline's own stylesheet that every port had inherited (squashed images, brand-orange contrast, a layout shift on the dynamic page); all are fixed, and the lesson is to run the audits on the baseline before the port and diff.
 
 ## Per pattern
 
 Each entry: what better looks like, how a tool shows it, how to see it by hand. Where the baseline prints a number, record the baseline's first.
 
 ### 1. Static content
-- **Better:** fewer bytes than 6.7 and 10.0 kB, zero JS, the content is in the HTML (not rendered in the browser), same Lighthouse scores.
-- **Tool:** `pnpm weight`; `curl -s <url> | grep -c '<h2'` proves the sections are in the response; Lighthouse three times; the dist checker for structure and TOC anchors.
+- **Better:** fewer bytes than the baseline's (see results.md), zero JS, the content is in the HTML (not rendered in the browser), same Lighthouse scores.
+- **Tool:** `pnpm compare` for the bytes; `curl -s <url> | grep -c '<h2'` proves the sections are in the response; Lighthouse three times; the dist checker for structure and TOC anchors.
 - **Hand:** DevTools, Settings, Debugger, "Disable JavaScript", reload: the page is complete. Print preview of the heavy page: header, footer and TOC gone, link targets printed after links. Device toolbar at 640 px or narrower: the `<picture>` swaps to the other image. TOC links jump and the heading lands below the sticky header.
 
 ### 2. Forms

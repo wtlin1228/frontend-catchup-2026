@@ -64,8 +64,8 @@
       <h2>How to run a comparison</h2>
       <ol class="steps">
         <li><strong>Read the sheet.</strong> Each framework has a page under <code>docs/</code>: what it is, how each pattern maps onto it, migration steps, and what to watch for.</li>
-        <li><strong>Port the light pages first, then the heavy ones.</strong> Keep <code>scripts/mock-api.js</code> so every implementation talks to the same server.</li>
-        <li><strong>Measure the same things.</strong> Built JavaScript and CSS per page, lines of code, Lighthouse on the static and dynamic pages, render timings on the state, real-time and grid pages, and the list of decisions the framework made for you.</li>
+        <li><strong>Port the light pages first, then the heavy ones.</strong> Keep <code>scripts/mock-api.js</code>, the URLs and the element ids so every implementation talks to the same server and the same checks run against it; <code>impl/svelte</code> is the template.</li>
+        <li><strong>Measure the same things.</strong> <code>pnpm compare</code> builds every implementation and collects built JavaScript and CSS per page, lines of code, the render timings the state, real-time and grid pages print, and Lighthouse on request, into <code>docs/results.md</code>; the list of decisions the framework made for you is yours to write.</li>
         <li><strong>Write it down.</strong> The rubric in <code>docs/README.md</code> keeps notes comparable across frameworks.</li>
       </ol>
     </section>

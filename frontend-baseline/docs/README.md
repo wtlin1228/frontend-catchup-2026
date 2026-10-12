@@ -31,9 +31,9 @@ How to compare frameworks against the baseline, so that notes taken months apart
 
 Three ports exist, set up identically so they compare with each other as well as with the baseline: `impl/react/`, `impl/svelte/` and `impl/vue/` (patterns 1 to 4 light, the board and the dashboard, measured on 2026-10-12; see react.md, svelte.md and vue.md). Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](landscape-2026.md) summarises what each project's maintainers were writing about this year and which patterns the baseline still lacks. Re-check versions with `npm view <package> version` before porting; this landscape moves monthly.
 
-## Patterns 14 to 23
+## Sheets
 
-Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them, and pattern 24 (agent-ready UI, `agent/`) was added on 2026-10-12 with a row in every sheet. On 2026-10-12 the cells that had been written from memory were checked against the official docs and rewritten with the documented option, package and function names; the few that still end in "(verify)" are claims no documentation answers yet (mostly Remix 3's client runtime and whether a repeater uses `moveBefore`), so settle them in the port and replace the cell with what the port actually did.
+Every sheet maps all 24 patterns in the same order as `_template.md`. A cell that ends in "(verify)" is a claim no documentation answered when the sheet was written (17 remain, mostly Remix 3's client runtime and whether a repeater uses `moveBefore`); settle it in the port and replace the cell with what the port did. Versions were last checked against the npm registry on 2026-10-12; re-check with `pnpm view <package> version` before porting.
 
 ## Procedure
 
@@ -41,17 +41,19 @@ Patterns 14 to 23 (async consistency, state across navigation, server functions,
 2. Scaffold with the framework's official starter. Record dependency count and install size.
 3. Register `scripts/mock-api.js` (and `html-partials.js` if the framework has no layouts) in the framework's Vite config, or run the mock API as a separate process. Every port must talk to the same API.
 4. Port the light pages in order 1 to 24, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
-5. Measure (below) and verify each pattern as [verify.md](verify.md) describes, by tool where one exists and by hand where not. Fill in the rubric the same day.
-6. File the implementation under `impl/<name>/` (or a sibling repository) and link it from the sheet.
+5. Run `pnpm compare` (the numbers land in [results.md](results.md)) and verify each pattern as [verify.md](verify.md) describes. Fill in the rubric the same day.
+6. File the implementation under `impl/<name>/` with a `compare.config.json` (copy `impl/svelte`) and link it from the sheet.
 
 ## Measurements
 
+`pnpm compare` collects the rows marked with it for every implementation in one run; the rest are by hand.
+
 | Measurement | Pages | How |
 |---|---|---|
-| Shipped JS and CSS per page (gzip) | All | `pnpm build && pnpm weight` (point `scripts/page-weight.mjs` at a port's dist to compare); shared chunks count once per page that loads them |
+| Shipped JS and CSS per page (gzip) | All | `pnpm compare` (or `pnpm weight` for one build); shared chunks count once per page that loads them |
 | Lines of code per page | All | Only files that exist because of that page; config counts once |
 | Works without JavaScript | Static, forms, content, media light | Disable scripts in the browser |
-| Lighthouse, mobile preset, median of 3 | Static heavy, dynamic heavy, media heavy | Throttled CPU and network |
+| Lighthouse, mobile preset | Static light, dynamic heavy, state heavy | `pnpm compare --lighthouse` (one run; repeat for a median) |
 | Board: "last render" after Add 300 cards | State heavy | Printed on the page |
 | Dashboard: renders/s and render ms at 30 Hz, both strategies | Real-time heavy | Printed on the page |
 | Grid: sort time for 50,000 rows, worker vs main | Data grid heavy | Printed on the page |
@@ -59,7 +61,7 @@ Patterns 14 to 23 (async consistency, state across navigation, server functions,
 | Vitals and trace duration | Observability pages | Printed on the page |
 | Inline scripts the framework needs allowed | Security light | Count the hashes or nonces required for the page to work |
 | three.js chunk: size and when it loads | Scene light vs heavy | Network panel |
-| Install and dependency count, lifecycle scripts | Project | `pnpm ls --depth=0`, `du -sh node_modules`, `npm query ":attr(scripts, [postinstall])"` |
+| Install and dependency count, lifecycle scripts | Project | `pnpm compare` counts direct dependencies and `node_modules`; `npm query ":attr(scripts, [postinstall])"` for lifecycle scripts |
 | Build time, cold and warm | Project | `time pnpm build` twice |
 | Server throughput for the dynamic heavy page | Project (SSR ports) | `autocannon` or `oha` against the route, 10 s |
 | Caching model | Dynamic heavy | How invalidation is expressed (`invalidate`, tags, `"use cache"`, route caching, CDN providers), what is cached where, and what a like does to the cached list |

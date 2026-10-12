@@ -1,0 +1,30 @@
+{
+  "name": "Baseline",
+  "versionOf": "vite",
+  "preview": 4173,
+  "pageFiles": [
+    "{pattern}/{variant}.html",
+    "src/pages/{pattern}-{variant}.js",
+    "src/pages/{pattern}-{variant}.css"
+  ],
+  "shared": [
+    "src/partials/head.html",
+    "src/partials/header.html",
+    "src/partials/footer.html",
+    "src/partials/variant-nav.html",
+    "src/lib/dom.js",
+    "src/lib/store.js",
+    "src/lib/router.js",
+    "src/lib/api.js",
+    "src/lib/toast.js",
+    "src/lib/theme.js",
+    "src/lib/i18n.js",
+    "src/lib/auth.js",
+    "src/lib/elements.js",
+    "src/lib/rpc.js",
+    "src/lib/sync.js",
+    "src/lib/morph.js",
+    "src/lib/agent.js",
+    "src/lib/rows.js"
+  ]
+}

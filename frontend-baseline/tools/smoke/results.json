@@ -1,0 +1,899 @@
+{
+  "date": "2026-10-12",
+  "machine": "linux 6.12.101+deb13-amd64, 13th Gen Intel(R) Core(TM) i7-13850HX x28, headless Chrome",
+  "node": "v22.13.0",
+  "lighthouse": false,
+  "implementations": [
+    {
+      "id": "baseline",
+      "name": "Baseline",
+      "label": "Baseline 8.3.4",
+      "dir": ".",
+      "pages": {
+        "/account/heavy.html": {
+          "html": 2611,
+          "css": 4874,
+          "js": 4576,
+          "lazy": 0,
+          "lines": 147
+        },
+        "/account/light.html": {
+          "html": 2001,
+          "css": 4621,
+          "js": 775,
+          "lazy": 0,
+          "lines": 33
+        },
+        "/agent/heavy.html": {
+          "html": 2874,
+          "css": 5575,
+          "js": 5147,
+          "lazy": 0,
+          "lines": 224
+        },
+        "/agent/light.html": {
+          "html": 2638,
+          "css": 4621,
+          "js": 1535,
+          "lazy": 0,
+          "lines": 61
+        },
+        "/async/heavy.html": {
+          "html": 2168,
+          "css": 5230,
+          "js": 3200,
+          "lazy": 0,
+          "lines": 137
+        },
+        "/async/light.html": {
+          "html": 2043,
+          "css": 5230,
+          "js": 1748,
+          "lazy": 0,
+          "lines": 64
+        },
+        "/components/heavy.html": {
+          "html": 2934,
+          "css": 5241,
+          "js": 3030,
+          "lazy": 0,
+          "lines": 218
+        },
+        "/components/light.html": {
+          "html": 2642,
+          "css": 5071,
+          "js": 0,
+          "lazy": 0,
+          "lines": 70
+        },
+        "/content/articles/hydration-islands-resumability.html": {
+          "html": 2878,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/content/articles/measuring-a-framework.html": {
+          "html": 2605,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/content/articles/progressive-forms-checklist.html": {
+          "html": 2714,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/content/articles/the-url-is-state.html": {
+          "html": 2528,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/content/articles/three-reactivity-models.html": {
+          "html": 2815,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/content/heavy.html": {
+          "html": 2846,
+          "css": 5192,
+          "js": 1016,
+          "lazy": 0,
+          "lines": 102
+        },
+        "/content/light.html": {
+          "html": 2365,
+          "css": 5192,
+          "js": 0,
+          "lazy": 0,
+          "lines": 42
+        },
+        "/dynamic/heavy.html": {
+          "html": 2104,
+          "css": 5214,
+          "js": 6804,
+          "lazy": 0,
+          "lines": 348
+        },
+        "/dynamic/light.html": {
+          "html": 1903,
+          "css": 4621,
+          "js": 1502,
+          "lazy": 0,
+          "lines": 51
+        },
+        "/errors/heavy.html": {
+          "html": 2182,
+          "css": 5230,
+          "js": 2113,
+          "lazy": 0,
+          "lines": 97
+        },
+        "/errors/light.html": {
+          "html": 2043,
+          "css": 5230,
+          "js": 2018,
+          "lazy": 0,
+          "lines": 56
+        },
+        "/forms/heavy.html": {
+          "html": 3146,
+          "css": 4963,
+          "js": 4597,
+          "lazy": 0,
+          "lines": 317
+        },
+        "/forms/light.html": {
+          "html": 2159,
+          "css": 4621,
+          "js": 0,
+          "lazy": 0,
+          "lines": 34
+        },
+        "/index.html": {
+          "html": 4858,
+          "css": 5189,
+          "js": 0,
+          "lazy": 0,
+          "lines": null
+        },
+        "/keepalive/heavy.html": {
+          "html": 2094,
+          "css": 5230,
+          "js": 3156,
+          "lazy": 0,
+          "lines": 93
+        },
+        "/keepalive/light.html": {
+          "html": 1902,
+          "css": 5230,
+          "js": 2661,
+          "lazy": 0,
+          "lines": 72
+        },
+        "/media/heavy.html": {
+          "html": 2157,
+          "css": 5110,
+          "js": 2970,
+          "lazy": 0,
+          "lines": 154
+        },
+        "/media/light.html": {
+          "html": 2191,
+          "css": 4621,
+          "js": 0,
+          "lazy": 0,
+          "lines": 31
+        },
+        "/morph/heavy.html": {
+          "html": 2239,
+          "css": 5399,
+          "js": 2156,
+          "lazy": 0,
+          "lines": 76
+        },
+        "/morph/light.html": {
+          "html": 2035,
+          "css": 5230,
+          "js": 1347,
+          "lazy": 0,
+          "lines": 59
+        },
+        "/motion/heavy.html": {
+          "html": 2253,
+          "css": 5121,
+          "js": 2352,
+          "lazy": 0,
+          "lines": 157
+        },
+        "/motion/light.html": {
+          "html": 2347,
+          "css": 5346,
+          "js": 0,
+          "lazy": 0,
+          "lines": 71
+        },
+        "/navigation/heavy.html": {
+          "html": 2197,
+          "css": 5230,
+          "js": 2904,
+          "lazy": 0,
+          "lines": 114
+        },
+        "/navigation/light.html": {
+          "html": 2065,
+          "css": 4621,
+          "js": 0,
+          "lazy": 0,
+          "lines": 33
+        },
+        "/observe/heavy.html": {
+          "html": 2125,
+          "css": 5230,
+          "js": 2506,
+          "lazy": 0,
+          "lines": 88
+        },
+        "/observe/light.html": {
+          "html": 2043,
+          "css": 5230,
+          "js": 2002,
+          "lazy": 0,
+          "lines": 67
+        },
+        "/offline/fallback.html": {
+          "html": 1691,
+          "css": 4621,
+          "js": 0,
+          "lazy": 0,
+          "lines": 21
+        },
+        "/offline/heavy.html": {
+          "html": 2310,
+          "css": 4751,
+          "js": 1994,
+          "lazy": 0,
+          "lines": 104
+        },
+        "/offline/light.html": {
+          "html": 2075,
+          "css": 4621,
+          "js": 816,
+          "lazy": 0,
+          "lines": 54
+        },
+        "/realtime/heavy.html": {
+          "html": 2336,
+          "css": 5473,
+          "js": 2848,
+          "lazy": 0,
+          "lines": 268
+        },
+        "/realtime/light.html": {
+          "html": 1990,
+          "css": 4621,
+          "js": 755,
+          "lazy": 0,
+          "lines": 51
+        },
+        "/rpc/heavy.html": {
+          "html": 2364,
+          "css": 5230,
+          "js": 2632,
+          "lazy": 0,
+          "lines": 92
+        },
+        "/rpc/light.html": {
+          "html": 1987,
+          "css": 4621,
+          "js": 1232,
+          "lazy": 0,
+          "lines": 39
+        },
+        "/scene/heavy.html": {
+          "html": 2536,
+          "css": 5093,
+          "js": 3111,
+          "lazy": 189743,
+          "lines": 247
+        },
+        "/scene/light.html": {
+          "html": 1900,
+          "css": 4779,
+          "js": 186134,
+          "lazy": 0,
+          "lines": 53
+        },
+        "/security/heavy.html": {
+          "html": 2579,
+          "css": 5230,
+          "js": 2300,
+          "lazy": 0,
+          "lines": 99
+        },
+        "/security/light.html": {
+          "html": 2323,
+          "css": 5230,
+          "js": 1703,
+          "lazy": 0,
+          "lines": 57
+        },
+        "/state/heavy.html": {
+          "html": 2705,
+          "css": 5401,
+          "js": 3798,
+          "lazy": 0,
+          "lines": 299
+        },
+        "/state/light.html": {
+          "html": 2166,
+          "css": 4893,
+          "js": 1670,
+          "lazy": 0,
+          "lines": 84
+        },
+        "/static/heavy.html": {
+          "html": 5048,
+          "css": 5286,
+          "js": 0,
+          "lazy": 0,
+          "lines": 167
+        },
+        "/static/light.html": {
+          "html": 2254,
+          "css": 4621,
+          "js": 0,
+          "lazy": 0,
+          "lines": 31
+        },
+        "/styling/heavy.html": {
+          "html": 2815,
+          "css": 5494,
+          "js": 0,
+          "lazy": 0,
+          "lines": 99
+        },
+        "/styling/light.html": {
+          "html": 2341,
+          "css": 4992,
+          "js": 0,
+          "lazy": 0,
+          "lines": 61
+        },
+        "/sync/heavy.html": {
+          "html": 2333,
+          "css": 5230,
+          "js": 3630,
+          "lazy": 0,
+          "lines": 82
+        },
+        "/sync/light.html": {
+          "html": 2086,
+          "css": 5230,
+          "js": 2686,
+          "lazy": 0,
+          "lines": 55
+        },
+        "/table/heavy.html": {
+          "html": 2432,
+          "css": 5414,
+          "js": 3701,
+          "lazy": 895,
+          "lines": 178
+        },
+        "/table/light.html": {
+          "html": 2061,
+          "css": 5414,
+          "js": 2299,
+          "lazy": 0,
+          "lines": 48
+        }
+      },
+      "measurements": [
+        {
+          "page": "state heavy",
+          "measurement": "render after Add 300 cards (306 on the board)",
+          "value": 13.1,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a second Add 300 (606 on the board)",
+          "value": 38.1,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a filter keystroke (606 cards)",
+          "value": 5.1,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: renders per second at 30 Hz (median of 5)",
+          "value": 32,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: last render at 30 Hz (median of 5)",
+          "value": 0.6,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
+          "value": 32,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: last render at 30 Hz (median of 5)",
+          "value": 1.2,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "50,000 rows: sort by score on the worker",
+          "value": 22,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "50,000 rows: sort by score on the main thread",
+          "value": 19.5,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "200,000 rows: sort by score on the worker",
+          "value": 82.2,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "200,000 rows: sort by score on the main thread",
+          "value": 89.4,
+          "unit": "ms"
+        },
+        {
+          "page": "server functions heavy",
+          "measurement": "requests for five same-tick calls",
+          "value": 1,
+          "unit": ""
+        },
+        {
+          "page": "observability light",
+          "measurement": "Time to first byte",
+          "value": 1,
+          "unit": "ms"
+        },
+        {
+          "page": "observability light",
+          "measurement": "First contentful paint",
+          "value": 120,
+          "unit": "ms"
+        },
+        {
+          "page": "observability light",
+          "measurement": "Largest contentful paint",
+          "value": 120,
+          "unit": "ms"
+        },
+        {
+          "page": "observability light",
+          "measurement": "Cumulative layout shift",
+          "value": 0.026,
+          "unit": ""
+        },
+        {
+          "page": "observability light",
+          "measurement": "Slowest interaction (INP, approx.)",
+          "value": 0,
+          "unit": "ms"
+        },
+        {
+          "page": "observability light",
+          "measurement": "Long tasks",
+          "value": 0,
+          "unit": ""
+        },
+        {
+          "page": "observability heavy",
+          "measurement": "trace: spans",
+          "value": 6,
+          "unit": ""
+        },
+        {
+          "page": "observability heavy",
+          "measurement": "trace: total (two API calls with mock latency plus a render)",
+          "value": 528,
+          "unit": "ms"
+        }
+      ],
+      "checks": {
+        "pages": {
+          "clean": 50,
+          "total": 50,
+          "failed": []
+        },
+        "flows": {
+          "passed": 18,
+          "total": 18,
+          "failed": []
+        }
+      },
+      "lighthouse": {},
+      "largestAsset": {
+        "path": "/assets/three.module-Budc8Kux.js",
+        "gz": 185317
+      },
+      "sharedLines": 792
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "label": "React 19.3.0",
+      "dir": "impl/react",
+      "pages": {
+        "/dynamic/light.html": {
+          "html": 521,
+          "css": 4621,
+          "js": 69901,
+          "lazy": 0,
+          "lines": 73
+        },
+        "/forms/light.html": {
+          "html": 608,
+          "css": 4621,
+          "js": 69735,
+          "lazy": 0,
+          "lines": 45
+        },
+        "/index.html": {
+          "html": 512,
+          "css": 4621,
+          "js": 69595,
+          "lazy": 0,
+          "lines": null
+        },
+        "/realtime/heavy.html": {
+          "html": 549,
+          "css": 5473,
+          "js": 71200,
+          "lazy": 0,
+          "lines": 157
+        },
+        "/state/heavy.html": {
+          "html": 557,
+          "css": 5401,
+          "js": 72669,
+          "lazy": 0,
+          "lines": 227
+        },
+        "/state/light.html": {
+          "html": 515,
+          "css": 4893,
+          "js": 70160,
+          "lazy": 0,
+          "lines": 76
+        },
+        "/static/light.html": {
+          "html": 616,
+          "css": 4621,
+          "js": 69843,
+          "lazy": 0,
+          "lines": 42
+        }
+      },
+      "measurements": [
+        {
+          "page": "state heavy",
+          "measurement": "render after Add 300 cards (306 on the board)",
+          "value": 13.2,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a second Add 300 (606 on the board)",
+          "value": 14.2,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a filter keystroke (606 cards)",
+          "value": 3,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: renders per second at 30 Hz (median of 5)",
+          "value": 31,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: last render at 30 Hz (median of 5)",
+          "value": 0.8,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
+          "value": 30,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: last render at 30 Hz (median of 5)",
+          "value": 1.7,
+          "unit": "ms"
+        }
+      ],
+      "checks": {
+        "pages": {
+          "clean": 6,
+          "total": 6,
+          "failed": []
+        },
+        "flows": {
+          "passed": 2,
+          "total": 2,
+          "failed": []
+        }
+      },
+      "lighthouse": {},
+      "largestAsset": {
+        "path": "/assets/Layout-DIcDoA3P.js",
+        "gz": 68991
+      },
+      "sharedLines": 71
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "label": "Svelte 5.57.2",
+      "dir": "impl/svelte",
+      "pages": {
+        "/dynamic/light.html": {
+          "html": 522,
+          "css": 4621,
+          "js": 19245,
+          "lazy": 0,
+          "lines": 72
+        },
+        "/forms/light.html": {
+          "html": 627,
+          "css": 4621,
+          "js": 18971,
+          "lazy": 0,
+          "lines": 48
+        },
+        "/index.html": {
+          "html": 530,
+          "css": 4621,
+          "js": 19057,
+          "lazy": 0,
+          "lines": null
+        },
+        "/realtime/heavy.html": {
+          "html": 552,
+          "css": 5473,
+          "js": 20957,
+          "lazy": 0,
+          "lines": 151
+        },
+        "/state/heavy.html": {
+          "html": 557,
+          "css": 5401,
+          "js": 22356,
+          "lazy": 0,
+          "lines": 222
+        },
+        "/state/light.html": {
+          "html": 519,
+          "css": 4893,
+          "js": 19608,
+          "lazy": 0,
+          "lines": 74
+        },
+        "/static/light.html": {
+          "html": 640,
+          "css": 4621,
+          "js": 19091,
+          "lazy": 0,
+          "lines": 46
+        }
+      },
+      "measurements": [
+        {
+          "page": "state heavy",
+          "measurement": "render after Add 300 cards (306 on the board)",
+          "value": 11.9,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a second Add 300 (606 on the board)",
+          "value": 12.6,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a filter keystroke (606 cards)",
+          "value": 12.6,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: renders per second at 30 Hz (median of 5)",
+          "value": 32,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: last render at 30 Hz (median of 5)",
+          "value": 0.7,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
+          "value": 31,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: last render at 30 Hz (median of 5)",
+          "value": 1.4,
+          "unit": "ms"
+        }
+      ],
+      "checks": {
+        "pages": {
+          "clean": 6,
+          "total": 6,
+          "failed": []
+        },
+        "flows": {
+          "passed": 2,
+          "total": 2,
+          "failed": []
+        }
+      },
+      "lighthouse": {},
+      "largestAsset": {
+        "path": "/assets/mount-QThb3EYo.js",
+        "gz": 18113
+      },
+      "sharedLines": 62
+    },
+    {
+      "id": "vue",
+      "name": "Vue",
+      "label": "Vue 3.5.43",
+      "dir": "impl/vue",
+      "pages": {
+        "/dynamic/light.html": {
+          "html": 519,
+          "css": 4621,
+          "js": 28102,
+          "lazy": 0,
+          "lines": 71
+        },
+        "/forms/light.html": {
+          "html": 609,
+          "css": 4621,
+          "js": 27872,
+          "lazy": 0,
+          "lines": 50
+        },
+        "/index.html": {
+          "html": 510,
+          "css": 4621,
+          "js": 27839,
+          "lazy": 0,
+          "lines": null
+        },
+        "/realtime/heavy.html": {
+          "html": 549,
+          "css": 5473,
+          "js": 29669,
+          "lazy": 0,
+          "lines": 154
+        },
+        "/state/heavy.html": {
+          "html": 553,
+          "css": 5401,
+          "js": 31228,
+          "lazy": 0,
+          "lines": 223
+        },
+        "/state/light.html": {
+          "html": 514,
+          "css": 4893,
+          "js": 28470,
+          "lazy": 0,
+          "lines": 71
+        },
+        "/static/light.html": {
+          "html": 616,
+          "css": 4621,
+          "js": 28029,
+          "lazy": 0,
+          "lines": 48
+        }
+      },
+      "measurements": [
+        {
+          "page": "state heavy",
+          "measurement": "render after Add 300 cards (306 on the board)",
+          "value": 13.1,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a second Add 300 (606 on the board)",
+          "value": 14.4,
+          "unit": "ms"
+        },
+        {
+          "page": "state heavy",
+          "measurement": "render after a filter keystroke (606 cards)",
+          "value": 14.4,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: renders per second at 30 Hz (median of 5)",
+          "value": 31,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "patch: last render at 30 Hz (median of 5)",
+          "value": 0.4,
+          "unit": "ms"
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
+          "value": 32,
+          "unit": ""
+        },
+        {
+          "page": "real-time heavy",
+          "measurement": "rebuild: last render at 30 Hz (median of 5)",
+          "value": 0.6,
+          "unit": "ms"
+        }
+      ],
+      "checks": {
+        "pages": {
+          "clean": 6,
+          "total": 6,
+          "failed": []
+        },
+        "flows": {
+          "passed": 2,
+          "total": 2,
+          "failed": []
+        }
+      },
+      "lighthouse": {},
+      "largestAsset": {
+        "path": "/assets/mount-BFpcW0oG.js",
+        "gz": 27087
+      },
+      "sharedLines": 63
+    }
+  ],
+  "chrome": "153.0.8010.47"
+}

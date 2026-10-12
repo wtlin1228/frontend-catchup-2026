@@ -1,0 +1,15 @@
+{
+  "name": "Vue",
+  "versionOf": "vue",
+  "preview": 4176,
+  "pageFiles": [
+    "{pattern}/{variant}.html",
+    "src/pages/{pattern}-{variant}.js",
+    "src/{Pattern}{Variant}.vue"
+  ],
+  "shared": [
+    "src/Layout.vue",
+    "src/mount.js",
+    "src/patterns.js"
+  ]
+}

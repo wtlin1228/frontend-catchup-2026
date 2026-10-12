@@ -1,14 +1,26 @@
-# Browser smoke tests
+# Browser checks, flows, measurements
 
-Two scripts drive a headless Chrome over every page. They live in their own package so `playwright-core` does not count toward the baseline's dependencies.
+Headless-Chrome scripts that drive the baseline and every port the same way. They live in their own package so `playwright-core` does not count toward the baseline's dependencies.
 
 ```sh
-# from the project root, in two terminals
-pnpm dev                       # or: pnpm build && pnpm preview (port 4173)
-cd tools/smoke && pnpm install
-node pages.mjs http://localhost:5173    # opens all 53 pages: console errors, page errors, failed requests, structure
-node flows.mjs http://localhost:5173    # 19 interactive flows; a third argument runs only flows whose name contains it (a partial port: "state"): forms, login, routing, grid, palette, rpc, security, sync…
-node measure.mjs http://localhost:4173  # collects the numbers the pages print (render, renders/s, sort, requests, vitals, trace)
+cd tools/smoke && pnpm install          # once; Chrome at /usr/bin/google-chrome or $CHROME_PATH
 ```
 
-Both scripts look for Chrome at `/usr/bin/google-chrome`; change `executablePath` if yours is elsewhere. Expected noise is filtered: the deliberately flaky `/api/flaky` 500s, the 30% failing like endpoint, Trusted Types refusals the security page provokes on purpose, and headless GPU warnings. Headless Chrome also reports `InvalidStateError: Transition was aborted because of invalid state. ViewTransition opt-in disabled` on some ordinary cross-document navigations (the old page offers a transition at `pageswap`, the new page sometimes has none at `pagereveal`); it is not tied to any page, so both scripts ignore that one message. Anything else printed under a `FAIL` line is a real problem. `pnpm check` at the project root is the dependency-free static check of `dist/` and runs without a browser.
+From the project root:
+
+| Command | What it does |
+|---|---|
+| `pnpm verify` | Build, check `dist/`, then open every page and run every flow against a preview server; exits non-zero on any problem |
+| `pnpm compare` | Build the baseline and every `impl/<name>` with a `compare.config.json`, weigh the pages, open them, run the flows and the measurements, write `docs/results.md` and `tools/smoke/results.json`; `--lighthouse` adds Lighthouse, `--only <name>` redoes one port, `--no-build` reuses `dist/` |
+
+Each script also runs on its own against any server (a port keeps the URLs and ids, so nothing needs changing):
+
+```sh
+node pages.mjs http://localhost:4173 [pathFilter]     # every page: console errors, page errors, failed requests, structure
+node flows.mjs http://localhost:4173 [nameFilter]     # 18 interactive flows; "state" runs only the ones whose name contains it
+node measure.mjs http://localhost:4173 [pageFilter]   # the numbers the pages print: board render, dashboard rate, grid sort, rpc batching, vitals, trace
+```
+
+A flow's name starts with the page it drives; `compare.mjs` runs on a port only the flows whose pages it has.
+
+Expected noise is filtered in `lib.mjs`: the deliberately flaky endpoints, the Trusted Types refusals the security page provokes, GPU warnings, and one Chrome headless quirk (an aborted cross-document view transition reported on random ordinary navigations, not tied to any page). Anything else printed under a `FAIL` line is a real problem.

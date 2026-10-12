@@ -128,6 +128,8 @@ pnpm dev           # dev server with the mock API
 pnpm build         # dist/ with per-page assets
 pnpm preview       # serves dist/ with the same mock API
 pnpm check         # builds, then checks every page's links, assets and structure
+pnpm verify        # builds, checks, then opens every page and runs every flow in headless Chrome
+pnpm compare       # builds and measures the baseline and every port, writes docs/results.md
 
 # Per-page sizes after a build
 du -b dist/assets/* | sort -n</code></pre>

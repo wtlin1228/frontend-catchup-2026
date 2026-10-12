@@ -13,6 +13,8 @@
     "preview": "vite preview",
     "check": "pnpm build && node scripts/check-dist.mjs",
     "weight": "node scripts/page-weight.mjs",
+    "verify": "node tools/smoke/all.mjs",
+    "compare": "node tools/smoke/compare.mjs",
     "gen:images": "node scripts/gen-images.mjs --force",
     "build:content": "node scripts/build-content.mjs"
   },

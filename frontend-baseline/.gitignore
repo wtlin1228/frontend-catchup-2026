@@ -10,3 +10,4 @@ public/data/content-index.json
 public/icon-*.png
 
 tools/smoke/node_modules
+tools/smoke/.compare
