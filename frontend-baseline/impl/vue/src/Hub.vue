@@ -7,6 +7,7 @@ const PORTED = [
   ['Client state', '/state/light.html', '/state/heavy.html'],
   ['Real-time updates', null, '/realtime/heavy.html'],
   ['Data grid', null, '/table/heavy.html'],
+  ['Motion', null, '/motion/heavy.html'],
 ];
 </script>
 

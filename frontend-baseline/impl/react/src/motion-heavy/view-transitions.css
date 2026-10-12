@@ -1,0 +1,8 @@
+/* React's <ViewTransition> puts these classes on the browser's transition groups; the baseline's stylesheet times the moves. */
+::view-transition-new(.tile-enter):only-child { animation: tile-in 250ms ease-out; }
+::view-transition-old(.tile-exit):only-child { animation: tile-out 200ms ease-in; }
+@keyframes tile-in { from { opacity: 0; transform: scale(0.6); } }
+@keyframes tile-out { to { opacity: 0; transform: scale(0.6); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

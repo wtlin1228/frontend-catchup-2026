@@ -79,7 +79,7 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 
 ### 12. Motion
 - **Better:** the light page stays CSS-only; list reorder, enter and leave animate from element identity (FLIP) without a library, or the framework ships it; reduced motion is honoured everywhere; layout changes use a view transition.
-- **Tool:** Rendering, "Emulate CSS prefers-reduced-motion: reduce", then use every control: nothing animates; Performance panel during Shuffle: transforms and opacity only, no layout storms; `pnpm weight` for the light page.
+- **Tool:** Rendering, "Emulate CSS prefers-reduced-motion: reduce", then use every control: nothing animates; Performance panel during Shuffle: transforms and opacity only, no layout storms; `pnpm weight` for the light page; flow "motion heavy: tiles reorder, add, remove and switch layout; the card springs back" checks the DOM after each action and that the card returns to rest.
 - **Hand:** light: the progress bar tracks scrolling, items reveal as they enter, the popover fades in and out and stays in the DOM while fading, cards lift on hover and focus. Heavy: Shuffle and Sort slide tiles, Add scales in, Remove fades out then the rest slide, Switch layout morphs tiles (Chromium), a thrown card overshoots and springs back, arrow keys nudge it and Escape releases it.
 
 ### 13. Offline and installable

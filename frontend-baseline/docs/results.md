@@ -10,18 +10,19 @@ Gzip kilobytes of HTML, CSS and JavaScript the page references (fonts and images
 
 | Page | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| static/light | 6.7 | 73.5 | 24.5 | 33.4 |
-| forms/light | 6.6 | 73.4 | 24.4 | 33.2 |
-| forms/heavy | 12.4 | 77.3 | 29.1 | 37.4 |
-| dynamic/light | 7.8 | 73.5 | 24.5 | 33.4 |
-| dynamic/heavy | 13.8 | 116.1 | 30.3 | 56.7 |
-| state/light | 8.5 | 74.0 | 25.2 | 34.0 |
-| state/heavy | 11.6 | 77.1 | 28.5 | 37.3 |
-| realtime/heavy | 10.4 | 75.6 | 27.1 | 35.8 |
-| table/heavy | 11.3 (+0.9 lazy) | 76.3 (+0.9 lazy) | 27.6 (+0.9 lazy) | 36.3 (+0.9 lazy) |
-| index | 9.9 | 73.2 | 24.4 | 33.1 |
-| JavaScript alone, static light | 0.0 | 68.4 | 19.4 | 28.3 |
-| Largest asset | 181.0 (three.module.js) | 67.6 (Layout.js) | 18.4 (mount.js) | 27.2 (Layout.js) |
+| static/light | 6.7 | 73.5 | 26.0 | 36.0 |
+| forms/light | 6.6 | 73.4 | 25.9 | 35.8 |
+| forms/heavy | 12.4 | 77.3 | 30.6 | 40.0 |
+| dynamic/light | 7.8 | 73.5 | 26.1 | 36.0 |
+| dynamic/heavy | 13.8 | 116.1 | 31.8 | 59.3 |
+| state/light | 8.5 | 74.0 | 26.7 | 36.6 |
+| state/heavy | 11.6 | 77.1 | 30.0 | 39.9 |
+| realtime/heavy | 10.4 | 75.6 | 28.6 | 38.3 |
+| table/heavy | 11.3 (+0.9 lazy) | 76.3 (+0.9 lazy) | 29.1 (+0.9 lazy) | 38.9 (+0.9 lazy) |
+| motion/heavy | 9.5 | 74.9 | 28.8 | 37.4 |
+| index | 9.9 | 73.2 | 25.9 | 35.7 |
+| JavaScript alone, static light | 0.0 | 68.4 | 20.9 | 30.8 |
+| Largest asset | 181.0 (three.module.js) | 67.6 (Layout.js) | 19.9 (mount.js) | 29.8 (Layout.js) |
 
 ## On-page measurements
 
@@ -29,28 +30,28 @@ What the pages print after the action named; collected by `tools/smoke/measure.m
 
 | Measurement | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| state heavy: render after Add 300 cards (306 on the board) | 12.3 ms | 15.1 ms | 18.2 ms | 16.2 ms |
-| state heavy: render after a second Add 300 (606 on the board) | 25 ms | 17.7 ms | 16.5 ms | 23 ms |
-| state heavy: render after a filter keystroke (606 cards) | 5.5 ms | 4.5 ms | 16.5 ms | 23 ms |
-| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 32 | 31 | 31 | 31 |
-| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.8 ms | 0.9 ms | 1 ms | 0.5 ms |
-| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 31 | 31 | 31 | 30 |
-| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.6 ms | 1.4 ms | 1.5 ms | 1 ms |
-| data grid heavy: 50,000 rows: sort by score on the worker | 34 ms | 26.8 ms | 26.6 ms | 33.8 ms |
-| data grid heavy: 50,000 rows: render the window after the sort | 2.6 ms | 2.8 ms | 2.5 ms | 2.1 ms |
-| data grid heavy: 50,000 rows: sort by score on the main thread | 24.9 ms | 21.5 ms | 21.3 ms | 22.2 ms |
-| data grid heavy: 200,000 rows: sort by score on the worker | 109.8 ms | 102.4 ms | 97.8 ms | 110.1 ms |
-| data grid heavy: 200,000 rows: render the window after the sort | 2.4 ms | 1.3 ms | 1.4 ms | 1.6 ms |
-| data grid heavy: 200,000 rows: sort by score on the main thread | 95.5 ms | 93.6 ms | 95.2 ms | 103.1 ms |
+| state heavy: render after Add 300 cards (306 on the board) | 10.9 ms | 12.7 ms | 11.7 ms | 13 ms |
+| state heavy: render after a second Add 300 (606 on the board) | 22.1 ms | 14 ms | 12.3 ms | 14.3 ms |
+| state heavy: render after a filter keystroke (606 cards) | 5.6 ms | 2.7 ms | 12.3 ms | 14.3 ms |
+| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 32 | 31 | 32 | 31 |
+| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.5 ms | 0.7 ms | 0.6 ms | 0.4 ms |
+| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 31 | 31 | 31 | 32 |
+| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.3 ms | 1.5 ms | 1.4 ms | 1 ms |
+| data grid heavy: 50,000 rows: sort by score on the worker | 22.3 ms | 21.5 ms | 28.1 ms | 35.3 ms |
+| data grid heavy: 50,000 rows: render the window after the sort | 1.7 ms | 1.4 ms | 1.6 ms | 2.6 ms |
+| data grid heavy: 50,000 rows: sort by score on the main thread | 18.3 ms | 18.4 ms | 18.6 ms | 25.9 ms |
+| data grid heavy: 200,000 rows: sort by score on the worker | 87.4 ms | 84.8 ms | 82.9 ms | 113.9 ms |
+| data grid heavy: 200,000 rows: render the window after the sort | 1.6 ms | 2.2 ms | 1.2 ms | 1.4 ms |
+| data grid heavy: 200,000 rows: sort by score on the main thread | 74.6 ms | 73.9 ms | 78.5 ms | 105.3 ms |
 | server functions heavy: requests for five same-tick calls | 1 |  |  |  |
 | observability light: Time to first byte | 1 ms |  |  |  |
-| observability light: First contentful paint | 124 ms |  |  |  |
-| observability light: Largest contentful paint | 124 ms |  |  |  |
+| observability light: First contentful paint | 100 ms |  |  |  |
+| observability light: Largest contentful paint | 100 ms |  |  |  |
 | observability light: Cumulative layout shift | 0.026 |  |  |  |
 | observability light: Slowest interaction (INP, approx.) | 0 ms |  |  |  |
 | observability light: Long tasks | 0 |  |  |  |
 | observability heavy: trace: spans | 6 |  |  |  |
-| observability heavy: trace: total (two API calls with mock latency plus a render) | 1129 ms |  |  |  |
+| observability heavy: trace: total (two API calls with mock latency plus a render) | 912 ms |  |  |  |
 
 ## Lines per page
 
@@ -67,6 +68,7 @@ Only the files that exist because of the page (its HTML, script, component and s
 | state/heavy | 296 | 225 | 219 | 220 |
 | realtime/heavy | 265 | 155 | 148 | 151 |
 | table/heavy | 178 | 186 | 179 | 170 |
+| motion/heavy | 154 | 126 | 96 | 115 |
 | Shared by every page | 774 | 69 | 59 | 60 |
 
 ## Checks and footprint
@@ -75,8 +77,8 @@ Only the files that exist because of the page (its HTML, script, component and s
 
 | Check | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| Pages opened without errors | 53/53 | 10/10 | 10/10 | 10/10 |
-| Flows passed | 19/19 | 7/7 | 7/7 | 7/7 |
+| Pages opened without errors | 53/53 | 11/11 | 11/11 | 11/11 |
+| Flows passed | 20/20 | 8/8 | 8/8 | 8/8 |
 | Direct dependencies (package.json) | 4 | 6 | 3 | 5 |
 | node_modules (MB) | 59 | 51 | 43 | 66 |
 

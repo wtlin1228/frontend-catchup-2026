@@ -62,7 +62,7 @@
 
   // Effects run after the DOM is updated: time the render (forcing layout, like the baseline) and restore focus.
   $effect(() => {
-    shown;
+    void shown; // read it so the effect follows the list
     if (t0) { void board.offsetHeight; stat.textContent = `last render ${(performance.now() - t0).toFixed(1)} ms`; t0 = 0; }
     if (focusAfter) { board.querySelector(`[data-id="${focusAfter}"]`)?.focus(); focusAfter = null; }
   });
