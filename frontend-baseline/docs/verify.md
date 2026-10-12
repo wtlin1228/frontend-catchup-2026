@@ -10,7 +10,7 @@ How to tell whether a framework port of a pattern is an improvement on the basel
 | Page weight | What does each page ship, gzip, HTML + CSS + JS, and which chunks load lazily? | `pnpm weight`; `node scripts/page-weight.mjs <port>/dist`. Counts what the HTML references (`<link rel="stylesheet">`, `<script type="module">`, `modulepreload`); fonts and images are not counted; lazy chunks (`import()`, workers) are listed apart. |
 | Browser smoke tests | Does every page load without errors, and do the 17 interactive flows still pass? | `cd tools/smoke && pnpm install`, then `node pages.mjs <url>` and `node flows.mjs <url>` against `pnpm dev` or `pnpm preview`. They find elements by the ids in the baseline's HTML; a port that keeps the URLs and ids runs them unchanged, otherwise edit the selectors at the top of each flow. |
 | Lighthouse | Performance and accessibility under mobile throttling. | `pnpm dlx lighthouse <url> --only-categories=performance,accessibility,best-practices --chrome-flags="--headless=new" --output=json --output-path=lh.json`, three runs, take the median. Use the preview server so the mock API answers. |
-| The pages themselves | Render time, renders per second, sort time, requests per call, vitals, trace spans, counters. | Printed on the state, real-time, grid, server-function, observability, keep-alive, morph and error pages. Read them after the action named below. |
+| The pages themselves | Render time, renders per second, sort time, requests per call, vitals, trace spans, counters. | Printed on the state, real-time, grid, server-function, observability, keep-alive, morph and error pages. Read them after the action named below, or let `node tools/smoke/measure.mjs <url>` collect them in one run (`--json` for a file to diff against a port). |
 | DevTools | Requests and their cancellation (Network), long tasks and the first-paint filmstrip (Performance), layout shift regions and reduced motion (Rendering), service worker, caches, cookies and storage (Application), roles and names (Accessibility tree), CSP violations (Console). | Per pattern below. |
 | Project numbers | Install size, dependency count, lifecycle scripts, build time. | `pnpm ls --depth=0`, `du -sh node_modules`, `npm query ":attr(scripts, [postinstall])"`, `time pnpm build` twice. |
 
@@ -47,6 +47,25 @@ How to tell whether a framework port of a pattern is an improvement on the basel
 | | Hub | 9.6 | | |
 
 Ten light pages ship no JavaScript at all (static, forms, media, content, components, motion, navigation, styling, both static pages and all articles). A framework that cannot produce a zero-JS page for them has its first finding.
+
+### The baseline's on-page numbers on one machine, 2026-10-12
+
+`node tools/smoke/measure.mjs http://localhost:4173` against the production preview, headless Chrome, Linux, Intel i7-13850HX. Headless numbers are indicative; measure a port the same way on the same machine and compare the two columns you get, not a port against this table.
+
+| Page | Measurement | Baseline |
+|---|---|---|
+| State heavy | Render after "Add 300 cards" (306 on the board) | 16.1 ms |
+| State heavy | Render after a second "Add 300" (606 on the board) | 22.6 ms |
+| State heavy | Render after a filter keystroke with 606 cards | 5.3 ms |
+| Real-time heavy | Patch strategy at 30 Hz: renders per second, last render | 31 per second, 0.6 ms |
+| Real-time heavy | Rebuild strategy at 30 Hz: renders per second, last render | 32 per second, 1.4 ms |
+| Data grid heavy | 50,000 rows, sort by score: worker, main thread | 22 ms, 17.5 ms |
+| Data grid heavy | 200,000 rows, sort by score: worker, main thread | 87.9 ms, 98.9 ms |
+| Server functions heavy | Requests for five same-tick calls | 1 |
+| Observability light | TTFB, FCP, LCP, CLS on the page itself | 2 ms, 92 ms, 92 ms, 0.026 |
+| Observability heavy | Trace: spans and total (two API calls with mock latency plus a render) | 6 spans, 793 ms |
+
+The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the main thread is faster because the index array is not copied back), 11 ms at 200,000, and in both cases the typing stays smooth only in worker mode because the main thread is free. A port's numbers for the same actions go next to these in its sheet.
 
 ## Per pattern
 
