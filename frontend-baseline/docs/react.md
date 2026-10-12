@@ -49,6 +49,20 @@
 
 React Foundation (Linux Foundation) now owns React; Compiler 1.0; 19.2 added `<Activity>` (state that survives being hidden), Performance Tracks and `useEffectEvent`; 19.3 (2026-09-09) made `<ViewTransition>` and Fragment refs stable, added `browser()` for client-only components and lets Trusted Types objects reach the DOM; an RSC security advisory shipped in late 2025. Port the "state that survives navigation" candidate with `<Activity>`.
 
+## Measured, 2026-10-12 (`impl/react`)
+
+Patterns 1 to 4 light and the board, React 19.3 on Vite 8 with the Compiler off, measured the same way as the baseline on the same machine (headless Chrome; full table in `impl/react/README.md`).
+
+| | Baseline | React |
+|---|---|---|
+| Static light, shipped gzip | 6.6 kB, no JS | 73.3 kB, of which 67.4 kB is react + react-dom |
+| State heavy, shipped gzip | 11.6 kB | 76.7 kB (3.6 kB of page code against 3.7) |
+| Board render after "Add 300 cards" / second 300 / filter keystroke | 16.1 / 22.6 / 5.3 ms | 14.6 / 14.0 / 3.0 ms |
+| Lines for the board page | 273 plus `store.js` and `dom.js` | 225, neither needed |
+| Works without JavaScript | static and forms light | none of the ported pages |
+
+What it decided: client rendering (every page is an empty `<div>` until 67 kB has run; prerendering or a meta-framework is not optional for patterns 1, 2, 9), keyed reconciliation (the 606-card re-render beats the baseline's rebuild with no effort), StrictMode's double effects. Where it fought: timing a render (`useLayoutEffect` plus a ref), the native dialog's uncontrolled fields, drag-and-drop hover classes, focus after a keyboard move, and the inline theme script and `<title>` that stay outside React.
+
 ## Watch out for
 
 - Effects: dependency arrays, stale closures and StrictMode double-invocation are the top three bug sources when porting the scene and dashboard pages.

@@ -67,6 +67,20 @@ Ten light pages ship no JavaScript at all (static, forms, media, content, compon
 
 The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the main thread is faster because the index array is not copied back), 11 ms at 200,000, and in both cases the typing stays smooth only in worker mode because the main thread is free. A port's numbers for the same actions go next to these in its sheet.
 
+### What a comparison looks like: the React port, 2026-10-12
+
+`impl/react` ports patterns 1 to 4 light and the board. Both columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+
+| Measurement | Baseline | React port |
+|---|---|---|
+| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB, 68.2 JS |
+| State heavy, shipped gzip | 11.6 kB | 76.7 kB |
+| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms |
+| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms |
+| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms |
+| `check-dist` on the build | clean | every page: no `<h1>`, no `<main>` in the HTML (client rendering) |
+| Flows "state heavy" and "forms light" | pass | pass |
+
 ## Per pattern
 
 Each entry: what better looks like, how a tool shows it, how to see it by hand. Where the baseline prints a number, record the baseline's first.

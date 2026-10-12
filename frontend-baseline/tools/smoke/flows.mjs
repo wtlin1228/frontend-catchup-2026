@@ -2,11 +2,13 @@
 import { chromium } from 'playwright-core';
 
 const base = process.argv[2] ?? 'http://localhost:5173';
+const only = process.argv[3] ?? ''; // run only the flows whose name contains this, e.g. "state" for a partial port
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true });
 const context = await browser.newContext({ viewport: { width: 1200, height: 800 } });
 let failed = 0;
 
 async function flow(name, fn) {
+  if (only && !name.includes(only)) return;
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (err) => { if (/ViewTransition opt-in disabled/.test(String(err))) return; errors.push(`pageerror: ${String(err).slice(0, 200)}`) });

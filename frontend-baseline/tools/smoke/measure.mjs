@@ -7,6 +7,7 @@ import { cpus, platform, release } from 'node:os';
 
 const base = process.argv[2] ?? 'http://localhost:4173';
 const asJson = process.argv.includes('--json');
+const only = process.argv.find((a, i) => i >= 3 && !a.startsWith('--')) ?? ''; // measure only the pages whose name contains this
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true });
 const context = await browser.newContext({ viewport: { width: 1200, height: 800 } });
 const results = [];
@@ -14,6 +15,7 @@ const record = (page, measurement, value, unit = '') => results.push({ page, mea
 const num = (text, re) => Number((text.match(re) ?? [])[1]);
 
 async function measure(name, fn) {
+  if (only && !name.includes(only)) return;
   const page = await context.newPage();
   try { await fn(page); } catch (err) { record(name, 'error', String(err.message ?? err).slice(0, 120)); }
   await page.close();

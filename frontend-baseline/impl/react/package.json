@@ -1,0 +1,24 @@
+{
+  "name": "frontend-baseline-react",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The first port: React 19 with Vite, same pages, same mock API, same stylesheet. Compare its build with the baseline's.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "weight": "node ../../scripts/page-weight.mjs dist"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
