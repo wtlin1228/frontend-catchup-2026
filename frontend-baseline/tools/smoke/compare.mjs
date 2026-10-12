@@ -18,8 +18,8 @@ import { fileURLToPath } from 'node:url';
 import { weigh } from '../../scripts/page-weight.mjs';
 import { ALL_PAGES, PATTERNS, launch, waitFor } from './lib.mjs';
 import { checkPages } from './pages.mjs';
-import { runFlows, flowPage } from './flows.mjs';
-import { measure, MEASUREMENTS, measurementPage, machine } from './measure.mjs';
+import { runFlows } from './flows.mjs';
+import { measure, machine } from './measure.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const args = process.argv.slice(2);
@@ -66,7 +66,8 @@ const kb = (bytes) => (bytes / 1024).toFixed(1);
 function pageLines(impl, path) {
   const [pattern, variant, ...rest] = pageKey(path).split('/');
   if (!variant || rest.length) return null; // the hub and generated article pages are not compared
-  const files = impl.pageFiles.map((t) => t.replaceAll('{pattern}', pattern).replaceAll('{variant}', variant).replaceAll('{Pattern}', pascal(pattern)).replaceAll('{Variant}', pascal(variant)));
+  const files = impl.pageFiles.map((t) => t.replaceAll('{pattern}', pattern).replaceAll('{variant}', variant).replaceAll('{Pattern}', pascal(pattern)).replaceAll('{Variant}', pascal(variant)))
+    .flatMap((f) => (f.endsWith('/*') && existsSync(resolve(impl.dir, f.slice(0, -2))) ? readdirSync(resolve(impl.dir, f.slice(0, -2))).map((name) => `${f.slice(0, -2)}/${name}`) : [f])); // "dir/*" counts every file in a page's folder
   const total = files.reduce((n, f) => n + lines(resolve(impl.dir, f)), 0);
   return total || null;
 }
@@ -97,8 +98,9 @@ for (const impl of selected) {
   r.sharedLines = impl.shared.reduce((n, f) => n + lines(resolve(impl.dir, f)), 0);
   const pkg = JSON.parse(readFileSync(resolve(impl.dir, 'package.json'), 'utf8'));
   r.dependencies = Object.keys(pkg.dependencies ?? {}).length + Object.keys(pkg.devDependencies ?? {}).length;
-  r.nodeModulesMb = Math.round(Number((await run('du', ['-sm', 'node_modules'], impl.dir)).split(/\s/)[0]));
-  const has = (path) => Boolean(r.pages[path]);
+  r.nodeModulesMb = Math.round(Number((await run('du', ['-sm', '--exclude=.vite', '--exclude=.cache', 'node_modules'], impl.dir)).split(/\s/)[0]));
+  // '/' is index.html; /navigation/app/* is served by the mock API's rewrite of navigation/heavy.html.
+  const has = (path) => Boolean(r.pages[path === '/' ? '/index.html' : path.startsWith('/navigation/app') ? '/navigation/heavy.html' : path]);
 
   process.stdout.write('preview ');
   const server = spawn(vite(impl.dir), ['preview', '--port', String(impl.preview), '--strictPort'], { cwd: impl.dir, stdio: 'ignore' });
@@ -169,7 +171,7 @@ ${header('Measurement')}${measurementRows.map((key) => `| ${key.replace('|', ': 
 
 Only the files that exist because of the page (its HTML, script, component and stylesheet); the shared row is the layout, mount code and library every page depends on.
 
-${header('Page')}${compared.map((p) => `| ${pageKey(p)} | ${cell((c) => c.pages[p]?.lines)} |`).join('\n')}
+${header('Page')}${compared.filter((p) => cols.some((c) => c.pages[p]?.lines)).map((p) => `| ${pageKey(p)} | ${cell((c) => c.pages[p]?.lines)} |`).join('\n')}
 | Shared by every page | ${cell((c) => c.sharedLines)} |
 
 ## Checks and footprint

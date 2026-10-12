@@ -12,6 +12,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "pnpm build && node scripts/check-dist.mjs",
+    "test": "node --test 'test/*.test.mjs'",
+    "lint": "pnpm dlx oxlint@1.87.0 src scripts test tools/smoke impl/*/src",
     "weight": "node scripts/page-weight.mjs",
     "verify": "node tools/smoke/all.mjs",
     "compare": "node tools/smoke/compare.mjs",

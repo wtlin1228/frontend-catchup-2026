@@ -5,7 +5,8 @@
   "pageFiles": [
     "{pattern}/{variant}.html",
     "src/pages/{pattern}-{variant}.js",
-    "src/{Pattern}{Variant}.svelte"
+    "src/{Pattern}{Variant}.svelte",
+    "src/{pattern}-{variant}/*"
   ],
   "shared": [
     "src/Layout.svelte",

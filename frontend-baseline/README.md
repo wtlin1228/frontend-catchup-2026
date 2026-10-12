@@ -10,6 +10,8 @@ A framework-free reference for a frontend framework survey. Twenty-four patterns
 | `pnpm dev` | Dev server with the mock API at http://localhost:5173 |
 | `pnpm build`, `pnpm preview` | Production build in `dist/`, served with the same mock API |
 | `pnpm check` | Build, then check every page's structure, links, assets and sitemap (no browser) |
+| `pnpm test` | Unit tests for `src/lib` and the mock API's contract, Node's own runner, no browser |
+| `pnpm lint` | oxlint over the sources, fetched on demand so it adds no dependency |
 | `pnpm verify` | Build, check, then open every page and run every flow in headless Chrome |
 | `pnpm weight` | Shipped bytes per page from the last build |
 | `pnpm compare` | Build and measure the baseline and every port, write [docs/results.md](docs/results.md) (`--lighthouse` adds Lighthouse) |

@@ -18,7 +18,7 @@ async function request(url, { method = 'GET', body, signal, headers } = {}) {
     signal,
     credentials: 'same-origin',
     headers: { accept: 'application/json', ...(body !== undefined && { 'content-type': 'application/json' }), ...headers },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
+    ...(body !== undefined && { body: JSON.stringify(body) }),
   });
   let data = null;
   try { data = await res.json(); } catch { /* empty or non-JSON body */ }

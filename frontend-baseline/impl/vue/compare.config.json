@@ -5,7 +5,8 @@
   "pageFiles": [
     "{pattern}/{variant}.html",
     "src/pages/{pattern}-{variant}.js",
-    "src/{Pattern}{Variant}.vue"
+    "src/{Pattern}{Variant}.vue",
+    "src/{pattern}-{variant}/*"
   ],
   "shared": [
     "src/Layout.vue",
