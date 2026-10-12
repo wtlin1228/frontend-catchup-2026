@@ -400,19 +400,19 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 11.7,
+          "value": 10.8,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 21.7,
+          "value": 21.1,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 5.1,
+          "value": 5,
           "unit": "ms"
         },
         {
@@ -430,7 +430,7 @@
         {
           "page": "real-time heavy",
           "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
-          "value": 32,
+          "value": 31,
           "unit": ""
         },
         {
@@ -442,7 +442,7 @@
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the worker",
-          "value": 20.8,
+          "value": 21.1,
           "unit": "ms"
         },
         {
@@ -454,25 +454,25 @@
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the main thread",
-          "value": 16.1,
+          "value": 16.3,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the worker",
-          "value": 75.9,
+          "value": 77.5,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: render the window after the sort",
-          "value": 1.4,
+          "value": 1.5,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the main thread",
-          "value": 65.5,
+          "value": 62.7,
           "unit": "ms"
         },
         {
@@ -490,13 +490,13 @@
         {
           "page": "observability light",
           "measurement": "First contentful paint",
-          "value": 104,
+          "value": 80,
           "unit": "ms"
         },
         {
           "page": "observability light",
           "measurement": "Largest contentful paint",
-          "value": 104,
+          "value": 80,
           "unit": "ms"
         },
         {
@@ -526,7 +526,7 @@
         {
           "page": "observability heavy",
           "measurement": "trace: total (two API calls with mock latency plus a render)",
-          "value": 1096,
+          "value": 1145,
           "unit": "ms"
         }
       ],
@@ -580,93 +580,100 @@
       "dir": "impl/react",
       "pages": {
         "/async/heavy.html": {
-          "html": 762,
+          "html": 761,
           "css": 5230,
-          "js": 72245,
+          "js": 72252,
           "lazy": 0,
           "lines": 165
         },
         "/async/light.html": {
-          "html": 642,
+          "html": 647,
           "css": 5230,
-          "js": 70491,
+          "js": 70498,
           "lazy": 0,
           "lines": 84
         },
+        "/components/heavy.html": {
+          "html": 575,
+          "css": 5241,
+          "js": 72568,
+          "lazy": 0,
+          "lines": 188
+        },
         "/dynamic/heavy.html": {
-          "html": 554,
+          "html": 555,
           "css": 5214,
-          "js": 113192,
+          "js": 113200,
           "lazy": 0,
           "lines": 231
         },
         "/dynamic/light.html": {
           "html": 519,
           "css": 4621,
-          "js": 70177,
+          "js": 70183,
           "lazy": 0,
           "lines": 71
         },
         "/forms/heavy.html": {
           "html": 670,
           "css": 4963,
-          "js": 73878,
+          "js": 73884,
           "lazy": 0,
           "lines": 253
         },
         "/forms/light.html": {
-          "html": 609,
+          "html": 608,
           "css": 4621,
-          "js": 70005,
+          "js": 70009,
           "lazy": 0,
           "lines": 43
         },
         "/index.html": {
-          "html": 510,
+          "html": 512,
           "css": 4621,
-          "js": 69916,
+          "js": 69943,
           "lazy": 0,
           "lines": null
         },
         "/motion/heavy.html": {
-          "html": 567,
+          "html": 569,
           "css": 5257,
-          "js": 70933,
+          "js": 70940,
           "lazy": 0,
           "lines": 126
         },
         "/realtime/heavy.html": {
           "html": 550,
           "css": 5473,
-          "js": 71476,
+          "js": 71483,
           "lazy": 0,
           "lines": 155
         },
         "/state/heavy.html": {
           "html": 573,
           "css": 5401,
-          "js": 73062,
+          "js": 73069,
           "lazy": 0,
           "lines": 225
         },
         "/state/light.html": {
-          "html": 514,
+          "html": 515,
           "css": 4893,
-          "js": 70435,
+          "js": 70442,
           "lazy": 0,
           "lines": 74
         },
         "/static/light.html": {
-          "html": 618,
+          "html": 616,
           "css": 4621,
-          "js": 70113,
+          "js": 70118,
           "lazy": 0,
           "lines": 40
         },
         "/table/heavy.html": {
-          "html": 563,
+          "html": 565,
           "css": 5414,
-          "js": 72210,
+          "js": 72217,
           "lazy": 895,
           "lines": 186
         }
@@ -675,13 +682,13 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 12.3,
+          "value": 12.5,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 12.8,
+          "value": 12.7,
           "unit": "ms"
         },
         {
@@ -693,13 +700,13 @@
         {
           "page": "real-time heavy",
           "measurement": "patch: renders per second at 30 Hz (median of 5)",
-          "value": 30,
+          "value": 31,
           "unit": ""
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.6,
+          "value": 0.7,
           "unit": "ms"
         },
         {
@@ -717,7 +724,7 @@
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the worker",
-          "value": 20.5,
+          "value": 21.2,
           "unit": "ms"
         },
         {
@@ -729,38 +736,43 @@
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the main thread",
-          "value": 16.5,
+          "value": 16.3,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the worker",
-          "value": 76,
+          "value": 74.7,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: render the window after the sort",
-          "value": 1.1,
+          "value": 1.2,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the main thread",
-          "value": 59.9,
+          "value": 64.8,
           "unit": "ms"
         }
       ],
       "checks": {
         "pages": {
-          "clean": 13,
-          "total": 13,
+          "clean": 14,
+          "total": 14,
           "failed": []
         },
         "flows": {
-          "passed": 10,
-          "total": 10,
-          "failed": []
+          "passed": 11,
+          "total": 12,
+          "failed": [
+            {
+              "name": "components heavy: palette opens with Ctrl+K and filters",
+              "error": "page.waitForSelector: Timeout 3000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#palette[open]') to be visible\u001b[22m\n"
+            }
+          ]
         }
       },
       "lighthouse": {
@@ -787,8 +799,8 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/Layout-B22MBlcu.js",
-        "gz": 69262
+        "path": "/assets/Layout-CMblbCIb.js",
+        "gz": 69267
       },
       "sharedLines": 69,
       "dependencies": 6,
@@ -801,93 +813,100 @@
       "dir": "impl/svelte",
       "pages": {
         "/async/heavy.html": {
-          "html": 761,
+          "html": 759,
           "css": 5230,
-          "js": 25779,
+          "js": 26200,
           "lazy": 0,
           "lines": 181
         },
         "/async/light.html": {
-          "html": 647,
+          "html": 646,
           "css": 5230,
-          "js": 23756,
+          "js": 24168,
           "lazy": 0,
           "lines": 84
+        },
+        "/components/heavy.html": {
+          "html": 574,
+          "css": 5241,
+          "js": 26291,
+          "lazy": 0,
+          "lines": 191
         },
         "/dynamic/heavy.html": {
           "html": 582,
           "css": 5214,
-          "js": 28146,
+          "js": 28548,
           "lazy": 0,
           "lines": 300
         },
         "/dynamic/light.html": {
-          "html": 523,
+          "html": 521,
           "css": 4621,
-          "js": 22956,
+          "js": 23383,
           "lazy": 0,
           "lines": 69
         },
         "/forms/heavy.html": {
           "html": 671,
           "css": 4963,
-          "js": 27134,
+          "js": 27546,
           "lazy": 0,
           "lines": 222
         },
         "/forms/light.html": {
           "html": 627,
           "css": 4621,
-          "js": 22669,
+          "js": 23083,
           "lazy": 0,
           "lines": 45
         },
         "/index.html": {
-          "html": 530,
+          "html": 529,
           "css": 4621,
-          "js": 22802,
+          "js": 23236,
           "lazy": 0,
           "lines": null
         },
         "/motion/heavy.html": {
-          "html": 567,
+          "html": 565,
           "css": 5121,
-          "js": 25239,
+          "js": 25648,
           "lazy": 0,
           "lines": 96
         },
         "/realtime/heavy.html": {
-          "html": 552,
+          "html": 551,
           "css": 5473,
-          "js": 24663,
+          "js": 25075,
           "lazy": 0,
           "lines": 148
         },
         "/state/heavy.html": {
-          "html": 571,
+          "html": 569,
           "css": 5401,
-          "js": 26164,
+          "js": 26589,
           "lazy": 0,
           "lines": 219
         },
         "/state/light.html": {
-          "html": 516,
+          "html": 515,
           "css": 4893,
-          "js": 23311,
+          "js": 23726,
           "lazy": 0,
           "lines": 71
         },
         "/static/light.html": {
-          "html": 638,
+          "html": 637,
           "css": 4621,
-          "js": 22789,
+          "js": 23203,
           "lazy": 0,
           "lines": 43
         },
         "/table/heavy.html": {
-          "html": 564,
+          "html": 565,
           "css": 5414,
-          "js": 25254,
+          "js": 25663,
           "lazy": 895,
           "lines": 179
         }
@@ -896,19 +915,19 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 11,
+          "value": 11.3,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 11.7,
+          "value": 12.7,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 11.7,
+          "value": 12.7,
           "unit": "ms"
         },
         {
@@ -920,7 +939,7 @@
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.8,
+          "value": 0.5,
           "unit": "ms"
         },
         {
@@ -932,55 +951,55 @@
         {
           "page": "real-time heavy",
           "measurement": "rebuild: last render at 30 Hz (median of 5)",
-          "value": 1.3,
-          "unit": "ms"
-        },
-        {
-          "page": "data grid heavy",
-          "measurement": "50,000 rows: sort by score on the worker",
-          "value": 20.8,
-          "unit": "ms"
-        },
-        {
-          "page": "data grid heavy",
-          "measurement": "50,000 rows: render the window after the sort",
-          "value": 1.6,
-          "unit": "ms"
-        },
-        {
-          "page": "data grid heavy",
-          "measurement": "50,000 rows: sort by score on the main thread",
-          "value": 16.8,
-          "unit": "ms"
-        },
-        {
-          "page": "data grid heavy",
-          "measurement": "200,000 rows: sort by score on the worker",
-          "value": 75.9,
-          "unit": "ms"
-        },
-        {
-          "page": "data grid heavy",
-          "measurement": "200,000 rows: render the window after the sort",
           "value": 1.2,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
+          "measurement": "50,000 rows: sort by score on the worker",
+          "value": 21.2,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "50,000 rows: render the window after the sort",
+          "value": 1.4,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "50,000 rows: sort by score on the main thread",
+          "value": 16.4,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "200,000 rows: sort by score on the worker",
+          "value": 76.6,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
+          "measurement": "200,000 rows: render the window after the sort",
+          "value": 1.1,
+          "unit": "ms"
+        },
+        {
+          "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the main thread",
-          "value": 61.5,
+          "value": 63.5,
           "unit": "ms"
         }
       ],
       "checks": {
         "pages": {
-          "clean": 13,
-          "total": 13,
+          "clean": 14,
+          "total": 14,
           "failed": []
         },
         "flows": {
-          "passed": 10,
-          "total": 10,
+          "passed": 12,
+          "total": 12,
           "failed": []
         }
       },
@@ -1008,8 +1027,8 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/mount-puAWZT4-.js",
-        "gz": 21812
+        "path": "/assets/mount-DYwQRcPh.js",
+        "gz": 22224
       },
       "sharedLines": 59,
       "dependencies": 3,
@@ -1022,93 +1041,100 @@
       "dir": "impl/vue",
       "pages": {
         "/async/heavy.html": {
-          "html": 775,
+          "html": 777,
           "css": 5230,
-          "js": 35976,
+          "js": 36001,
           "lazy": 0,
           "lines": 203
         },
         "/async/light.html": {
-          "html": 661,
+          "html": 660,
           "css": 5230,
-          "js": 33913,
+          "js": 33925,
           "lazy": 0,
           "lines": 69
         },
+        "/components/heavy.html": {
+          "html": 593,
+          "css": 5241,
+          "js": 36299,
+          "lazy": 0,
+          "lines": 187
+        },
         "/dynamic/heavy.html": {
-          "html": 555,
+          "html": 554,
           "css": 5214,
-          "js": 56713,
+          "js": 56775,
           "lazy": 0,
           "lines": 264
         },
         "/dynamic/light.html": {
-          "html": 540,
+          "html": 537,
           "css": 4621,
-          "js": 33431,
+          "js": 33443,
           "lazy": 0,
           "lines": 68
         },
         "/forms/heavy.html": {
-          "html": 684,
+          "html": 687,
           "css": 4963,
-          "js": 37392,
+          "js": 37404,
           "lazy": 0,
           "lines": 225
         },
         "/forms/light.html": {
           "html": 627,
           "css": 4621,
-          "js": 33201,
+          "js": 33213,
           "lazy": 0,
           "lines": 47
         },
         "/index.html": {
-          "html": 528,
+          "html": 529,
           "css": 4621,
-          "js": 33218,
+          "js": 33246,
           "lazy": 0,
           "lines": null
         },
         "/motion/heavy.html": {
-          "html": 579,
+          "html": 580,
           "css": 5213,
-          "js": 34279,
+          "js": 34289,
           "lazy": 0,
           "lines": 115
         },
         "/realtime/heavy.html": {
-          "html": 566,
+          "html": 564,
           "css": 5473,
-          "js": 35003,
+          "js": 35012,
           "lazy": 0,
           "lines": 151
         },
         "/state/heavy.html": {
-          "html": 585,
+          "html": 587,
           "css": 5401,
-          "js": 36665,
+          "js": 36691,
           "lazy": 0,
           "lines": 220
         },
         "/state/light.html": {
-          "html": 529,
+          "html": 531,
           "css": 4893,
-          "js": 33800,
+          "js": 33809,
           "lazy": 0,
           "lines": 68
         },
         "/static/light.html": {
-          "html": 637,
+          "html": 638,
           "css": 4621,
-          "js": 33357,
+          "js": 33369,
           "lazy": 0,
           "lines": 45
         },
         "/table/heavy.html": {
-          "html": 578,
+          "html": 580,
           "css": 5414,
-          "js": 35587,
+          "js": 35597,
           "lazy": 895,
           "lines": 170
         }
@@ -1117,37 +1143,37 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 11.9,
+          "value": 12.4,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 11.9,
+          "value": 12.7,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 11.9,
+          "value": 12.7,
           "unit": "ms"
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: renders per second at 30 Hz (median of 5)",
-          "value": 31,
+          "value": 30,
           "unit": ""
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.3,
+          "value": 0.4,
           "unit": "ms"
         },
         {
           "page": "real-time heavy",
           "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
-          "value": 31,
+          "value": 30,
           "unit": ""
         },
         {
@@ -1159,49 +1185,49 @@
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the worker",
-          "value": 20.6,
+          "value": 21.4,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: render the window after the sort",
-          "value": 1.4,
+          "value": 1.5,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the main thread",
-          "value": 16.6,
+          "value": 16.8,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the worker",
-          "value": 76.6,
+          "value": 74.9,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: render the window after the sort",
-          "value": 1.3,
+          "value": 1.2,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the main thread",
-          "value": 61.1,
+          "value": 62.1,
           "unit": "ms"
         }
       ],
       "checks": {
         "pages": {
-          "clean": 13,
-          "total": 13,
+          "clean": 14,
+          "total": 14,
           "failed": []
         },
         "flows": {
-          "passed": 10,
-          "total": 10,
+          "passed": 12,
+          "total": 12,
           "failed": []
         }
       },
@@ -1229,8 +1255,8 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/Layout-C0uJ8Z2E.js",
-        "gz": 32298
+        "path": "/assets/Layout-DKvgSTeP.js",
+        "gz": 32309
       },
       "sharedLines": 60,
       "dependencies": 5,

@@ -74,7 +74,7 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 
 ### 11. Composite widgets
 - **Better:** the light page stays zero-JS with native elements; the heavy widgets meet the ARIA authoring patterns (roles, roving tabindex, `aria-activedescendant`, typeahead, focus return, outside-click dismissal) with less code than the baseline, or a headless library does it for you.
-- **Tool:** `pnpm weight` (components light 0.0 kB JS); flow "components heavy: palette opens with Ctrl+K and filters"; Accessibility tree: `tablist`, `tab`, `tabpanel`, `combobox`, `listbox`, `option`, `menu`, `menuitem`.
+- **Tool:** `pnpm weight` (components light 0.0 kB JS); flow "components heavy: palette opens with Ctrl+K and filters"; Accessibility tree: `tablist`, `tab`, `tabpanel`, `combobox`, `listbox`, `option`, `menu`, `menuitem`; flow "components heavy: tabs, combobox and menu follow the ARIA patterns" drives the arrow keys, the active descendant, Enter, typeahead, Escape and the outside click.
 - **Hand:** light: opening one accordion closes the other; Actions menu closes on outside click and Escape and sits under its button; the dialog opens from the invoker button and closes with Escape; the datalist suggests. Heavy: tabs with arrow keys, Home and End; combobox: type "sv", ArrowDown, Enter selects and `aria-activedescendant` follows; menu button: ArrowDown opens on the first item, typing "d" jumps to Delete, Escape returns focus to the button, Tab closes without stealing focus; Ctrl+K, type "grid": two results, Enter navigates.
 
 ### 12. Motion
