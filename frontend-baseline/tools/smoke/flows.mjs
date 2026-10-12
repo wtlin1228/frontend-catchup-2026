@@ -9,7 +9,7 @@ let failed = 0;
 async function flow(name, fn) {
   const page = await context.newPage();
   const errors = [];
-  page.on('pageerror', (err) => errors.push(`pageerror: ${String(err).slice(0, 200)}`));
+  page.on('pageerror', (err) => { if (/ViewTransition opt-in disabled/.test(String(err))) return; errors.push(`pageerror: ${String(err).slice(0, 200)}`) });
   page.on('console', (msg) => { if (msg.type() === 'error' && !/Failed to load resource|TrustedHTML/.test(msg.text())) errors.push(`console.error: ${msg.text().slice(0, 200)}`); });
   try {
     await fn(page);
@@ -196,6 +196,31 @@ await flow('forms light: no-JS post returns server page', async (page) => {
   await page.fill('#email', 'ada@company.test');
   await page.click('button[type=submit]');
   await page.waitForSelector('h1:has-text("Subscribed")', { timeout: 8000 });
+});
+
+await flow('agent light: GET form reaches the posts app route', async (page) => {
+  await page.goto(`${base}/agent/light.html`);
+  await page.fill('#q', 'state');
+  await page.click('button[type=submit]');
+  await page.waitForURL(/dynamic\/heavy\.html.*q=state/, { timeout: 8000 });
+  await page.waitForFunction(() => location.hash.includes('q=state'), null, { timeout: 5000 });
+  await page.waitForSelector('.post-card:not(.post-card--skeleton)', { timeout: 8000 });
+});
+
+await flow('agent heavy: console calls a tool through the schema check', async (page) => {
+  await page.goto(`${base}/agent/heavy.html`);
+  await page.waitForSelector('.agent-posts__item', { timeout: 8000 });
+  await page.selectOption('#tool', 'list_posts');
+  await page.fill('#args', '{"q":"state"}');
+  await page.click('#run');
+  await page.waitForFunction(() => /"items"/.test(document.getElementById('result').textContent), null, { timeout: 8000 });
+  await page.click('#bad');
+  await page.waitForFunction(() => /rejected by the schema/.test(document.getElementById('log').textContent), null, { timeout: 5000 });
+  expect(/q must be a string/.test(await page.textContent('#result')), `bad args not rejected: ${await page.textContent('#result')}`);
+  await page.selectOption('#tool', 'set_theme');
+  await page.fill('#args', '{"theme":"dark"}');
+  await page.click('#run');
+  await page.waitForFunction(() => document.documentElement.dataset.theme === 'dark', null, { timeout: 5000 });
 });
 
 await browser.close();

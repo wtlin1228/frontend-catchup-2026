@@ -35,6 +35,7 @@
 | 21 | Observability | Nothing framework-level (no profiler tracks, no tracing): `PerformanceObserver` or `web-vitals` for the light page. Heavy: `performance.mark` around the fetch and `await el.updateComplete` to end the render span; `Server-Timing` from the response headers and `PerformanceResourceTiming.serverTiming`; the OpenTelemetry web SDK if real spans are wanted. |
 | 22 | Security hardening | Runs under a strict CSP (no `eval`, no inline handlers; the baseline's hashed theme script is unaffected). Bindings are text by default; untrusted HTML enters only through `unsafeHTML`, after DOMPurify. Trusted Types: lit-html creates its own policy named `lit-html`, so list it in `trusted-types` next to the baseline's. CSRF double-submit against `/api/csrf` is by hand, as today. |
 | 23 | Styling strategy | Light: unchanged; tokens and `light-dark()` are custom properties and inherit into shadow roots, `@layer` order does not (each shadow tree has its own layers). Heavy: `static styles` with the `css` tag is the scoping (shadow DOM, constructable stylesheets); `:host`, `::slotted()` at the slot boundary, `part`/`::part()` for theming from outside; container queries and `:has()` work inside shadow roots; `@scope` is redundant there and still useful for light-DOM elements. |
+| 24 | Agent-ready UI | Nothing built in: `connectedCallback` registers and `disconnectedCallback` forgets; a reactive controller can own the registry and the console is one more element. |
 
 ## Migrating the baseline
 

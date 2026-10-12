@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Every action is a tool (agent-ready UI, heavy) · Frontend Baseline</title>
+  <meta name="description" content="A small posts app in which every action is one function that serves the buttons, the WebMCP registry and an in-page agent console that calls tools by name with schema-checked JSON arguments.">
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 24 of 24: agent-ready UI</p>
+      <!-- @include variant-nav.html -->
+      <h1>Every action is a tool</h1>
+      <p>Six actions, each written once as a named function with a JSON schema: the buttons call it, the WebMCP registry gets it, and the console on the right calls it the way an in-browser agent would, by name with JSON arguments that are checked against the schema first. The console exists because no shipping browser exposes <code>document.modelContext</code> by default; it is the agent you can run today. Frameworks with agent-facing hooks would derive the same registry from their forms, actions and server functions.</p>
+    </div>
+    <div class="agent-layout">
+      <section class="panel stack" aria-labelledby="h-app">
+        <h2 id="h-app">The app</h2>
+        <form id="search" class="cluster" role="search">
+          <label for="q" class="visually-hidden">Search posts</label>
+          <input id="q" name="q" class="input" type="search" placeholder="Search titles and tags" autocomplete="off" style="max-width: 20rem">
+          <button class="btn" type="submit">list_posts</button>
+        </form>
+        <ul id="posts" class="agent-posts" aria-live="polite"></ul>
+        <div id="post" class="agent-post" hidden></div>
+        <form id="publish" class="stack">
+          <h3>Publish</h3>
+          <label>Title <input name="title" class="input" placeholder="At least 3 characters" autocomplete="off"></label>
+          <label>Body <textarea name="body" class="textarea" rows="3" placeholder="At least 20 characters"></textarea></label>
+          <p class="cluster"><button class="btn btn--primary" type="submit">publish_post</button> <span id="session" class="muted">Checking session…</span></p>
+        </form>
+        <p class="cluster"><label>Theme <select id="theme" class="select" style="width: auto"><option value="system">system</option><option value="light">light</option><option value="dark">dark</option></select></label> <span class="muted">set_theme</span></p>
+      </section>
+      <section class="panel stack" aria-labelledby="h-console">
+        <h2 id="h-console">Agent console</h2>
+        <p class="muted">WebMCP in this browser: <strong id="webmcp">checking</strong>. The registry below is what it would receive.</p>
+        <label>Tool <select id="tool" class="select"></select></label>
+        <p id="tool-description" class="muted"></p>
+        <pre class="agent-schema"><code id="schema"></code></pre>
+        <label>Arguments (JSON) <textarea id="args" class="textarea" rows="3" spellcheck="false">{}</textarea></label>
+        <p class="cluster"><button id="run" class="btn btn--primary" type="button">Run tool</button> <button id="bad" class="btn btn--ghost" type="button">Run with bad arguments</button></p>
+        <pre class="agent-result"><code id="result">Nothing called yet.</code></pre>
+        <h3>Calls</h3>
+        <ol id="log" class="log-list"></ol>
+      </section>
+    </div>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/agent-heavy.js"></script>
+</body>
+</html>

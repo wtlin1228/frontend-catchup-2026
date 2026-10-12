@@ -1,7 +1,7 @@
 {
   "name": "Frontend Baseline",
   "short_name": "Baseline",
-  "description": "Twenty-three frontend patterns, two weights each, no framework.",
+  "description": "Twenty-four frontend patterns, two weights each, no framework.",
   "start_url": "/offline/light.html",
   "scope": "/",
   "display": "standalone",

@@ -12,6 +12,10 @@ const announcer = document.getElementById('route-announcer');
 const PAGE_SIZE = 8;
 let lastListHref = '#/'; // "Back to all posts" restores the list's search and page
 
+// A plain GET form (the agent light page) lands here with ?q=; turn it into the hash route the router reads.
+const incoming = new URLSearchParams(location.search);
+if (!location.hash && incoming.has('q')) history.replaceState(null, '', `${location.pathname}#/?${new URLSearchParams({ q: incoming.get('q') })}`);
+
 const router = createRouter(
   [
     { path: '/', view: listView },

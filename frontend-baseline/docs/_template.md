@@ -35,6 +35,7 @@
 | 21 | Observability | |
 | 22 | Security hardening | |
 | 23 | Styling strategy | |
+| 24 | Agent-ready UI | |
 
 ## Migrating the baseline
 

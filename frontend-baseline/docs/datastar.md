@@ -35,6 +35,7 @@
 | 21 | Observability | `Server-Timing` from your server, request lifecycle events and `data-indicator` for client timing; nothing else is built in. |
 | 22 | Security hardening | Expressions are compiled from attribute strings at runtime, so the CSP needs `'unsafe-eval'` for the script (check the current security guidance before porting the light page); fragments are server-escaped; CSRF through an action's `headers` option or a signal the server checks; Trusted Types: the morph writes HTML, so a default policy is needed under enforcement (verify). |
 | 23 | Styling strategy | Plain CSS with `data-class` and `data-style` for state; no scoping of its own; tokens, `light-dark()`, layers, `@scope`, container queries, `@property`, subgrid and `color-mix()` pass through. |
+| 24 | Agent-ready UI | Server-owned actions are endpoints already; a short `<script>` registers tools whose `execute` issues the same `@get`/`@post` the attributes issue (or a `fetch` to the endpoint); the schema lives with the server SDK. |
 
 ## Migrating the baseline
 

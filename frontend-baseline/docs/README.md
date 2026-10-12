@@ -33,14 +33,14 @@ Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](lan
 
 ## Patterns 14 to 23
 
-Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them. On 2026-10-12 the cells that had been written from memory were checked against the official docs and rewritten with the documented option, package and function names; the few that still end in "(verify)" are claims no documentation answers yet (mostly Remix 3's client runtime and whether a repeater uses `moveBefore`), so settle them in the port and replace the cell with what the port actually did.
+Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them, and pattern 24 (agent-ready UI, `agent/`) was added on 2026-10-12 with a row in every sheet. On 2026-10-12 the cells that had been written from memory were checked against the official docs and rewritten with the documented option, package and function names; the few that still end in "(verify)" are claims no documentation answers yet (mostly Remix 3's client runtime and whether a repeater uses `moveBefore`), so settle them in the port and replace the cell with what the port actually did.
 
 ## Procedure
 
 1. Read the sheet. Write down the current version and anything that changed since the sheet was written.
 2. Scaffold with the framework's official starter. Record dependency count and install size.
 3. Register `scripts/mock-api.js` (and `html-partials.js` if the framework has no layouts) in the framework's Vite config, or run the mock API as a separate process. Every port must talk to the same API.
-4. Port the light pages in order 1 to 23, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
+4. Port the light pages in order 1 to 24, then the heavy pages. Keep a running list of decisions the framework made for you and places where you fought it.
 5. Measure (below) and verify each pattern as [verify.md](verify.md) describes, by tool where one exists and by hand where not. Fill in the rubric the same day.
 6. File the implementation under `impl/<name>/` (or a sibling repository) and link it from the sheet.
 
@@ -63,6 +63,7 @@ Patterns 14 to 23 (async consistency, state across navigation, server functions,
 | Build time, cold and warm | Project | `time pnpm build` twice |
 | Server throughput for the dynamic heavy page | Project (SSR ports) | `autocannon` or `oha` against the route, 10 s |
 | Caching model | Dynamic heavy | How invalidation is expressed (`invalidate`, tags, `"use cache"`, route caching, CDN providers), what is cached where, and what a like does to the cached list |
+| Agent tools | Agent heavy | Count the actions exposed with schemas, whether the framework derived any of them from its forms, actions or server functions, and what an agent without WebMCP can still reach by URL or form |
 | Compile targets inside one framework | State heavy, real-time heavy | Where a framework has two modes (Vue Vapor on or off, React Compiler on or off, Svelte runes or legacy), record shipped bytes and the on-page render numbers for both |
 
 ## Rubric

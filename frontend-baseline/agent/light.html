@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- @include head.html -->
+  <title>Describe yourself (agent-ready UI, light) · Frontend Baseline</title>
+  <meta name="description" content="A page that tells software what it can do: landmarks and a labelled form for an agent that reads the accessibility tree, schema.org structured data for one that reads JSON-LD, and a WebMCP tool for one that calls functions.">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Frontend Baseline","url":"https://frontend-baseline.example/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://frontend-baseline.example/dynamic/heavy.html?q={search_term_string}"},"query-input":"required name=search_term_string"}}
+  </script>
+</head>
+<body>
+  <!-- @include header.html -->
+  <main id="main" class="container page">
+    <div class="page-header">
+      <p class="pattern">Pattern 24 of 24: agent-ready UI</p>
+      <!-- @include variant-nav.html -->
+      <h1>Describe yourself</h1>
+      <p>Three audiences read this page: people, agents that browse through the accessibility tree, and agents that call functions. One form serves all three. It is a plain GET form, so its URL is its API; the structured data in the head declares the same search in schema.org terms, which crawlers have read for a decade; and a ten-line script registers it as a WebMCP tool where <code>document.modelContext</code> exists, and does nothing where it does not.</p>
+    </div>
+    <form class="form panel" action="/dynamic/heavy.html" method="get" role="search">
+      <div class="field">
+        <label for="q">Search posts</label>
+        <input id="q" name="q" type="search" class="input" required placeholder="state, routing, forms…" autocomplete="off">
+        <p class="field__hint">Submits to <code>/dynamic/heavy.html?q=…</code>; the posts app turns the query into its route.</p>
+      </div>
+      <button class="btn btn--primary" type="submit">Search</button>
+    </form>
+    <p class="muted">WebMCP in this browser: <strong id="webmcp">checking</strong>.</p>
+    <h2>What each audience sees</h2>
+    <ul>
+      <li><strong>People</strong>: a search box.</li>
+      <li><strong>Accessibility-tree agents</strong>: a <code>search</code> landmark with a labelled text input and a submit button; no script needed.</li>
+      <li><strong>Structured-data agents</strong>: a <code>SearchAction</code> with a URL template in the JSON-LD block.</li>
+      <li><strong>Function-calling agents</strong>: a <code>search_posts</code> tool with a JSON schema, registered through <code>src/lib/agent.js</code>.</li>
+    </ul>
+  </main>
+  <!-- @include footer.html -->
+  <script type="module" src="/src/pages/agent-light.js"></script>
+</body>
+</html>

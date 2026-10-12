@@ -56,7 +56,7 @@ ${body}
 ${script}</body>
 </html>
 `;
-const patternHeader = `      <p class="pattern">Pattern 9 of 23: content pipeline</p>
+const patternHeader = `      <p class="pattern">Pattern 9 of 24: content pipeline</p>
       <!-- @include variant-nav.html -->`;
 
 // --- light: one file, one page
@@ -143,7 +143,7 @@ ${articles.map((a) => `<item><title>${escape(a.meta.title)}</title><link>${SITE}
 </channel></rss>
 `);
 
-const patterns = ['static', 'forms', 'dynamic', 'state', 'scene', 'realtime', 'media', 'account', 'content', 'table', 'components', 'motion', 'offline', 'async', 'keepalive', 'rpc', 'sync', 'morph', 'navigation', 'errors', 'observe', 'security', 'styling'];
+const patterns = ['static', 'forms', 'dynamic', 'state', 'scene', 'realtime', 'media', 'account', 'content', 'table', 'components', 'motion', 'offline', 'async', 'keepalive', 'rpc', 'sync', 'morph', 'navigation', 'errors', 'observe', 'security', 'styling', 'agent'];
 const pages = ['/', ...patterns.flatMap((p) => [`/${p}/light.html`, `/${p}/heavy.html`]), ...articles.map((a) => `/content/articles/${a.slug}.html`)];
 write('public/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

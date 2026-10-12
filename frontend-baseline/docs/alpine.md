@@ -35,6 +35,7 @@
 | 21 | Observability | Nothing built in: `PerformanceObserver` or `web-vitals` as in the baseline; the Alpine devtools extension inspects component state, there are no performance marks. Heavy: `performance.mark` around the fetch in an `Alpine.data` method and `$nextTick` to end the render span; `Server-Timing` from the response headers and `PerformanceResourceTiming.serverTiming`. |
 | 22 | Security hardening | Alpine evaluates `x-` expressions with `new Function`, so a strict CSP needs `unsafe-eval` or the CSP build (`@alpinejs/csp`: expressions reduced to names on `x-data`); the baseline's hashed inline scripts are unaffected. `x-html` is unsanitised and, under Trusted Types, throws unless a default policy exists: sanitise with DOMPurify and assign through a named policy on `$el`. CSRF double-submit: send the cookie token in a header from the `fetch` in `x-on:submit.prevent`. |
 | 23 | Styling strategy | Light: unchanged. Heavy: no styling layer; `@scope`, cascade layers and tokens stay as in the baseline, Alpine adds `:class`/`:style` bindings for state-driven styles, `x-cloak` for pre-init markup and `x-transition` classes; the resizable box and direction switch are CSS only. Tailwind is the usual pairing. |
+| 24 | Agent-ready UI | Nothing built in: `Alpine.data` components call `registerTool` in `init()` with their methods as `execute`; the console is another component over the same registry. |
 
 ## Migrating the baseline
 

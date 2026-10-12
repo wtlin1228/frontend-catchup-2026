@@ -35,6 +35,7 @@
 | 21 | Observability | Nothing built in; `Server-Timing` from the Marko Run handler; the fine-grained bundling report is the thing to record. |
 | 22 | Security hardening | Templates escape by default and `<html-script>`/`<html-style>` are the only raw sinks; compiled output needs no `eval`; CSP nonces on Marko's own scripts need checking in the SSR output (verify); Trusted Types: no DOM-string sinks in normal templates, so enforcement should hold (verify). |
 | 23 | Styling strategy | `<style>` per component with CSS Modules when given a tag variable (`<style/styles>`), `.scss` and `.less` supported; global tokens imported once; platform features pass through. |
+| 24 | Agent-ready UI | Nothing built in: a `<script>` block registers tools over the page's `<let>` state; Marko Run handlers are the endpoints they call. |
 
 ## Migrating the baseline
 

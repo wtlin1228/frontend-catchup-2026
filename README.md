@@ -1,6 +1,6 @@
 # Frontend Baseline
 
-A framework-free reference project for a frontend framework survey. Twenty-three patterns that frameworks, libraries and meta-frameworks compete on, each implemented twice: a **light** page (the floor: the smallest honest version) and a **heavy** page (the ceiling: what a product needs within a year). Re-implement the pages in a framework, then compare against this baseline and against the other implementations.
+A framework-free reference project for a frontend framework survey. Twenty-four patterns that frameworks, libraries and meta-frameworks compete on, each implemented twice: a **light** page (the floor: the smallest honest version) and a **heavy** page (the ceiling: what a product needs within a year). Re-implement the pages in a framework, then compare against this baseline and against the other implementations.
 
 Written in plain HTML, CSS and JavaScript. The dependencies are infrastructure, not UI frameworks:
 
@@ -172,9 +172,15 @@ For each: the pages, what the pattern is, why it matters, and where the frontend
 - **Why it matters:** frameworks differ in scoping (Svelte and Vue scoped CSS, Angular encapsulation, CSS Modules, Tailwind, CSS-in-JS) and the platform now covers much of it.
 - **Community effort:** Tailwind 4, CSS Modules, Lightning CSS, scoped styles, design-token pipelines, `@scope` and container queries adoption.
 
+### 24. Agent-ready UI (`agent/`)
+- **Light:** a search form that is a plain GET request, declared once more as a schema.org `SearchAction` in JSON-LD, and registered as a WebMCP tool where the API exists. **Heavy:** a small posts app in which every action (list, open, like, publish, theme, session) is one function that serves the buttons, the WebMCP registry and an in-page agent console that calls tools by name with schema-checked JSON arguments.
+- **Pattern:** exposing what a page can do to software, not only to people.
+- **Why it matters:** in-browser agents (WebMCP, a W3C community group with a Chrome origin trial) and crawler-side agents need the same thing: actions with names, schemas and stable URLs; frameworks are starting to derive them from forms, actions and server functions, and the ones that cannot leave the registry to you.
+- **Community effort:** WebMCP (`document.modelContext`), Angular 22's experimental WebMCP support, agent skills shipped in packages (React Router, Remix 3), Next.js 16.4's agent upgrade and feedback tooling, `llms.txt`, MCP servers for dev tooling (Next DevTools, Svelte).
+
 ### Still under consideration
 
-From `docs/landscape-2026.md`: agent-ready UI as a page of its own. Today the contact form and the dynamic heavy page register their actions as WebMCP tools where `document.modelContext` exists; the candidate is a page whose every action is a tool with a schema, plus structured data. Compile targets inside one framework (Vue Vapor on or off, React Compiler on or off) and the caching model on pattern 3 are rows in the measurements table in `docs/README.md`.
+From `docs/landscape-2026.md`: compile targets inside one framework (Vue Vapor on or off, React Compiler on or off) and the caching model on pattern 3 are rows in the measurements table in `docs/README.md`; agent-ready UI became pattern 24 on 2026-10-12.
 
 ## Patterns considered and left out
 
@@ -199,7 +205,7 @@ From `docs/landscape-2026.md`: agent-ready UI as a page of its own. Today the co
 | `rpc.js` | Server functions: batching, deduplication, live subscription |
 | `sync.js` | Local-first: outbox, versions, conflicts, change feed |
 | `morph.js` | DOM morphing and HTML parsing for server-rendered fragments |
-| `agent.js` | WebMCP tool registration, feature-detected |
+| `agent.js` | WebMCP tool registration, feature-detected, plus the local registry, the schema check and `callTool` that the agent console uses |
 | `elements.js` | Components: `<relative-time>` custom element with connect/disconnect lifecycle |
 | `toast.js`, `theme.js`, `i18n.js`, `auth.js` | App-wide services (context and providers in frameworks) |
 

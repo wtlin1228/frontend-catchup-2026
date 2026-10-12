@@ -10,7 +10,7 @@
   <!-- @include header.html -->
   <main id="main" class="container page">
     <div class="page-header">
-      <p class="pattern">Pattern 22 of 23: security hardening</p>
+      <p class="pattern">Pattern 22 of 24: security hardening</p>
       <!-- @include variant-nav.html -->
       <h1>Untrusted input, handled</h1>
       <p>Three defences in one page. Trusted Types make every assignment to innerHTML go through a named policy, so unsanitised HTML cannot reach the DOM even by accident. The policy runs an allow-list sanitiser; parsing the untrusted string is a sink as well, so a second, parse-only policy feeds that step. And a form carries a CSRF token that must match a cookie, which the mock API checks.</p>

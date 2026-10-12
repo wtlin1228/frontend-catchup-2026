@@ -35,6 +35,7 @@
 | 21 | Observability | Light: `web-vitals` or the baseline's PerformanceObserver code; Preact Devtools' profiler for component cost, no Performance Tracks. Heavy: `@opentelemetry/sdk-trace-web` + `@opentelemetry/instrumentation-fetch`, `PerformanceResourceTiming.serverTiming` for the mock API's Server-Timing; time renders with `performance.mark` in `options.diffed` (the hook Preact Devtools uses) or around `render()`. |
 | 22 | Security hardening | Light: a Vite Preact SPA emits no inline script, so a hash CSP works once the theme script is hashed (`{{csp-hashes}}`). Heavy: Preact writes HTML only via `dangerouslySetInnerHTML`, so pass DOMPurify output (`RETURN_TRUSTED_TYPE`) under Trusted Types; CSRF double-submit is a header in your `fetch` wrapper, nothing in Preact or `preact-iso`; `@preact/preset-vite` prerendering serialises data into a `<script type="application/json">` tag, which CSP does not execute, and documents no nonce option, so check the built HTML for any inline runtime before relying on a hash policy. |
 | 23 | Styling strategy | Light: the baseline's CSS imports unchanged; `class` and `className` both work. Heavy: no built-in scoping; CSS Modules via Vite or Tailwind 4; `goober` is the Preact-sized CSS-in-JS if you need runtime styles; `@scope`, container queries, `@property` and `:has()` are plain CSS as in the baseline. |
+| 24 | Agent-ready UI | Nothing built in: register in `useEffect`, schemas by hand, the registry in a signal so the console re-renders as tools appear. |
 
 ## Migrating the baseline
 

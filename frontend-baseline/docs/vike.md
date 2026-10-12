@@ -37,6 +37,7 @@ The rows assume `vike-react`; swap the UI-library rows (4, 5, 6, 10, 11, 12, 14,
 | 21 | Observability | Nothing built in; hooks are plain functions, so `Server-Timing` is set in your server around `renderPage()`. |
 | 22 | Security hardening | `pageContext.cspNonce` lets Vike put a per-request nonce on the scripts it injects (set it in your server before `renderPage()`), so a strict policy works with `'strict-dynamic'`; pre-rendered pages need hashes computed by hand; Trusted Types and CSRF as react.md (verify the nonce setting's current name). |
 | 23 | Styling strategy | Vite's CSS Modules and Tailwind; everything else as react.md. |
+| 24 | Agent-ready UI | Nothing built in: `+onHydrationEnd` or a component effect registers tools whose `execute` calls Telefunc functions, whose validators supply the schema. |
 
 ## Migrating the baseline
 

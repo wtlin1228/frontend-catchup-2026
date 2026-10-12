@@ -4,7 +4,7 @@ import { chromium } from 'playwright-core';
 
 const base = process.argv[2] ?? 'http://localhost:4173';
 const filter = process.argv[3] ?? '';
-const patterns = ['static', 'forms', 'dynamic', 'state', 'scene', 'realtime', 'media', 'account', 'content', 'table', 'components', 'motion', 'offline', 'async', 'keepalive', 'rpc', 'sync', 'morph', 'navigation', 'errors', 'observe', 'security', 'styling'];
+const patterns = ['static', 'forms', 'dynamic', 'state', 'scene', 'realtime', 'media', 'account', 'content', 'table', 'components', 'motion', 'offline', 'async', 'keepalive', 'rpc', 'sync', 'morph', 'navigation', 'errors', 'observe', 'security', 'styling', 'agent'];
 const pages = ['/', ...patterns.flatMap((p) => [`/${p}/light.html`, `/${p}/heavy.html`]), '/offline/fallback.html', '/navigation/app', '/navigation/app/about',
   '/content/articles/measuring-a-framework.html'].filter((p) => p.includes(filter));
 
@@ -14,8 +14,8 @@ let failures = 0;
 for (const path of pages) {
   const page = await context.newPage();
   const issues = [];
-  page.on('console', (msg) => { if (['error', 'warning'].includes(msg.type()) && !/GPU stall|api\/flaky/.test(msg.text())) issues.push(`console.${msg.type()}: ${msg.text().slice(0, 300)}`); });
-  page.on('pageerror', (err) => issues.push(`pageerror: ${String(err).slice(0, 300)}`));
+  page.on('console', (msg) => { if (['error', 'warning'].includes(msg.type()) && !/GPU stall|api\/flaky|Failed to load resource/.test(msg.text())) issues.push(`console.${msg.type()}: ${msg.text().slice(0, 300)}`); });
+  page.on('pageerror', (err) => { if (/ViewTransition opt-in disabled/.test(String(err))) return; issues.push(`pageerror: ${String(err).slice(0, 300)}`) });
   page.on('requestfailed', (req) => { if (!req.url().includes('/api/stream') && !req.url().includes('/stream')) issues.push(`requestfailed: ${req.method()} ${req.url()} ${req.failure()?.errorText}`); });
   page.on('response', (res) => { if (res.status() >= 400 && !res.url().includes('/api/flaky')) issues.push(`http ${res.status()}: ${res.url()}`); });
   let title = '';

@@ -43,6 +43,7 @@ How to tell whether a framework port of a pattern is an improvement on the basel
 | 21 | Observability | 9.0 | 9.6 | |
 | 22 | Security hardening | 9.0 | 9.8 | |
 | 23 | Styling strategy | 7.1 | 8.0 | |
+| 24 | Agent-ready UI | 8.5 | 13.2 | |
 | | Hub | 9.6 | | |
 
 Ten light pages ship no JavaScript at all (static, forms, media, content, components, motion, navigation, styling, both static pages and all articles). A framework that cannot produce a zero-JS page for them has its first finding.
@@ -165,6 +166,11 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 - **Better:** scoping that does not leak and needs no runtime, tokens reused from one place, platform features (`@scope`, container queries, `@property`, `:has()`, logical properties, subgrid) passing through the toolchain untouched.
 - **Tool:** `pnpm weight` (CSS bytes per page, and whether CSS arrived inside JS); Coverage panel: unused CSS per page; Elements, Computed: the paragraph after the card's slot boundary is not styled by the card's rules.
 - **Hand:** light: switch theme, the swatches follow; the layered box is accent-coloured because the theme layer wins; heavy: drag the box past 26 rem, the card goes side by side; hover the meter, it animates; type an invalid email and leave the field, the message shows and the button stays disabled until it is valid; tick Right-to-left, the block mirrors; the three feature cards keep their rows aligned.
+
+### 24. Agent-ready UI
+- **Better:** the framework derives the tool list from what it already knows (forms, actions, server functions and their validators) instead of a hand-written registry, and every action stays reachable by URL or form for agents that have no function-calling API.
+- **Tool:** flows "agent light: GET form reaches the posts app route" and "agent heavy: console calls a tool through the schema check"; `curl -s <url>/agent/light.html | grep -c 'application/ld+json'` proves the structured data is in the HTML; in a browser with WebMCP (Chrome origin trial) the status line counts the tools the browser accepted.
+- **Hand:** light: submit the form and you land on the posts app with the query applied; the status line says whether WebMCP is present. Heavy: pick `list_posts`, run it with `{"q":"state"}`: the list on the left changes and the result pane shows the JSON an agent would get; "Run with bad arguments" is rejected by the schema before any request is made; `publish_post` is refused with 401 until you sign in on the account page, then publishes; `set_theme` with `dark` flips the page; the calls log shows `ui` and `console` sources going through the same functions.
 
 ## Replacing `src/lib`
 

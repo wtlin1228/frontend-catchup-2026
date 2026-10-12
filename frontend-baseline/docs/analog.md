@@ -37,6 +37,7 @@ The UI-library rows (4, 5, 6, 10, 11, 12, 14, 18, 20, 23) are angular.md's; this
 | 21 | Observability | Nitro routes set `Server-Timing`; nothing traces; client as angular.md. |
 | 22 | Security hardening | CSP and other headers from server middleware (`setResponseHeaders`), nonces into Angular's `ngCspNonce` from `load` or middleware (check the SSR wiring), CSRF double-submit in the Nitro route; Trusted Types as angular.md. |
 | 23 | Styling strategy | As angular.md; Vite's CSS Modules are available too. |
+| 24 | Agent-ready UI | As angular.md; form server actions and tRPC procedures, with their Zod inputs, are the natural tool list. |
 
 ## Migrating the baseline
 
