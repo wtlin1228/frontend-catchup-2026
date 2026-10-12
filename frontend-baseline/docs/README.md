@@ -23,7 +23,11 @@ How to compare frameworks against the baseline, so that notes taken months apart
 | [nuxt.md](nuxt.md) | Meta-framework (Vue) | nuxt 4.6.1 |
 | [sveltekit.md](sveltekit.md) | Meta-framework (Svelte) | @sveltejs/kit 3.0.1 |
 | [astro.md](astro.md) | Content-first meta-framework | astro 7.3.8 (7.4.0-beta.1) |
-| [others.md](others.md) | Ember, Marko, Analog, Vike, Fresh, Hono, Datastar, Stencil | see sheet |
+| [datastar.md](datastar.md) | Hypermedia library with signals | v1.0.4 (one file from the project's CDN; npm package stale) |
+| [marko.md](marko.md) | Compiler-first UI language with a meta-framework | marko 6.4.5, @marko/run 0.11.13 |
+| [analog.md](analog.md) | Meta-framework (Angular) | @analogjs/platform 2.8.0 (3.0 at alpha) |
+| [vike.md](vike.md) | Vite-native meta-framework core (React, Vue, Solid) | vike 0.4.267, vike-react 0.6.29 |
+| [others.md](others.md) | Hotwire, Unpoly, Eleventy, Stencil, Enhance, Ember, Inferno, Fresh, Hono, Mitosis and the non-JavaScript stacks | see sheet |
 
 Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](landscape-2026.md) summarises what each project's maintainers were writing about this year and which patterns the baseline still lacks. Re-check versions with `npm view <package> version` before porting; this landscape moves monthly.
 
