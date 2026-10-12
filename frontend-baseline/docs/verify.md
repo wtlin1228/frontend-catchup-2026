@@ -67,25 +67,40 @@ Ten light pages ship no JavaScript at all (static, forms, media, content, compon
 
 The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the main thread is faster because the index array is not copied back), 11 ms at 200,000, and in both cases the typing stays smooth only in worker mode because the main thread is free. A port's numbers for the same actions go next to these in its sheet.
 
-### What a comparison looks like: the React and Svelte ports, 2026-10-12
+### Lighthouse on the same machine, 2026-10-12
 
-`impl/react` and `impl/svelte` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+`pnpm dlx lighthouse@13.5.0 <url> --only-categories=performance,accessibility,best-practices --chrome-flags="--headless=new"` against the production previews, one run each (the guide asks for the median of three; these are the first anchor). Performance 99 or 100 everywhere says the mobile throttling, not the framework, sets these pages' scores at this size; the numbers that move are LCP and CLS.
 
-| Measurement | Baseline | React port | Svelte port |
-|---|---|---|---|
-| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB, 68.2 JS | 23.3 kB, 18.2 JS |
-| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB |
-| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms |
-| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms |
-| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms |
-| Real-time heavy, shipped gzip | 10.3 kB | 75.4 kB | 26.3 kB |
-| Dashboard at 30 Hz, patch: renders per second, last render | 31, 0.6 ms | 31, 0.8 ms | 31, 0.6 ms |
-| Dashboard at 30 Hz, rebuild: renders per second, last render | 32, 1.4 ms | 31, 1.4 ms | 31, 1.4 ms |
-| Lines for the board page (plus shared code it still needs) | 273 (+ `store.js`, `dom.js`, `toast.js`) | 225 (+ `toast.js`) | 219 (+ `toast.js`) |
-| `check-dist` on the build | clean | every page: no `<h1>`, no `<main>` in the HTML | the same |
-| Flows "state heavy" and "forms light" | pass | pass | pass |
+| Page | Baseline | React | Svelte | Vue |
+|---|---|---|---|---|
+| Static light: performance, accessibility, best practices | 100, 95, 92 | 99, 95, 92 | 100, 95, 92 | 100, 95, 92 |
+| Static light: LCP, CLS | 1.4 s, 0 | 1.8 s, 0 | 1.5 s, 0 | 1.4 s, 0 |
+| State heavy: performance, LCP, CLS | 99, 1.7 s, 0.027 | 99, 1.8 s, 0 | 100, 1.4 s, 0 | 99, 1.4 s, 0 |
+| Static heavy (baseline only) | 100, 96, 92; LCP 1.4 s | | | |
+| Dynamic heavy (baseline only) | 96, 95, 100; LCP 1.7 s, CLS 0.101 | | | |
 
-Three readings already: the light pages measure the runtime (67 kB, 17 kB, 0) and nothing else, because both ports render in the browser; the board's numbers depend on which action you time, so record all three before concluding anything about rendering models; and at 30 Hz with one update per frame all three implementations are indistinguishable (the frame budget, not the framework, is the limit), so the dashboard separates frameworks only when the scheduling is left to them.
+Two findings for the baseline itself: the dynamic heavy page's CLS of 0.101 is above the 0.1 "good" threshold (the four skeleton cards are shorter than the eight real ones plus the pager), and the 92 for best practices on the static pages comes from the same audit on all three builds, so it is the shared markup, not a port, to look at. Both are the kind of thing a port can copy by accident; record them before porting pattern 3.
+
+### What a comparison looks like: the React, Svelte and Vue ports, 2026-10-12
+
+`impl/react`, `impl/svelte` and `impl/vue` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+
+| Measurement | Baseline | React | Svelte | Vue |
+|---|---|---|---|---|
+| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB | 23.3 kB | 32.4 kB |
+| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB | 36.3 kB |
+| Real-time heavy, shipped gzip | 10.3 kB | 75.4 kB | 26.3 kB | 34.8 kB |
+| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms | 18.1 ms |
+| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms | 22.6 ms |
+| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms | 22.6 ms |
+| Dashboard at 30 Hz, patch: renders per second, last render | 31, 0.6 ms | 31, 0.8 ms | 31, 0.6 ms | 31, 0.4 ms |
+| Dashboard at 30 Hz, rebuild: renders per second, last render | 32, 1.4 ms | 31, 1.4 ms | 31, 1.4 ms | 31, 0.6 ms |
+| Lines for the board page (plus shared code it still needs) | 273 (+ `store.js`, `dom.js`, `toast.js`) | 225 (+ `toast.js`) | 219 (+ `toast.js`) | 220 (+ `toast.js`) |
+| Lines for the dashboard page | 238 | 155 | 148 | 151 |
+| `check-dist` on the build | clean | no `<h1>`, no `<main>` in any page's HTML | the same | the same |
+| Flows "state heavy" and "forms light" | pass | pass | pass | pass |
+
+Three readings already: the light pages measure the runtime (67 kB, 17 kB, 26 kB, 0) and nothing else, because all three ports render in the browser; the board's numbers depend on which action you time (React wins the keystroke, Svelte the bulk add, Vue neither without memoisation), so record all three before concluding anything about rendering models; and at 30 Hz with one update per frame all four implementations are within a millisecond (the frame budget, not the framework, is the limit), so the dashboard separates frameworks only when the scheduling is left to them.
 
 ## Per pattern
 

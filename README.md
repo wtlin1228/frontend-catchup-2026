@@ -211,7 +211,7 @@ From `docs/landscape-2026.md`: compile targets inside one framework (Vue Vapor o
 
 ## Survey
 
-Each framework has a sheet in `docs/<name>.md`: what it is, how each pattern maps onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric; `docs/verify.md` says how to verify a port pattern by pattern, by tool and by hand. `impl/react/` and `impl/svelte/` are the first ports, with their numbers next to the baseline's in `docs/react.md` and `docs/svelte.md`.
+Each framework has a sheet in `docs/<name>.md`: what it is, how each pattern maps onto it, migration steps and what to watch for. `docs/README.md` has the procedure, the measurements and the rubric; `docs/verify.md` says how to verify a port pattern by pattern, by tool and by hand. `impl/react/`, `impl/svelte/` and `impl/vue/` are the first ports, with their numbers next to the baseline's in `docs/react.md`, `docs/svelte.md` and `docs/vue.md`.
 
 ## Layout
 
@@ -232,4 +232,5 @@ tools/smoke/               headless-Chrome page and flow tests, own package.json
 docs/                      one sheet per framework, survey guide, template
 impl/react/                the first port (React 19 on Vite): patterns 1 to 4 light, the board and the dashboard, with measurements
 impl/svelte/               the second port (Svelte 5 on Vite), same pages, same setup
+impl/vue/                  the third port (Vue 3.5 on Vite), same pages, same setup
 ```
