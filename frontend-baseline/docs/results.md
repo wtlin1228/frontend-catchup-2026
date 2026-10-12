@@ -10,15 +10,16 @@ Gzip kilobytes of HTML, CSS and JavaScript the page references (fonts and images
 
 | Page | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| static/light | 6.7 | 73.3 | 23.8 | 32.5 |
-| forms/light | 6.6 | 73.2 | 23.7 | 32.3 |
-| dynamic/light | 7.8 | 73.3 | 23.8 | 32.5 |
-| state/light | 8.5 | 73.8 | 24.4 | 33.1 |
-| state/heavy | 11.6 | 76.8 | 27.7 | 36.3 |
-| realtime/heavy | 10.4 | 75.4 | 26.3 | 34.9 |
-| index | 9.9 | 73.0 | 23.6 | 32.2 |
-| JavaScript alone, static light | 0.0 | 68.2 | 18.6 | 27.4 |
-| Largest asset | 181.0 (three.module.js) | 67.4 (Layout.js) | 17.7 (mount.js) | 26.5 (mount.js) |
+| static/light | 6.7 | 73.5 | 24.2 | 33.2 |
+| forms/light | 6.6 | 73.4 | 24.1 | 33.0 |
+| dynamic/light | 7.8 | 73.5 | 24.3 | 33.2 |
+| dynamic/heavy | 13.8 | 116.1 | 29.8 | 56.5 |
+| state/light | 8.5 | 74.0 | 24.9 | 33.8 |
+| state/heavy | 11.6 | 77.1 | 28.2 | 37.1 |
+| realtime/heavy | 10.4 | 75.6 | 26.8 | 35.6 |
+| index | 9.9 | 73.2 | 24.1 | 32.9 |
+| JavaScript alone, static light | 0.0 | 68.4 | 19.1 | 28.1 |
+| Largest asset | 181.0 (three.module.js) | 67.6 (Layout.js) | 18.1 (mount.js) | 27.0 (Layout.js) |
 
 ## On-page measurements
 
@@ -26,26 +27,26 @@ What the pages print after the action named; collected by `tools/smoke/measure.m
 
 | Measurement | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| state heavy: render after Add 300 cards (306 on the board) | 12 ms | 13.5 ms | 11.7 ms | 12.9 ms |
-| state heavy: render after a second Add 300 (606 on the board) | 22.6 ms | 14.6 ms | 12.3 ms | 13.4 ms |
-| state heavy: render after a filter keystroke (606 cards) | 5.1 ms | 2.7 ms | 12.3 ms | 13.4 ms |
-| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 32 | 31 | 32 | 32 |
-| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.6 ms | 0.8 ms | 0.6 ms | 0.4 ms |
-| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 31 | 31 | 32 | 31 |
-| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.2 ms | 1.4 ms | 1.5 ms | 0.5 ms |
-| data grid heavy: 50,000 rows: sort by score on the worker | 21.7 ms |  |  |  |
-| data grid heavy: 50,000 rows: sort by score on the main thread | 17.9 ms |  |  |  |
-| data grid heavy: 200,000 rows: sort by score on the worker | 86.5 ms |  |  |  |
-| data grid heavy: 200,000 rows: sort by score on the main thread | 72.8 ms |  |  |  |
+| state heavy: render after Add 300 cards (306 on the board) | 11.6 ms | 12.7 ms | 12 ms | 12.9 ms |
+| state heavy: render after a second Add 300 (606 on the board) | 22.2 ms | 13.6 ms | 12.2 ms | 12.8 ms |
+| state heavy: render after a filter keystroke (606 cards) | 5.2 ms | 2.9 ms | 12.2 ms | 12.8 ms |
+| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 31 | 31 | 31 | 31 |
+| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.6 ms | 1.2 ms | 0.7 ms | 0.5 ms |
+| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 32 | 31 | 32 | 31 |
+| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.3 ms | 1.4 ms | 1.5 ms | 0.6 ms |
+| data grid heavy: 50,000 rows: sort by score on the worker | 21.9 ms |  |  |  |
+| data grid heavy: 50,000 rows: sort by score on the main thread | 18.2 ms |  |  |  |
+| data grid heavy: 200,000 rows: sort by score on the worker | 88.2 ms |  |  |  |
+| data grid heavy: 200,000 rows: sort by score on the main thread | 71.6 ms |  |  |  |
 | server functions heavy: requests for five same-tick calls | 1 |  |  |  |
 | observability light: Time to first byte | 1 ms |  |  |  |
-| observability light: First contentful paint | 116 ms |  |  |  |
-| observability light: Largest contentful paint | 116 ms |  |  |  |
+| observability light: First contentful paint | 108 ms |  |  |  |
+| observability light: Largest contentful paint | 108 ms |  |  |  |
 | observability light: Cumulative layout shift | 0.026 |  |  |  |
 | observability light: Slowest interaction (INP, approx.) | 0 ms |  |  |  |
 | observability light: Long tasks | 0 |  |  |  |
 | observability heavy: trace: spans | 6 |  |  |  |
-| observability heavy: trace: total (two API calls with mock latency plus a render) | 659 ms |  |  |  |
+| observability heavy: trace: total (two API calls with mock latency plus a render) | 1178 ms |  |  |  |
 
 ## Lines per page
 
@@ -56,6 +57,7 @@ Only the files that exist because of the page (its HTML, script, component and s
 | static/light | 30 | 40 | 43 | 45 |
 | forms/light | 33 | 43 | 45 | 47 |
 | dynamic/light | 49 | 71 | 69 | 68 |
+| dynamic/heavy | 345 | 231 | 300 | 264 |
 | state/light | 81 | 74 | 71 | 68 |
 | state/heavy | 296 | 225 | 219 | 220 |
 | realtime/heavy | 265 | 155 | 148 | 151 |
@@ -67,10 +69,10 @@ Only the files that exist because of the page (its HTML, script, component and s
 
 | Check | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| Pages opened without errors | 53/53 | 7/7 | 7/7 | 7/7 |
-| Flows passed | 18/18 | 2/2 | 2/2 | 2/2 |
-| Direct dependencies (package.json) | 4 | 4 | 3 | 3 |
-| node_modules (MB) | 59 | 42 | 43 | 52 |
+| Pages opened without errors | 53/53 | 8/8 | 8/8 | 8/8 |
+| Flows passed | 18/18 | 3/3 | 3/3 | 3/3 |
+| Direct dependencies (package.json) | 4 | 6 | 3 | 5 |
+| node_modules (MB) | 59 | 51 | 43 | 66 |
 
 ## Lighthouse
 
@@ -78,9 +80,9 @@ One run per page, mobile preset. Performance, accessibility and best practices s
 
 | Page | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| static/light | 100 / 100 / 96; LCP 1.4 s, CLS 0 | 99 / 100 / 96; LCP 1.8 s, CLS 0 | 100 / 100 / 96; LCP 1.5 s, CLS 0 | 100 / 100 / 96; LCP 1.4 s, CLS 0 |
-| dynamic/heavy | 99 / 100 / 100; LCP 1.7 s, CLS 0 |  |  |  |
-| state/heavy | 99 / 100 / 100; LCP 1.7 s, CLS 0.027 | 99 / 100 / 100; LCP 1.8 s, CLS 0 | 100 / 100 / 100; LCP 1.5 s, CLS 0 | 100 / 100 / 100; LCP 1.5 s, CLS 0 |
+| static/light | 100 / 100 / 96; LCP 1.4 s, CLS 0 | 99 / 100 / 96; LCP 1.8 s, CLS 0 | 100 / 100 / 96; LCP 1.5 s, CLS 0 | 100 / 100 / 96; LCP 1.5 s, CLS 0 |
+| dynamic/heavy | 99 / 100 / 100; LCP 1.7 s, CLS 0 | 98 / 100 / 100; LCP 2.0 s, CLS 0 | 100 / 100 / 100; LCP 1.5 s, CLS 0 | 99 / 100 / 100; LCP 1.7 s, CLS 0 |
+| state/heavy | 99 / 100 / 100; LCP 1.7 s, CLS 0.027 | 98 / 100 / 100; LCP 1.8 s, CLS 0 | 100 / 100 / 100; LCP 1.5 s, CLS 0 | 100 / 100 / 100; LCP 1.5 s, CLS 0 |
 
 ## All pages of the baseline
 

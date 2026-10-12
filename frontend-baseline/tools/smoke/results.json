@@ -400,25 +400,25 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 12,
+          "value": 11.6,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 22.6,
+          "value": 22.2,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 5.1,
+          "value": 5.2,
           "unit": "ms"
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: renders per second at 30 Hz (median of 5)",
-          "value": 32,
+          "value": 31,
           "unit": ""
         },
         {
@@ -430,37 +430,37 @@
         {
           "page": "real-time heavy",
           "measurement": "rebuild: renders per second at 30 Hz (median of 5)",
-          "value": 31,
+          "value": 32,
           "unit": ""
         },
         {
           "page": "real-time heavy",
           "measurement": "rebuild: last render at 30 Hz (median of 5)",
-          "value": 1.2,
+          "value": 1.3,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the worker",
-          "value": 21.7,
+          "value": 21.9,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "50,000 rows: sort by score on the main thread",
-          "value": 17.9,
+          "value": 18.2,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the worker",
-          "value": 86.5,
+          "value": 88.2,
           "unit": "ms"
         },
         {
           "page": "data grid heavy",
           "measurement": "200,000 rows: sort by score on the main thread",
-          "value": 72.8,
+          "value": 71.6,
           "unit": "ms"
         },
         {
@@ -478,13 +478,13 @@
         {
           "page": "observability light",
           "measurement": "First contentful paint",
-          "value": 116,
+          "value": 108,
           "unit": "ms"
         },
         {
           "page": "observability light",
           "measurement": "Largest contentful paint",
-          "value": 116,
+          "value": 108,
           "unit": "ms"
         },
         {
@@ -514,7 +514,7 @@
         {
           "page": "observability heavy",
           "measurement": "trace: total (two API calls with mock latency plus a render)",
-          "value": 659,
+          "value": 1178,
           "unit": "ms"
         }
       ],
@@ -567,52 +567,59 @@
       "label": "React 19.3.0",
       "dir": "impl/react",
       "pages": {
+        "/dynamic/heavy.html": {
+          "html": 556,
+          "css": 5214,
+          "js": 113134,
+          "lazy": 0,
+          "lines": 231
+        },
         "/dynamic/light.html": {
-          "html": 521,
+          "html": 522,
           "css": 4621,
-          "js": 69901,
+          "js": 70120,
           "lazy": 0,
           "lines": 71
         },
         "/forms/light.html": {
           "html": 608,
           "css": 4621,
-          "js": 69735,
+          "js": 69951,
           "lazy": 0,
           "lines": 43
         },
         "/index.html": {
-          "html": 512,
+          "html": 511,
           "css": 4621,
-          "js": 69595,
+          "js": 69816,
           "lazy": 0,
           "lines": null
         },
         "/realtime/heavy.html": {
-          "html": 549,
+          "html": 551,
           "css": 5473,
-          "js": 71200,
+          "js": 71420,
           "lazy": 0,
           "lines": 155
         },
         "/state/heavy.html": {
-          "html": 557,
+          "html": 573,
           "css": 5401,
-          "js": 72669,
+          "js": 73006,
           "lazy": 0,
           "lines": 225
         },
         "/state/light.html": {
-          "html": 515,
+          "html": 513,
           "css": 4893,
-          "js": 70160,
+          "js": 70379,
           "lazy": 0,
           "lines": 74
         },
         "/static/light.html": {
-          "html": 616,
+          "html": 617,
           "css": 4621,
-          "js": 69843,
+          "js": 70059,
           "lazy": 0,
           "lines": 40
         }
@@ -621,19 +628,19 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 13.5,
+          "value": 12.7,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 14.6,
+          "value": 13.6,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 2.7,
+          "value": 2.9,
           "unit": "ms"
         },
         {
@@ -645,7 +652,7 @@
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.8,
+          "value": 1.2,
           "unit": "ms"
         },
         {
@@ -663,13 +670,13 @@
       ],
       "checks": {
         "pages": {
-          "clean": 7,
-          "total": 7,
+          "clean": 8,
+          "total": 8,
           "failed": []
         },
         "flows": {
-          "passed": 2,
-          "total": 2,
+          "passed": 3,
+          "total": 3,
           "failed": []
         }
       },
@@ -681,8 +688,15 @@
           "lcp": "1.8 s",
           "cls": "0"
         },
+        "/dynamic/heavy.html": {
+          "performance": 98,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "lcp": "2.0 s",
+          "cls": "0"
+        },
         "/state/heavy.html": {
-          "performance": 99,
+          "performance": 98,
           "accessibility": 100,
           "bestPractices": 100,
           "lcp": "1.8 s",
@@ -690,12 +704,12 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/Layout-DIcDoA3P.js",
-        "gz": 68991
+        "path": "/assets/Layout-CfUDeG7w.js",
+        "gz": 69207
       },
       "sharedLines": 69,
-      "dependencies": 4,
-      "nodeModulesMb": 42
+      "dependencies": 6,
+      "nodeModulesMb": 51
     },
     {
       "id": "svelte",
@@ -703,52 +717,59 @@
       "label": "Svelte 5.57.2",
       "dir": "impl/svelte",
       "pages": {
+        "/dynamic/heavy.html": {
+          "html": 569,
+          "css": 5214,
+          "js": 24728,
+          "lazy": 0,
+          "lines": 300
+        },
         "/dynamic/light.html": {
-          "html": 522,
+          "html": 520,
           "css": 4621,
-          "js": 19245,
+          "js": 19700,
           "lazy": 0,
           "lines": 69
         },
         "/forms/light.html": {
-          "html": 627,
+          "html": 626,
           "css": 4621,
-          "js": 18971,
+          "js": 19412,
           "lazy": 0,
           "lines": 45
         },
         "/index.html": {
-          "html": 530,
+          "html": 528,
           "css": 4621,
-          "js": 19057,
+          "js": 19498,
           "lazy": 0,
           "lines": null
         },
         "/realtime/heavy.html": {
-          "html": 552,
+          "html": 549,
           "css": 5473,
-          "js": 20957,
+          "js": 21402,
           "lazy": 0,
           "lines": 148
         },
         "/state/heavy.html": {
-          "html": 557,
+          "html": 573,
           "css": 5401,
-          "js": 22356,
+          "js": 22919,
           "lazy": 0,
           "lines": 219
         },
         "/state/light.html": {
-          "html": 519,
+          "html": 514,
           "css": 4893,
-          "js": 19608,
+          "js": 20056,
           "lazy": 0,
           "lines": 71
         },
         "/static/light.html": {
-          "html": 640,
+          "html": 638,
           "css": 4621,
-          "js": 19091,
+          "js": 19529,
           "lazy": 0,
           "lines": 43
         }
@@ -757,31 +778,31 @@
         {
           "page": "state heavy",
           "measurement": "render after Add 300 cards (306 on the board)",
-          "value": 11.7,
+          "value": 12,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 12.3,
+          "value": 12.2,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 12.3,
+          "value": 12.2,
           "unit": "ms"
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: renders per second at 30 Hz (median of 5)",
-          "value": 32,
+          "value": 31,
           "unit": ""
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.6,
+          "value": 0.7,
           "unit": "ms"
         },
         {
@@ -799,13 +820,13 @@
       ],
       "checks": {
         "pages": {
-          "clean": 7,
-          "total": 7,
+          "clean": 8,
+          "total": 8,
           "failed": []
         },
         "flows": {
-          "passed": 2,
-          "total": 2,
+          "passed": 3,
+          "total": 3,
           "failed": []
         }
       },
@@ -814,6 +835,13 @@
           "performance": 100,
           "accessibility": 100,
           "bestPractices": 96,
+          "lcp": "1.5 s",
+          "cls": "0"
+        },
+        "/dynamic/heavy.html": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
           "lcp": "1.5 s",
           "cls": "0"
         },
@@ -826,8 +854,8 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/mount-QThb3EYo.js",
-        "gz": 18113
+        "path": "/assets/mount-CPxwlcqJ.js",
+        "gz": 18553
       },
       "sharedLines": 59,
       "dependencies": 3,
@@ -839,52 +867,59 @@
       "label": "Vue 3.5.43",
       "dir": "impl/vue",
       "pages": {
+        "/dynamic/heavy.html": {
+          "html": 553,
+          "css": 5214,
+          "js": 52110,
+          "lazy": 0,
+          "lines": 264
+        },
         "/dynamic/light.html": {
-          "html": 519,
+          "html": 538,
           "css": 4621,
-          "js": 28102,
+          "js": 28804,
           "lazy": 0,
           "lines": 68
         },
         "/forms/light.html": {
-          "html": 609,
+          "html": 623,
           "css": 4621,
-          "js": 27872,
+          "js": 28573,
           "lazy": 0,
           "lines": 47
         },
         "/index.html": {
-          "html": 510,
+          "html": 528,
           "css": 4621,
-          "js": 27839,
+          "js": 28543,
           "lazy": 0,
           "lines": null
         },
         "/realtime/heavy.html": {
-          "html": 549,
+          "html": 565,
           "css": 5473,
-          "js": 29669,
+          "js": 30370,
           "lazy": 0,
           "lines": 151
         },
         "/state/heavy.html": {
-          "html": 553,
+          "html": 585,
           "css": 5401,
-          "js": 31228,
+          "js": 32037,
           "lazy": 0,
           "lines": 220
         },
         "/state/light.html": {
-          "html": 514,
+          "html": 530,
           "css": 4893,
-          "js": 28470,
+          "js": 29169,
           "lazy": 0,
           "lines": 68
         },
         "/static/light.html": {
-          "html": 616,
+          "html": 635,
           "css": 4621,
-          "js": 28029,
+          "js": 28729,
           "lazy": 0,
           "lines": 45
         }
@@ -899,25 +934,25 @@
         {
           "page": "state heavy",
           "measurement": "render after a second Add 300 (606 on the board)",
-          "value": 13.4,
+          "value": 12.8,
           "unit": "ms"
         },
         {
           "page": "state heavy",
           "measurement": "render after a filter keystroke (606 cards)",
-          "value": 13.4,
+          "value": 12.8,
           "unit": "ms"
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: renders per second at 30 Hz (median of 5)",
-          "value": 32,
+          "value": 31,
           "unit": ""
         },
         {
           "page": "real-time heavy",
           "measurement": "patch: last render at 30 Hz (median of 5)",
-          "value": 0.4,
+          "value": 0.5,
           "unit": "ms"
         },
         {
@@ -929,19 +964,19 @@
         {
           "page": "real-time heavy",
           "measurement": "rebuild: last render at 30 Hz (median of 5)",
-          "value": 0.5,
+          "value": 0.6,
           "unit": "ms"
         }
       ],
       "checks": {
         "pages": {
-          "clean": 7,
-          "total": 7,
+          "clean": 8,
+          "total": 8,
           "failed": []
         },
         "flows": {
-          "passed": 2,
-          "total": 2,
+          "passed": 3,
+          "total": 3,
           "failed": []
         }
       },
@@ -950,7 +985,14 @@
           "performance": 100,
           "accessibility": 100,
           "bestPractices": 96,
-          "lcp": "1.4 s",
+          "lcp": "1.5 s",
+          "cls": "0"
+        },
+        "/dynamic/heavy.html": {
+          "performance": 99,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "lcp": "1.7 s",
           "cls": "0"
         },
         "/state/heavy.html": {
@@ -962,12 +1004,12 @@
         }
       },
       "largestAsset": {
-        "path": "/assets/mount-BFpcW0oG.js",
-        "gz": 27087
+        "path": "/assets/Layout-dgeiei3h.js",
+        "gz": 27673
       },
       "sharedLines": 60,
-      "dependencies": 3,
-      "nodeModulesMb": 52
+      "dependencies": 5,
+      "nodeModulesMb": 66
     }
   ],
   "chrome": "153.0.8010.47"

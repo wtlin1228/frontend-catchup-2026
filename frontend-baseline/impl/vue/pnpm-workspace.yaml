@@ -1,0 +1,5 @@
+allowBuilds:
+  vue-demi: false # its postinstall only matters for Vue 2; the default build is the Vue 3 one
+minimumReleaseAgeExclude:
+  - '@tanstack/query-core@5.104.2'
+  - '@tanstack/vue-query@5.104.2'

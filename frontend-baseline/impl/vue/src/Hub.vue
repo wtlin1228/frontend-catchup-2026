@@ -3,7 +3,7 @@ import Layout from './Layout.vue';
 const PORTED = [
   ['Static content', '/static/light.html', null],
   ['Forms', '/forms/light.html', null],
-  ['Dynamic data and routing', '/dynamic/light.html', null],
+  ['Dynamic data and routing', '/dynamic/light.html', '/dynamic/heavy.html'],
   ['Client state', '/state/light.html', '/state/heavy.html'],
   ['Real-time updates', null, '/realtime/heavy.html'],
 ];
