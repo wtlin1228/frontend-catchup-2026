@@ -9,6 +9,10 @@
   --accent: #e76125;
   --accent-strong: light-dark(#c24f1a, #ff8d52);
   --accent-soft: light-dark(#fdeee5, #3b2416);
+  /* Text on the accent: white on #e76125 is 3.1:1, below AA. Light scheme uses the darker orange with white text (4.8:1),
+     dark scheme the brand orange with dark text (4.7:1). */
+  --accent-fill: light-dark(#c24f1a, #e76125);
+  --on-accent: light-dark(#ffffff, #1d2124);
   --danger: light-dark(#d21419, #ff7a7a);
   --success: light-dark(#1f8a4c, #63d492);
   --warning: light-dark(#a86a12, #f3c45f);

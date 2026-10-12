@@ -16,16 +16,16 @@ How to tell whether a framework port of a pattern is an improvement on the basel
 
 ### The baseline's weights on 2026-10-05
 
-`pnpm weight`, gzip kilobytes, total of HTML, CSS and JS per page. The shared stylesheet with tokens and base styles is 4.5 kB of every number; the self-hosted font and the images are extra. A port's light pages should land near the left column; its heavy pages are allowed to cost more than the right column only if they do more.
+`pnpm weight`, gzip kilobytes, total of HTML, CSS and JS per page, after the stylesheet fixes described under Lighthouse below. The shared stylesheet with tokens and base styles is 4.5 kB of every number; the self-hosted font and the images are extra. A port's light pages should land near the left column; its heavy pages are allowed to cost more than the right column only if they do more.
 
 | # | Pattern | Light | Heavy | Loaded on demand |
 |---|---|---|---|---|
-| 1 | Static content | 6.6 | 10.0 | |
+| 1 | Static content | 6.7 | 10.0 | |
 | 2 | Forms | 6.6 | 11.9 | |
-| 3 | Dynamic data and routing | 7.8 | 13.1 | |
+| 3 | Dynamic data and routing | 7.8 | 13.8 | |
 | 4 | Client state | 8.5 | 11.6 | |
 | 5 | 3D and imperative libraries | 188.2 | 10.4 | three.js 181.0 and OrbitControls 4.3 on the heavy page only |
-| 6 | Real-time updates | 7.1 | 10.3 | |
+| 6 | Real-time updates | 7.1 | 10.4 | |
 | 7 | Media and lazy loading | 6.6 | 9.9 | images |
 | 8 | Cross-cutting concerns | 7.1 | 11.7 | |
 | 9 | Content pipeline | 7.3 | 8.8 | articles 7.5 to 7.8, no JS |
@@ -73,23 +73,23 @@ The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the
 
 | Page | Baseline | React | Svelte | Vue |
 |---|---|---|---|---|
-| Static light: performance, accessibility, best practices | 100, 95, 92 | 99, 95, 92 | 100, 95, 92 | 100, 95, 92 |
+| Static light: performance, accessibility, best practices | 100, 100, 96 | 99, 100, 96 | 100, 100, 96 | 100, 100, 96 |
 | Static light: LCP, CLS | 1.4 s, 0 | 1.8 s, 0 | 1.5 s, 0 | 1.4 s, 0 |
-| State heavy: performance, LCP, CLS | 99, 1.7 s, 0.027 | 99, 1.8 s, 0 | 100, 1.4 s, 0 | 99, 1.4 s, 0 |
-| Static heavy (baseline only) | 100, 96, 92; LCP 1.4 s | | | |
-| Dynamic heavy (baseline only) | 96, 95, 100; LCP 1.7 s, CLS 0.101 | | | |
+| State heavy: performance, accessibility, LCP, CLS | 99, 100, 1.7 s, 0 | 99, 100, 1.8 s, 0 | 100, 100, 1.5 s, 0 | 99, 100, 1.4 s, 0 |
+| Static heavy (baseline only) | 100, 100, 100; LCP 1.4 s, CLS 0 | | | |
+| Dynamic heavy (baseline only) | 99, 100, 100; LCP 1.7 s, CLS 0 | | | |
 
-Two findings for the baseline itself: the dynamic heavy page's CLS of 0.101 is above the 0.1 "good" threshold (the four skeleton cards are shorter than the eight real ones plus the pager), and the 92 for best practices on the static pages comes from the same audit on all three builds, so it is the shared markup, not a port, to look at. Both are the kind of thing a port can copy by accident; record them before porting pattern 3.
+The first run found three defects in the baseline, which the ports had inherited through the shared stylesheet, and all three were fixed the same day: images with size attributes lost their aspect ratio when `max-width` shrank them (no `height: auto`), white text on the brand orange was 3.1:1 and muted text on the grey surface 4.47:1 (new `--accent-fill` and `--on-accent` tokens, `code` in the full text colour, tags on `--bg-2`), and the dynamic heavy page shifted its footer by 0.10 to 0.17 CLS when the client-rendered list appeared (the app region now reserves most of a viewport before any script runs, so the footer starts below the fold). The remaining 96 on the light static pages is the hero image audit: at DPR 1.75 Lighthouse wants a candidate 1.5 times the rendered device pixels, and `sizes` selects the 800w file where it would like the 1200w one; serving it would cost bytes on every phone, so it stays. All three are the kind of thing a port copies by accident; run the audits on the baseline first and on the port second, and diff.
 
 ### What a comparison looks like: the React, Svelte and Vue ports, 2026-10-12
 
-`impl/react`, `impl/svelte` and `impl/vue` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+`impl/react`, `impl/svelte` and `impl/vue` port patterns 1 to 4 light, the board and the real-time dashboard with the same setup. All columns come from the same scripts on the same machine on the same day (bytes after the stylesheet fixes), which is the only comparison this guide endorses.
 
 | Measurement | Baseline | React | Svelte | Vue |
 |---|---|---|---|---|
-| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB | 23.3 kB | 32.4 kB |
-| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB | 36.3 kB |
-| Real-time heavy, shipped gzip | 10.3 kB | 75.4 kB | 26.3 kB | 34.8 kB |
+| Static light, shipped gzip (HTML + CSS + JS) | 6.7 kB, 0 JS | 73.3 kB | 23.8 kB | 32.5 kB |
+| State heavy, shipped gzip | 11.6 kB | 76.8 kB | 27.7 kB | 36.3 kB |
+| Real-time heavy, shipped gzip | 10.4 kB | 75.4 kB | 26.3 kB | 34.9 kB |
 | Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms | 18.1 ms |
 | Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms | 22.6 ms |
 | Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms | 22.6 ms |
@@ -107,7 +107,7 @@ Three readings already: the light pages measure the runtime (67 kB, 17 kB, 26 kB
 Each entry: what better looks like, how a tool shows it, how to see it by hand. Where the baseline prints a number, record the baseline's first.
 
 ### 1. Static content
-- **Better:** fewer bytes than 6.6 and 10.0 kB, zero JS, the content is in the HTML (not rendered in the browser), same Lighthouse scores.
+- **Better:** fewer bytes than 6.7 and 10.0 kB, zero JS, the content is in the HTML (not rendered in the browser), same Lighthouse scores.
 - **Tool:** `pnpm weight`; `curl -s <url> | grep -c '<h2'` proves the sections are in the response; Lighthouse three times; the dist checker for structure and TOC anchors.
 - **Hand:** DevTools, Settings, Debugger, "Disable JavaScript", reload: the page is complete. Print preview of the heavy page: header, footer and TOC gone, link targets printed after links. Device toolbar at 640 px or narrower: the `<picture>` swaps to the other image. TOC links jump and the heading lands below the sticky header.
 

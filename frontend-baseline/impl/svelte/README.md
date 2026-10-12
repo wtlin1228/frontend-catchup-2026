@@ -46,6 +46,8 @@ Headless Chrome, Linux, Intel i7-13850HX; the baseline and the React port measur
 | Works without JavaScript | static, forms: yes | none | none | the built HTML has no `<h1>` and no `<main>`; `check-dist` flags every page |
 | Install | 4 direct dependencies, 42 MB | 4, 42 MB | 3 direct dependencies, 43 MB | svelte, vite, @sveltejs/vite-plugin-svelte; no lifecycle scripts |
 
+The table above was taken on 2026-10-12 before three stylesheet fixes made the same day (image aspect ratio, accent and tag contrast, a reserved app region on the dynamic heavy page); they add about 0.1 kB of CSS to every build and lift the accessibility score to 100 everywhere. `docs/verify.md` carries the final comparison table.
+
 ## What Svelte decided for me
 
 - Client rendering, as with React: every page is an empty `<div>` until the runtime and the component have run; the light pages need SvelteKit's prerendering to be what they are in the baseline. The runtime is a quarter of React's, which is the difference that shows on every light page.

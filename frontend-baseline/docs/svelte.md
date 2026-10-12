@@ -64,6 +64,8 @@ Patterns 1 to 4 light, the board and the dashboard, Svelte 5.57 (runes) on Vite 
 
 What it decided: client rendering with a runtime a quarter of React's (prerendering through SvelteKit is what makes the light pages count), compiled fine-grained updates (the 606-card re-render is the fastest of the three; the filter keystroke over a derived keyed list is not, and is the first thing to profile), effects that run after the DOM update (timing a render is one `$effect`), explicit deep versus raw state. Where it fought: `export const` in a runes script, the dialog's uncontrolled fields, drag-and-drop classes, focus after a keyboard move, and the inline theme script and `<title>` that stay in the HTML file.
 
+Numbers taken before the same day's stylesheet fixes (see `docs/verify.md` for the final table); the fixes add about 0.1 kB of CSS to every build and make the accessibility score 100 in every build.
+
 ## Watch out for
 
 - `$effect` is for side effects, not for deriving state; put derived values in `$derived`.

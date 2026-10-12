@@ -64,6 +64,8 @@ Patterns 1 to 4 light, the board and the dashboard, Vue 3.5.43 (Composition API,
 
 What it decided: client rendering with a 26 kB runtime (Nuxt's prerendering is what makes the light pages count), template compilation with a virtual DOM that patches the dashboard faster than anything else here, and a board whose whole template re-renders on every change (the filter keystroke over 606 cards costs 22.6 ms against Svelte's 11.8 and React's 3.0, so memoising the columns, `v-memo` or splitting components is the first optimisation a Vue port needs), post-flush watchers for timing, `shallowRef` for immutable history. Where it fought: template refs through `useTemplateRef`, the dialog's uncontrolled fields reset with a keyed `<template>`, drag-and-drop classes, focus after a keyboard move, and the inline theme script and `<title>` that stay in the HTML file.
 
+Numbers taken before the same day's stylesheet fixes (see `docs/verify.md` for the final table); the fixes add about 0.1 kB of CSS to every build and make the accessibility score 100 in every build.
+
 ## Watch out for
 
 - Destructuring `reactive` objects or props loses reactivity (`toRefs`, `storeToRefs`); `.value` on refs in script, not in templates.

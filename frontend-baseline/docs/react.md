@@ -65,6 +65,8 @@ Patterns 1 to 4 light, the board and the dashboard, React 19.3 on Vite 8 with th
 
 What it decided: client rendering (every page is an empty `<div>` until 67 kB has run; prerendering or a meta-framework is not optional for patterns 1, 2, 9), keyed reconciliation (the 606-card re-render beats the baseline's rebuild with no effort), StrictMode's double effects. Where it fought: timing a render (`useLayoutEffect` plus a ref), the native dialog's uncontrolled fields, drag-and-drop hover classes, focus after a keyboard move, and the inline theme script and `<title>` that stay outside React.
 
+Numbers taken before the same day's stylesheet fixes (see `docs/verify.md` for the final table); the fixes add about 0.1 kB of CSS to every build and make the accessibility score 100 in every build.
+
 ## Watch out for
 
 - Effects: dependency arrays, stale closures and StrictMode double-invocation are the top three bug sources when porting the scene and dashboard pages.

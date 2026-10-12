@@ -40,7 +40,9 @@ async function listView({ query, signal, root, navigate }) {
   setTitle(state.q ? `Search "${state.q}"` : 'All posts');
   lastListHref = location.hash || '#/';
 
-  const results = h('div', { class: 'post-results', 'aria-busy': 'true' }, skeletonCards(4));
+  // As many skeleton cards as the page will hold, plus a pager placeholder: the list then replaces the skeleton
+  // without moving anything below it (Lighthouse measured a 0.1 layout shift with four shorter placeholders).
+  const results = h('div', { class: 'post-results', 'aria-busy': 'true' }, skeletonCards(PAGE_SIZE), skeletonPager());
   const search = h('input', {
     type: 'search', class: 'input', value: state.q, placeholder: 'Search titles and tags', 'aria-label': 'Search posts', autocomplete: 'off',
   });
@@ -126,6 +128,13 @@ const skeletonCards = (n) =>
       h('div', { class: 'skeleton', style: { width: '100%', height: '1rem', marginTop: '0.75rem' } }),
       h('div', { class: 'skeleton', style: { width: '40%', height: '0.9rem', marginTop: '0.5rem' } }),
     ),
+  );
+
+const skeletonPager = () =>
+  h('nav', { class: 'pager', 'aria-hidden': 'true' },
+    h('div', { class: 'skeleton', style: { width: '5rem', height: '2rem' } }),
+    h('div', { class: 'skeleton', style: { width: '12rem', height: '1rem' } }),
+    h('div', { class: 'skeleton', style: { width: '4rem', height: '2rem' } }),
   );
 
 function errorPanel(title, err, retry) {

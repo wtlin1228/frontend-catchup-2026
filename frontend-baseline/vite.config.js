@@ -6,7 +6,7 @@ import { htmlPartials } from './scripts/html-partials.js';
 import { mockApi } from './scripts/mock-api.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const SKIP = new Set(['node_modules', 'dist', 'public', 'src', 'scripts', 'docs', 'content-src']);
+const SKIP = new Set(['node_modules', 'dist', 'public', 'src', 'scripts', 'docs', 'content-src', 'impl', 'tools']); // impl/ and tools/ have their own builds
 
 // Multi-page app: index.html plus every <pattern>/*.html (and <pattern>/*/*.html for generated content pages).
 // This is "file-based routing" done by hand; meta-frameworks derive the same thing from a pages/ directory.

@@ -46,6 +46,8 @@ Headless Chrome, Linux, Intel i7-13850HX; the baseline measured the same way on 
 | Works without JavaScript | static, forms: yes | none | the built HTML has no `<h1>` and no `<main>`; `check-dist` flags every page |
 | Install | 4 direct dependencies, 42 MB `node_modules` | 4 direct dependencies, 42 MB | react, react-dom, vite, @vitejs/plugin-react; no lifecycle scripts |
 
+The table above was taken on 2026-10-12 before three stylesheet fixes made the same day (image aspect ratio, accent and tag contrast, a reserved app region on the dynamic heavy page); they add about 0.1 kB of CSS to every build and lift the accessibility score to 100 everywhere. `docs/verify.md` carries the final comparison table.
+
 ## What React decided for me
 
 - Client rendering. With Vite alone every page is an empty `<div>` until 67 kB of framework has run; the light pages' reason to exist (zero JS, HTML in the response) is gone unless a meta-framework or prerendering is added. That is the first thing a React survey has to price in.

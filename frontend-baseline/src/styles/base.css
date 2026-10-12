@@ -13,6 +13,7 @@ body {
 }
 main { flex: 1; }
 img, svg, video, canvas { display: block; max-width: 100%; }
+img[width][height] { height: auto; } /* keep the intrinsic ratio when max-width shrinks an image that has size attributes */
 h1, h2, h3, h4 { line-height: 1.15; margin: 0 0 var(--space-3); font-weight: 650; letter-spacing: -0.015em; text-wrap: balance; }
 h1 { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.75rem); }
 h2 { font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem); }
@@ -21,7 +22,7 @@ p { margin: 0 0 var(--space-4); }
 p, li { max-width: var(--measure); }
 a { color: var(--accent-strong); text-underline-offset: 0.15em; }
 code, kbd, pre { font-family: var(--font-mono); font-size: 0.92em; }
-code { background: var(--surface-2); padding: 0.1em 0.35em; border-radius: var(--radius-sm); }
+code { background: var(--surface-2); padding: 0.1em 0.35em; border-radius: var(--radius-sm); color: var(--text); } /* muted text on the code background is 4.47:1, just under AA; the full text colour passes */
 kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: var(--radius-sm); padding: 0 0.4em; background: var(--surface); font-size: 0.8em; }
 pre { background: var(--surface-2); padding: var(--space-4); border-radius: var(--radius); overflow-x: auto; }
 pre code { background: none; padding: 0; }
@@ -42,7 +43,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-6) 0; }
 .grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
 
 /* site chrome */
-.skip-link { position: absolute; left: 1rem; top: -4rem; background: var(--accent); color: #fff; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); z-index: 100; }
+.skip-link { position: absolute; left: 1rem; top: -4rem; background: var(--accent-fill); color: var(--on-accent); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); z-index: 100; }
 .skip-link:focus { top: 1rem; }
 .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
 .site-header__inner { display: flex; align-items: center; gap: var(--space-5); min-height: 3.5rem; flex-wrap: wrap; padding-block: var(--space-2); }
@@ -67,8 +68,8 @@ hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-6) 0; }
 }
 .btn:hover { background: var(--surface-2); }
 .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
-.btn--primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn--primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn--primary { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--on-accent); }
+.btn--primary:hover { background: color-mix(in srgb, var(--accent-fill) 88%, var(--text)); border-color: transparent; }
 .btn--ghost { background: transparent; border-color: transparent; color: var(--text-2); }
 .btn--ghost:hover { background: var(--surface-2); color: var(--text); }
 .btn--danger { color: var(--danger); }
@@ -102,7 +103,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: var(--space-6) 0; }
 .notice p:last-child { margin-bottom: 0; }
 .skeleton { background: linear-gradient(90deg, var(--surface-2) 25%, var(--bg-2) 37%, var(--surface-2) 63%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; border-radius: var(--radius-sm); color: transparent !important; }
 @keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
-.tag { display: inline-block; font-size: 0.78rem; padding: 0.1rem 0.55rem; border-radius: 999px; background: var(--surface-2); color: var(--text-2); text-decoration: none; }
+.tag { display: inline-block; font-size: 0.78rem; padding: 0.1rem 0.55rem; border-radius: 999px; background: var(--bg-2); color: var(--text-2); text-decoration: none; } /* on --bg-2 the muted text is 5:1; on --surface-2 it was 4.47:1 */
 .tag:hover { color: var(--text); }
 
 /* toasts */
@@ -141,6 +142,6 @@ dialog::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(2px); }
 .nav-menu__list a[aria-current="page"] { color: var(--accent-strong); background: var(--accent-soft); font-weight: 500; }
 .variant-nav { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 999px; padding: 2px; margin-bottom: var(--space-3); }
 .variant-nav a { text-decoration: none; color: var(--text-2); padding: 0.2rem 0.9rem; border-radius: 999px; font-size: 0.9rem; }
-.variant-nav a[aria-current="page"] { background: var(--accent); color: #fff; }
+.variant-nav a[aria-current="page"] { background: var(--accent-fill); color: var(--on-accent); }
 .page-header .pattern { margin-bottom: var(--space-2); }
 .btn--small-text { font-size: 0.85rem; }

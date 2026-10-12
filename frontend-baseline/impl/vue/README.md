@@ -47,6 +47,8 @@ Headless Chrome, Linux, Intel i7-13850HX; the baseline and the other ports measu
 | Works without JavaScript | static, forms: yes | none | none | none | the built HTML has no `<h1>` and no `<main>`; `check-dist` flags every page |
 | Install | 4 direct dependencies, 42 MB | 4, 42 MB | 3, 43 MB | 3 direct dependencies, 52 MB | vue, vite, @vitejs/plugin-vue; no lifecycle scripts |
 
+The table above was taken on 2026-10-12 before three stylesheet fixes made the same day (image aspect ratio, accent and tag contrast, a reserved app region on the dynamic heavy page); they add about 0.1 kB of CSS to every build and lift the accessibility score to 100 everywhere. `docs/verify.md` carries the final comparison table.
+
 ## What Vue decided for me
 
 - Client rendering, as with the other ports: every page is an empty `<div>` until the 26 kB runtime and the component have run; the light pages need Nuxt's prerendering (or `vite-ssg`) to be what they are in the baseline.
