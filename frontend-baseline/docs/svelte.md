@@ -48,6 +48,20 @@
 
 Async Svelte (`await` in components), remote functions (`query`, `form`, `command`, `prerender`, `query.batch`, `query.live`), OpenTelemetry tracing integrated in SvelteKit, a Svelte MCP server and community CLI plugins. Port pattern 3 twice: with the mock API and with remote functions.
 
+## Measured, 2026-10-12 (`impl/svelte`)
+
+Patterns 1 to 4 light and the board, Svelte 5.57 (runes) on Vite 8, measured the same way as the baseline and the React port on the same machine (headless Chrome; full table in `impl/svelte/README.md`).
+
+| | Baseline | React | Svelte |
+|---|---|---|---|
+| Static light, shipped gzip | 6.6 kB, no JS | 73.3 kB | 23.3 kB, of which 17.2 kB is the runtime plus layout |
+| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB (4.2 kB of page code against 3.7) |
+| Board render after "Add 300 cards" / second 300 / filter keystroke | 16.1 / 22.6 / 5.3 ms | 14.6 / 14.0 / 3.0 ms | 15.3 / 11.8 / 11.8 ms |
+| Lines for the board page | 273 plus `store.js` and `dom.js` | 225 | 219, neither needed |
+| Works without JavaScript | static and forms light | none | none |
+
+What it decided: client rendering with a runtime a quarter of React's (prerendering through SvelteKit is what makes the light pages count), compiled fine-grained updates (the 606-card re-render is the fastest of the three; the filter keystroke over a derived keyed list is not, and is the first thing to profile), effects that run after the DOM update (timing a render is one `$effect`), explicit deep versus raw state. Where it fought: `export const` in a runes script, the dialog's uncontrolled fields, drag-and-drop classes, focus after a keyboard move, and the inline theme script and `<title>` that stay in the HTML file.
+
 ## Watch out for
 
 - `$effect` is for side effects, not for deriving state; put derived values in `$derived`.

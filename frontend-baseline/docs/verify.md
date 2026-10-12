@@ -67,19 +67,22 @@ Ten light pages ship no JavaScript at all (static, forms, media, content, compon
 
 The sort times say what the worker buys: nothing at 50,000 rows on this CPU (the main thread is faster because the index array is not copied back), 11 ms at 200,000, and in both cases the typing stays smooth only in worker mode because the main thread is free. A port's numbers for the same actions go next to these in its sheet.
 
-### What a comparison looks like: the React port, 2026-10-12
+### What a comparison looks like: the React and Svelte ports, 2026-10-12
 
-`impl/react` ports patterns 1 to 4 light and the board. Both columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
+`impl/react` and `impl/svelte` port patterns 1 to 4 light and the board with the same setup. All columns come from the same scripts on the same machine on the same day, which is the only comparison this guide endorses.
 
-| Measurement | Baseline | React port |
-|---|---|---|
-| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB, 68.2 JS |
-| State heavy, shipped gzip | 11.6 kB | 76.7 kB |
-| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms |
-| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms |
-| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms |
-| `check-dist` on the build | clean | every page: no `<h1>`, no `<main>` in the HTML (client rendering) |
-| Flows "state heavy" and "forms light" | pass | pass |
+| Measurement | Baseline | React port | Svelte port |
+|---|---|---|---|
+| Static light, shipped gzip (HTML + CSS + JS) | 6.6 kB, 0 JS | 73.3 kB, 68.2 JS | 23.3 kB, 18.2 JS |
+| State heavy, shipped gzip | 11.6 kB | 76.7 kB | 27.1 kB |
+| Board render after "Add 300 cards" | 16.1 ms | 14.6 ms | 15.3 ms |
+| Board render after a second "Add 300" (606 cards) | 22.6 ms | 14.0 ms | 11.8 ms |
+| Board render after a filter keystroke (606 cards) | 5.3 ms | 3.0 ms | 11.8 ms |
+| Lines for the board page (plus shared code it still needs) | 273 (+ `store.js`, `dom.js`, `toast.js`) | 225 (+ `toast.js`) | 219 (+ `toast.js`) |
+| `check-dist` on the build | clean | every page: no `<h1>`, no `<main>` in the HTML | the same |
+| Flows "state heavy" and "forms light" | pass | pass | pass |
+
+Two readings already: the light pages measure the runtime (67 kB, 17 kB, 0) and nothing else, because both ports render in the browser; and the heavy page's numbers depend on which action you time, so record all three before concluding anything about rendering models.
 
 ## Per pattern
 
