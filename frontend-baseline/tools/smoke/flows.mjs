@@ -49,7 +49,7 @@ flow('forms heavy: submit valid form via fetch', async (page) => {
   await page.click('#send');
   await page.waitForSelector('#contact-success:not([hidden])', { timeout: 8000 });
   const ticket = await page.textContent('#ticket-id');
-  expect(/^MSG-/.test(ticket), `ticket id ${ticket}`);
+  expect(ticket.startsWith('MSG-'), `ticket id ${ticket}`);
 });
 
 flow('forms heavy: server-only error maps to field', async (page) => {
@@ -64,6 +64,42 @@ flow('forms heavy: server-only error maps to field', async (page) => {
   expect((await page.getAttribute('#email', 'aria-invalid')) === 'true', 'email not marked invalid');
 });
 
+flow('forms heavy: draft survives a reload, upload gets an id, send another resets', async (page) => {
+  await page.goto(`${base}/forms/heavy.html`);
+  await page.evaluate(() => sessionStorage.clear());
+  await page.fill('#name', 'Grace Hopper');
+  await page.fill('#message', 'A draft that should survive a reload.');
+  await page.waitForFunction(() => document.getElementById('draft-note').textContent === 'Draft saved', null, { timeout: 5000 });
+  await page.reload();
+  expect((await page.inputValue('#name')) === 'Grace Hopper', 'draft name not restored');
+  expect((await page.textContent('#draft-note')) === 'Draft restored', 'draft note missing after reload');
+  expect((await page.textContent('#message-count')) === '37', `message count ${await page.textContent('#message-count')}`);
+  // Validation on blur, then live once touched.
+  await page.fill('#name', '');
+  await page.press('#name', 'Tab');
+  await page.waitForFunction(() => document.getElementById('name-error').textContent.length > 0, null, { timeout: 2000 });
+  expect((await page.getAttribute('#name', 'aria-invalid')) === 'true', 'name not marked invalid');
+  await page.fill('#name', 'Grace Hopper');
+  await page.waitForFunction(() => document.getElementById('name-error').textContent === '', null, { timeout: 2000 });
+  // The attachment is uploaded as soon as it is chosen and referenced by id.
+  await page.setInputFiles('#attachment', { name: 'note.txt', mimeType: 'text/plain', buffer: Buffer.from('hello from the smoke test') });
+  await page.waitForFunction(() => document.getElementById('attachment-id').value.length > 0, null, { timeout: 10000 });
+  expect(await page.isVisible('#attachment-status'), 'attachment box hidden');
+  // Send, then start over: focus lands on the success button, then on the first field; the draft is gone.
+  await page.fill('#email', 'grace@company.test');
+  await page.selectOption('#topic', 'sales');
+  await page.check('#consent');
+  await page.waitForTimeout(500); // let the debounced draft save land before the send clears it
+  await page.click('#send');
+  await page.waitForSelector('#contact-success:not([hidden])', { timeout: 8000 });
+  expect((await page.evaluate(() => document.activeElement.id)) === 'send-another', 'focus not on the success button');
+  expect((await page.evaluate(() => sessionStorage.getItem('contact:draft'))) === null, 'draft not cleared after send');
+  await page.click('#send-another');
+  await page.waitForSelector('#contact-form:not([hidden])', { timeout: 2000 });
+  expect((await page.inputValue('#name')) === '', 'name not reset');
+  expect((await page.textContent('#message-count')) === '0', 'count not reset');
+  expect((await page.evaluate(() => document.activeElement.id)) === 'name', 'focus not on the first field');
+});
 flow('dynamic heavy: list, search, detail, back', async (page) => {
   await page.goto(`${base}/dynamic/heavy.html`);
   await page.waitForSelector('.post-card:not(.post-card--skeleton)', { timeout: 8000 });
@@ -138,6 +174,26 @@ flow('table heavy: worker generates rows, sort, filter', async (page) => {
   expect((await page.$$('.grid-row[data-index]')).length > 5, 'no rows rendered');
 });
 
+flow('motion heavy: tiles reorder, add, remove and switch layout; the card springs back', async (page) => {
+  await page.goto(`${base}/motion/heavy.html`);
+  const order = () => page.$$eval('#tiles .tile', (els) => els.map((e) => e.dataset.id).join(','));
+  const sorted = '1,2,3,4,5,6,7,8,9,10,11,12';
+  expect((await order()) === sorted, `initial order ${await order()}`);
+  await page.click('#shuffle');
+  await page.click('#sort');
+  await page.waitForFunction((sorted) => [...document.querySelectorAll('#tiles .tile')].map((e) => e.dataset.id).join(',') === sorted, sorted, { timeout: 3000 });
+  await page.click('#add');
+  await page.waitForFunction(() => document.querySelectorAll('#tiles .tile').length === 13, null, { timeout: 3000 });
+  await page.click('#remove');
+  await page.waitForFunction(() => document.querySelectorAll('#tiles .tile').length === 12, null, { timeout: 3000 }); // leave animations end first
+  await page.click('#layout');
+  await page.waitForFunction(() => document.getElementById('tiles').classList.contains('tiles--list'), null, { timeout: 3000 });
+  await page.focus('#drag-card');
+  await page.keyboard.press('ArrowRight');
+  await page.waitForFunction(() => /translate\((?!0px)/.test(document.getElementById('drag-card').style.transform), null, { timeout: 2000 });
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => /translate\(0px, 0px\)/.test(document.getElementById('drag-card').style.transform), null, { timeout: 5000 });
+});
 flow('content heavy: tag filter highlights and filters', async (page) => {
   await page.goto(`${base}/content/heavy.html`);
   await page.waitForTimeout(500);

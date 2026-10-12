@@ -34,7 +34,7 @@ const RPC = {
   slowSquare: async ({ n = 2 }) => { await sleep(500); return { n, square: n * n }; },
   searchPosts: async ({ q = '', limit = 5 }, { posts }) => {
     const needle = String(q).trim().toLowerCase();
-    return posts.filter((p) => !needle || [p.title, ...p.tags].join(' ').toLowerCase().includes(needle)).slice(0, limit).map(({ body, ...rest }) => rest);
+    return posts.filter((p) => !needle || [p.title, ...p.tags].join(' ').toLowerCase().includes(needle)).slice(0, limit).map(({ body: _body, ...rest }) => rest);
   },
   postById: async ({ id }, { posts }) => {
     const post = posts.find((p) => p.id === Number(id));
@@ -133,7 +133,7 @@ export function mockApi({ dataFile = 'public/data/posts.json' } = {}) {
       if (tag) items = items.filter((p) => p.tags.includes(tag));
       items = [...items].sort((a, b) => b.date.localeCompare(a.date));
       const total = items.length;
-      const slice = items.slice((page - 1) * limit, page * limit).map(({ body, ...rest }) => rest);
+      const slice = items.slice((page - 1) * limit, page * limit).map(({ body: _body, ...rest }) => rest);
       return json(res, 200, { items: slice, page, limit, total, totalPages: Math.max(1, Math.ceil(total / limit)) });
     }
 

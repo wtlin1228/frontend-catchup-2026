@@ -10,17 +10,18 @@ Gzip kilobytes of HTML, CSS and JavaScript the page references (fonts and images
 
 | Page | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| static/light | 6.7 | 73.5 | 24.2 | 33.2 |
-| forms/light | 6.6 | 73.4 | 24.1 | 33.0 |
-| dynamic/light | 7.8 | 73.5 | 24.3 | 33.2 |
-| dynamic/heavy | 13.8 | 116.1 | 29.8 | 56.5 |
-| state/light | 8.5 | 74.0 | 24.9 | 33.8 |
-| state/heavy | 11.6 | 77.1 | 28.2 | 37.1 |
-| realtime/heavy | 10.4 | 75.6 | 26.8 | 35.6 |
-| table/heavy | 11.3 (+0.9 lazy) | 76.3 (+0.9 lazy) | 27.3 (+0.9 lazy) | 36.1 (+0.9 lazy) |
-| index | 9.9 | 73.2 | 24.1 | 32.9 |
-| JavaScript alone, static light | 0.0 | 68.4 | 19.1 | 28.1 |
-| Largest asset | 181.0 (three.module.js) | 67.6 (Layout.js) | 18.1 (mount.js) | 27.0 (Layout.js) |
+| static/light | 6.7 | 73.5 | 24.5 | 33.4 |
+| forms/light | 6.6 | 73.4 | 24.4 | 33.2 |
+| forms/heavy | 12.4 | 77.3 | 29.1 | 37.4 |
+| dynamic/light | 7.8 | 73.5 | 24.5 | 33.4 |
+| dynamic/heavy | 13.8 | 116.1 | 30.3 | 56.7 |
+| state/light | 8.5 | 74.0 | 25.2 | 34.0 |
+| state/heavy | 11.6 | 77.1 | 28.5 | 37.3 |
+| realtime/heavy | 10.4 | 75.6 | 27.1 | 35.8 |
+| table/heavy | 11.3 (+0.9 lazy) | 76.3 (+0.9 lazy) | 27.6 (+0.9 lazy) | 36.3 (+0.9 lazy) |
+| index | 9.9 | 73.2 | 24.4 | 33.1 |
+| JavaScript alone, static light | 0.0 | 68.4 | 19.4 | 28.3 |
+| Largest asset | 181.0 (three.module.js) | 67.6 (Layout.js) | 18.4 (mount.js) | 27.2 (Layout.js) |
 
 ## On-page measurements
 
@@ -28,28 +29,28 @@ What the pages print after the action named; collected by `tools/smoke/measure.m
 
 | Measurement | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| state heavy: render after Add 300 cards (306 on the board) | 11.8 ms | 12.6 ms | 11.6 ms | 12.6 ms |
-| state heavy: render after a second Add 300 (606 on the board) | 21.5 ms | 14 ms | 19 ms | 13.1 ms |
-| state heavy: render after a filter keystroke (606 cards) | 5.5 ms | 2.9 ms | 19 ms | 13.1 ms |
-| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 30 | 31 | 31 | 31 |
-| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.6 ms | 1.1 ms | 0.6 ms | 0.3 ms |
-| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 31 | 31 | 31 | 31 |
-| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.2 ms | 1.5 ms | 1.3 ms | 0.5 ms |
-| data grid heavy: 50,000 rows: sort by score on the worker | 23 ms | 21.7 ms | 23.9 ms | 23.4 ms |
-| data grid heavy: 50,000 rows: render the window after the sort | 1.9 ms | 1.4 ms | 1.5 ms | 2.5 ms |
-| data grid heavy: 50,000 rows: sort by score on the main thread | 18.6 ms | 18.3 ms | 18.6 ms | 18.2 ms |
-| data grid heavy: 200,000 rows: sort by score on the worker | 81.5 ms | 83.2 ms | 82.5 ms | 83.6 ms |
-| data grid heavy: 200,000 rows: render the window after the sort | 1.4 ms | 2.2 ms | 1.2 ms | 1.2 ms |
-| data grid heavy: 200,000 rows: sort by score on the main thread | 73.8 ms | 75.6 ms | 81.6 ms | 74.9 ms |
+| state heavy: render after Add 300 cards (306 on the board) | 12.3 ms | 15.1 ms | 18.2 ms | 16.2 ms |
+| state heavy: render after a second Add 300 (606 on the board) | 25 ms | 17.7 ms | 16.5 ms | 23 ms |
+| state heavy: render after a filter keystroke (606 cards) | 5.5 ms | 4.5 ms | 16.5 ms | 23 ms |
+| real-time heavy: patch: renders per second at 30 Hz (median of 5) | 32 | 31 | 31 | 31 |
+| real-time heavy: patch: last render at 30 Hz (median of 5) | 0.8 ms | 0.9 ms | 1 ms | 0.5 ms |
+| real-time heavy: rebuild: renders per second at 30 Hz (median of 5) | 31 | 31 | 31 | 30 |
+| real-time heavy: rebuild: last render at 30 Hz (median of 5) | 1.6 ms | 1.4 ms | 1.5 ms | 1 ms |
+| data grid heavy: 50,000 rows: sort by score on the worker | 34 ms | 26.8 ms | 26.6 ms | 33.8 ms |
+| data grid heavy: 50,000 rows: render the window after the sort | 2.6 ms | 2.8 ms | 2.5 ms | 2.1 ms |
+| data grid heavy: 50,000 rows: sort by score on the main thread | 24.9 ms | 21.5 ms | 21.3 ms | 22.2 ms |
+| data grid heavy: 200,000 rows: sort by score on the worker | 109.8 ms | 102.4 ms | 97.8 ms | 110.1 ms |
+| data grid heavy: 200,000 rows: render the window after the sort | 2.4 ms | 1.3 ms | 1.4 ms | 1.6 ms |
+| data grid heavy: 200,000 rows: sort by score on the main thread | 95.5 ms | 93.6 ms | 95.2 ms | 103.1 ms |
 | server functions heavy: requests for five same-tick calls | 1 |  |  |  |
 | observability light: Time to first byte | 1 ms |  |  |  |
-| observability light: First contentful paint | 84 ms |  |  |  |
-| observability light: Largest contentful paint | 84 ms |  |  |  |
+| observability light: First contentful paint | 124 ms |  |  |  |
+| observability light: Largest contentful paint | 124 ms |  |  |  |
 | observability light: Cumulative layout shift | 0.026 |  |  |  |
 | observability light: Slowest interaction (INP, approx.) | 0 ms |  |  |  |
 | observability light: Long tasks | 0 |  |  |  |
 | observability heavy: trace: spans | 6 |  |  |  |
-| observability heavy: trace: total (two API calls with mock latency plus a render) | 962 ms |  |  |  |
+| observability heavy: trace: total (two API calls with mock latency plus a render) | 1129 ms |  |  |  |
 
 ## Lines per page
 
@@ -59,6 +60,7 @@ Only the files that exist because of the page (its HTML, script, component and s
 |---|---|---|---|---|
 | static/light | 30 | 40 | 43 | 45 |
 | forms/light | 33 | 43 | 45 | 47 |
+| forms/heavy | 314 | 253 | 222 | 225 |
 | dynamic/light | 49 | 71 | 69 | 68 |
 | dynamic/heavy | 345 | 231 | 300 | 264 |
 | state/light | 81 | 74 | 71 | 68 |
@@ -73,8 +75,8 @@ Only the files that exist because of the page (its HTML, script, component and s
 
 | Check | Baseline (vite 8.3.4) | React 19.3.0 | Svelte 5.57.2 | Vue 3.5.43 |
 |---|---|---|---|---|
-| Pages opened without errors | 53/53 | 9/9 | 9/9 | 9/9 |
-| Flows passed | 18/18 | 4/4 | 4/4 | 4/4 |
+| Pages opened without errors | 53/53 | 10/10 | 10/10 | 10/10 |
+| Flows passed | 19/19 | 7/7 | 7/7 | 7/7 |
 | Direct dependencies (package.json) | 4 | 6 | 3 | 5 |
 | node_modules (MB) | 59 | 51 | 43 | 66 |
 

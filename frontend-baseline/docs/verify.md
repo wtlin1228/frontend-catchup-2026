@@ -29,7 +29,7 @@ Each entry: what better looks like, how a tool shows it, how to see it by hand. 
 
 ### 2. Forms
 - **Better:** the same behaviour with less code, and no behaviour lost: works with scripts off, inline messages, server errors on fields, drafts, upload progress with cancel.
-- **Tool:** flows "forms heavy: submit valid form via fetch", "forms heavy: server-only error maps to field", "forms light: no-JS post returns server page". Accessibility tree: an invalid field has `aria-invalid` and `aria-describedby` pointing at its message.
+- **Tool:** flows "forms heavy: submit valid form via fetch", "forms heavy: server-only error maps to field", "forms light: no-JS post returns server page". Accessibility tree: an invalid field has `aria-invalid` and `aria-describedby` pointing at its message; flow "forms heavy: draft survives a reload, upload gets an id, send another resets" covers the draft, the live validation after blur, the upload id and the focus moves.
 - **Hand:** scripts off: submit both forms empty and filled, the server page comes back with the errors or the ticket. Scripts on: leave a required field, a message appears on blur and updates while typing; type, reload, "Draft restored"; attach a 1 to 5 MB file, the progress bar advances (the server throttles) and Cancel stops it; press Send while uploading, you are told to wait; an address at `example.com` gets a server-side error on the email field; fill the hidden "website" input from the console and submit: success with ticket `SPAM` (the honeypot).
 
 ### 3. Dynamic data and routing
