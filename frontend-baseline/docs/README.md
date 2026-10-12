@@ -4,32 +4,32 @@ How to compare frameworks against the baseline, so that notes taken months apart
 
 ## Candidates
 
-| Sheet | Kind | Version checked on 2026-10-05 (npm `latest`) |
+| Sheet | Kind | Version checked on 2026-10-12 (npm `latest`) |
 |---|---|---|
 | [react.md](react.md) | UI library | react 19.3.0 |
-| [vue.md](vue.md) | UI framework | vue 3.5.43 (3.6 at RC) |
-| [svelte.md](svelte.md) | Compiler + UI framework | svelte 5.57.1 |
-| [angular.md](angular.md) | Full framework | @angular/core 22.2.1 |
-| [solid.md](solid.md) | UI library | solid-js 1.9.15 (2.0 at RC) |
-| [preact.md](preact.md) | UI library | preact 11.0.0 |
-| [qwik.md](qwik.md) | Framework | @builder.io/qwik 1.20.1, @qwik.dev/core 2.0.0-rc.0 |
+| [vue.md](vue.md) | UI framework | vue 3.5.43 (3.6.0-rc.11) |
+| [svelte.md](svelte.md) | Compiler + UI framework | svelte 5.57.2 |
+| [angular.md](angular.md) | Full framework | @angular/core 22.2.2 |
+| [solid.md](solid.md) | UI library | solid-js 1.9.17 (2.0.0-rc.14) |
+| [preact.md](preact.md) | UI library | preact 11.0.1 |
+| [qwik.md](qwik.md) | Framework | @builder.io/qwik 1.20.2, @qwik.dev/core 2.0.0-rc.2 |
 | [lit.md](lit.md) | Web components library | lit 3.3.3 |
 | [alpine.md](alpine.md) | Sprinkles library | alpinejs 3.17.4 |
 | [htmx.md](htmx.md) | Hypermedia library | htmx.org 2.0.11 (4.0 on `next`) |
-| [nextjs.md](nextjs.md) | Meta-framework (React) | next 16.3.8 |
+| [nextjs.md](nextjs.md) | Meta-framework (React) | next 16.4.0 |
 | [react-router.md](react-router.md) | Router / meta-framework (React) | react-router 8.4.0 |
 | [remix.md](remix.md) | Full-stack framework (not React) | remix 3.0.0 |
-| [tanstack-start.md](tanstack-start.md) | Meta-framework (React, Solid) | @tanstack/react-start 1.168.60 |
-| [nuxt.md](nuxt.md) | Meta-framework (Vue) | nuxt 4.5.2 |
-| [sveltekit.md](sveltekit.md) | Meta-framework (Svelte) | @sveltejs/kit 3.0.0 |
-| [astro.md](astro.md) | Content-first meta-framework | astro 7.3.5 |
+| [tanstack-start.md](tanstack-start.md) | Meta-framework (React, Solid) | @tanstack/react-start 1.168.61 |
+| [nuxt.md](nuxt.md) | Meta-framework (Vue) | nuxt 4.6.1 |
+| [sveltekit.md](sveltekit.md) | Meta-framework (Svelte) | @sveltejs/kit 3.0.1 |
+| [astro.md](astro.md) | Content-first meta-framework | astro 7.3.8 (7.4.0-beta.1) |
 | [others.md](others.md) | Ember, Marko, Analog, Vike, Fresh, Hono, Datastar, Stencil | see sheet |
 
 Add a candidate by copying [_template.md](_template.md). [landscape-2026.md](landscape-2026.md) summarises what each project's maintainers were writing about this year and which patterns the baseline still lacks. Re-check versions with `npm view <package> version` before porting; this landscape moves monthly.
 
 ## Patterns 14 to 23
 
-Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them. Rows written from memory rather than from a port end in "(verify)": confirm those against the current docs while porting, and replace the cell with what the port actually did.
+Patterns 14 to 23 (async consistency, state across navigation, server functions, sync, morphing, platform navigation, error boundaries, observability, security, styling) were added after the landscape review. Every sheet maps them. On 2026-10-12 the cells that had been written from memory were checked against the official docs and rewritten with the documented option, package and function names; the few that still end in "(verify)" are claims no documentation answers yet (mostly Remix 3's client runtime and whether a repeater uses `moveBefore`), so settle them in the port and replace the cell with what the port actually did.
 
 ## Procedure
 
